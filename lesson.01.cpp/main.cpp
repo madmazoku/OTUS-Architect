@@ -62,20 +62,14 @@ DWORD pos_to_offset(int x, int y) {
 	return y * WIDTH + x;
 }
 
-void do_life_step(WCHAR first_memory_buffer[], WCHAR second_memory_buffer[]) {
-	for (int y = 0; y < HEIGHT; ++y)
-		for (int x = 0; x < WIDTH; ++x) {
-			int neighbors = 0;
-			for (int yy = y - 1; yy <= y + 1; ++yy)
-				for (int xx = x - 1; xx <= x + 1; ++xx) 
-					if(x != xx || y != yy) {
-						DWORD iidx = pos_to_offset(xx, yy);
-						neighbors += first_memory_buffer[iidx] == OCCUPIED_POINT ? 1 : 0;
-					}
-			DWORD idx = pos_to_offset(x, y);
-			bool alive = first_memory_buffer[idx] == OCCUPIED_POINT;
-			second_memory_buffer[idx] = neighbors == 3 || (alive && neighbors == 2) ? OCCUPIED_POINT : FREE_POINT;
-		}
+void do_life_step(WCHAR first_memory_buffer[], WCHAR second_memory_buffer[], DWORD static_indexes[]) {
+	for (DWORD idx = 0; idx < BUFFER_SIZE; ++idx, ++second_memory_buffer) {
+		int neighbors = 0;
+		for (DWORD n = 0; n < 8; ++n, ++static_indexes)
+			neighbors += first_memory_buffer[*static_indexes] == OCCUPIED_POINT ? 1 : 0;
+		bool alive = first_memory_buffer[idx] == OCCUPIED_POINT;
+		*second_memory_buffer = neighbors == 3 || (alive && neighbors == 2) ? OCCUPIED_POINT : FREE_POINT;
+	}
 }
 
 void fill_random_state(WCHAR memory_buffer[]) {
@@ -148,8 +142,17 @@ int main()
 	if (!::SetConsoleScreenBufferInfoEx(second_buffer_handle, &screen_buffer_info))
 		ErrorExit(L"::SetConsoleScreenBufferInfoEx");
 
-	WCHAR first_memory_buffer[BUFFER_SIZE];
-	WCHAR second_memory_buffer[BUFFER_SIZE];
+	DWORD* static_indexes = new DWORD[BUFFER_SIZE * 8];
+	WCHAR* first_memory_buffer = new WCHAR[BUFFER_SIZE];
+	WCHAR* second_memory_buffer = new WCHAR[BUFFER_SIZE];
+
+	DWORD* static_indexes_it = static_indexes;
+	for (int y = 0; y < HEIGHT; ++y)
+		for (int x = 0; x < WIDTH; ++x)
+			for (int yy = y - 1; yy <= y + 1; ++yy)
+				for (int xx = x - 1; xx <= x + 1; ++xx)
+					if (x != xx || y != yy)
+						*(static_indexes_it++) = pos_to_offset(xx, yy);
 
 	::ZeroMemory(first_memory_buffer, BUFFER_SIZE * sizeof(WCHAR));
 	::ZeroMemory(second_memory_buffer, BUFFER_SIZE * sizeof(WCHAR));
@@ -159,7 +162,8 @@ int main()
 	if (!::WriteConsole(second_buffer_handle, second_memory_buffer, BUFFER_SIZE, NULL, NULL))
 		ErrorExit(L"::WriteConsole");
 
-	while (1) {
+	bool active = true;
+	while (active) {
 
 		if (!::SetConsoleActiveScreenBuffer(second_buffer_handle))
 			ErrorExit(L"::SetConsoleActiveScreenBuffer");
@@ -167,7 +171,7 @@ int main()
 		std::swap(first_buffer_handle, second_buffer_handle);
 		std::swap(first_memory_buffer, second_memory_buffer);
 
-		do_life_step(first_memory_buffer, second_memory_buffer);
+		do_life_step(first_memory_buffer, second_memory_buffer, static_indexes);
 
 		if (!::SetConsoleScreenBufferInfoEx(second_buffer_handle, &screen_buffer_info))
 			ErrorExit(L"::SetConsoleScreenBufferInfoEx");
@@ -179,19 +183,27 @@ int main()
 		::ZeroMemory(&input_record, sizeof(INPUT_RECORD));
 		DWORD events_read = 0;
 
-		while (1) {
+		while (active) {
 			if (!::PeekConsoleInput(input_buffer_handle, &input_record, 1, &events_read))
 				ErrorExit(L"PeekConsoleInput");
 			if (events_read == 0)
 				break;
 			::ReadConsoleInput(input_buffer_handle, &input_record, 1, &events_read);
-			if (input_record.EventType == KEY_EVENT) {
-				if (input_record.Event.KeyEvent.bKeyDown && input_record.Event.KeyEvent.wVirtualKeyCode == 0x51) // Q
-					ErrorExit(L"Quit");
-				if (input_record.Event.KeyEvent.bKeyDown && input_record.Event.KeyEvent.wVirtualKeyCode == 0x4E) // N
+			if (input_record.EventType == KEY_EVENT && input_record.Event.KeyEvent.bKeyDown) {
+				switch (input_record.Event.KeyEvent.wVirtualKeyCode) {
+				case 0x51: // Q
+					active = false;
+					break;
+				case 0x4E: // N
 					fill_random_state(second_memory_buffer);
+					break;
+				}
 			}
 		}
 	}
+
+	delete[] static_indexes;
+	delete[] first_memory_buffer;
+	delete[] second_memory_buffer;
 }
 
