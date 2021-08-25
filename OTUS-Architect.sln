@@ -7,16 +7,29 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson.01.cpp", "lesson.01.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Gaming.Desktop.x64 = Debug|Gaming.Desktop.x64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Profile|Gaming.Desktop.x64 = Profile|Gaming.Desktop.x64
+		Profile|x64 = Profile|x64
+		Profile|x86 = Profile|x86
+		Release|Gaming.Desktop.x64 = Release|Gaming.Desktop.x64
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Debug|Gaming.Desktop.x64.ActiveCfg = Debug|Win32
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Debug|x64.ActiveCfg = Debug|x64
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Debug|x64.Build.0 = Debug|x64
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Debug|x86.ActiveCfg = Debug|Win32
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Debug|x86.Build.0 = Debug|Win32
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Profile|Gaming.Desktop.x64.ActiveCfg = Release|Win32
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Profile|Gaming.Desktop.x64.Build.0 = Release|Win32
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Profile|x64.ActiveCfg = Release|x64
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Profile|x64.Build.0 = Release|x64
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Profile|x86.ActiveCfg = Release|Win32
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Profile|x86.Build.0 = Release|Win32
+		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Release|Gaming.Desktop.x64.ActiveCfg = Release|Win32
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Release|x64.ActiveCfg = Release|x64
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Release|x64.Build.0 = Release|x64
 		{EE69B9A6-B59F-4BD6-AE3F-AFFA0F86E8AA}.Release|x86.ActiveCfg = Release|Win32
