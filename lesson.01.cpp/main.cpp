@@ -8,10 +8,10 @@
 #include <string>
 #include <random>
 
-const SHORT WIDTH = 400;
-const SHORT HEIGHT = 150;
+const SHORT WIDTH = 900;
+const SHORT HEIGHT = 250;
 const DWORD BUFFER_SIZE = ((DWORD)WIDTH) * ((DWORD)HEIGHT);
-const WCHAR OCCUPIED_POINT = L'*';
+const WCHAR OCCUPIED_POINT = L'■';
 const WCHAR FREE_POINT = L' ';
 
 #include <strsafe.h>
@@ -75,7 +75,7 @@ void do_life_step(WCHAR first_memory_buffer[], WCHAR second_memory_buffer[], DWO
 void fill_random_state(WCHAR memory_buffer[]) {
 	std::random_device rd;
 	std::default_random_engine re(rd());
-	std::uniform_int_distribution<int> uniform_dist(1, 4);
+	std::uniform_int_distribution<int> uniform_dist(1, 10);
 
 	for (DWORD idx = 0; idx < BUFFER_SIZE; ++idx) {
 		if (uniform_dist(re) > 1)
@@ -84,7 +84,6 @@ void fill_random_state(WCHAR memory_buffer[]) {
 			memory_buffer[idx] = OCCUPIED_POINT;
 	}
 }
-
 
 int main()
 {
@@ -106,7 +105,7 @@ int main()
 		ErrorExit(L"::GetCurrentConsoleFontEx");
 
 	screen_font_info.nFont = 0;
-	screen_font_info.dwFontSize = { 5, 10 };
+	screen_font_info.dwFontSize = { 5, 5 };
 	screen_font_info.FontFamily = 0x36;
 	screen_font_info.FontWeight = 400;
 	wcscpy_s(screen_font_info.FaceName,  L"Courier New");
@@ -145,6 +144,7 @@ int main()
 	DWORD* static_indexes = new DWORD[BUFFER_SIZE * 8];
 	WCHAR* first_memory_buffer = new WCHAR[BUFFER_SIZE];
 	WCHAR* second_memory_buffer = new WCHAR[BUFFER_SIZE];
+	WCHAR* third_memory_buffer = new WCHAR[BUFFER_SIZE];
 
 	DWORD* static_indexes_it = static_indexes;
 	for (int y = 0; y < HEIGHT; ++y)
@@ -156,27 +156,32 @@ int main()
 
 	::ZeroMemory(first_memory_buffer, BUFFER_SIZE * sizeof(WCHAR));
 	::ZeroMemory(second_memory_buffer, BUFFER_SIZE * sizeof(WCHAR));
+	::ZeroMemory(third_memory_buffer, BUFFER_SIZE * sizeof(WCHAR));
 
 	fill_random_state(second_memory_buffer);
+	do_life_step(second_memory_buffer, first_memory_buffer, static_indexes);
 
-	if (!::WriteConsole(second_buffer_handle, second_memory_buffer, BUFFER_SIZE, NULL, NULL))
+	if (!::WriteConsole(first_buffer_handle, first_memory_buffer, BUFFER_SIZE, NULL, NULL))
 		ErrorExit(L"::WriteConsole");
 
 	bool active = true;
 	while (active) {
 
-		if (!::SetConsoleActiveScreenBuffer(second_buffer_handle))
-			ErrorExit(L"::SetConsoleActiveScreenBuffer");
-
 		std::swap(first_buffer_handle, second_buffer_handle);
-		std::swap(first_memory_buffer, second_memory_buffer);
+		std::swap(first_memory_buffer, third_memory_buffer); // 1, 2, 3 -> 3, 2, 1
+		std::swap(second_memory_buffer, third_memory_buffer); // 3, 2, 1 -> 3, 1, 2
 
-		do_life_step(first_memory_buffer, second_memory_buffer, static_indexes);
+		do_life_step(second_memory_buffer, first_memory_buffer, static_indexes);
 
-		if (!::SetConsoleScreenBufferInfoEx(second_buffer_handle, &screen_buffer_info))
+		if (wmemcmp(first_memory_buffer, third_memory_buffer, BUFFER_SIZE) == 0) {
+			fill_random_state(second_memory_buffer);
+			do_life_step(second_memory_buffer, first_memory_buffer, static_indexes);
+		}
+
+		if (!::SetConsoleScreenBufferInfoEx(first_buffer_handle, &screen_buffer_info))
 			ErrorExit(L"::SetConsoleScreenBufferInfoEx");
 
-		if (!::WriteConsole(second_buffer_handle, second_memory_buffer, BUFFER_SIZE, NULL, NULL))
+		if (!::WriteConsole(first_buffer_handle, first_memory_buffer, BUFFER_SIZE, NULL, NULL))
 			ErrorExit(L"::WriteConsole");
 
 		INPUT_RECORD input_record;
@@ -196,10 +201,14 @@ int main()
 					break;
 				case 0x4E: // N
 					fill_random_state(second_memory_buffer);
+					do_life_step(second_memory_buffer, first_memory_buffer, static_indexes);
 					break;
 				}
 			}
 		}
+
+		if (!::SetConsoleActiveScreenBuffer(first_buffer_handle))
+			ErrorExit(L"::SetConsoleActiveScreenBuffer");
 	}
 
 	delete[] static_indexes;
