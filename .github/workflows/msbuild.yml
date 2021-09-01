@@ -4,12 +4,7 @@ on: [workflow_dispatch]
 # on: [push]
 
 env:
-  # Path to the solution file relative to the root of the project.
   SOLUTION_FILE_PATH: .
-
-  # Configuration type to build.
-  # You can convert this to a build matrix if you need coverage of multiple configuration types.
-  # https://docs.github.com/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
   BUILD_CONFIGURATION: Release
   BUILD_PLATFORM: x64
 
@@ -27,16 +22,18 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
-    - name: Build
+    - name: Build Lesson 01
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      # Add additional options to the MSBuild command line here (like platform or verbosity level).
-      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
-      run: |
-        msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.01.cpp\lesson.01.cpp.vcxproj
-        msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.02.cpp\lesson.02.cpp.vcxproj
-        msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.02.test\lesson.02.test.vcxproj
+      run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.01.cpp\lesson.01.cpp.vcxproj
+
+    - name: Build Lesson 02
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.02.cpp\lesson.02.cpp.vcxproj
+
+    - name: Build Lesson 02 Test
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.02.test\lesson.02.test.vcxproj
       
-    - name: Test
+    - name: Test Lesson 02
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: |
-        ${{env.SOLUTION_FILE_PATH}}\lesson.02.test\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
+      run: ${{env.SOLUTION_FILE_PATH}}\lesson.02.test\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
