@@ -18,8 +18,10 @@ public:
 		double angleFraction = m_a * step;
 		double s = sin(angleFraction);
 		double c = cos(angleFraction);
-		m_object.m_dir.m_x = m_object.m_dir.m_x * c + m_object.m_dir.m_y * s;
-		m_object.m_dir.m_y = m_object.m_dir.m_y * c - m_object.m_dir.m_x * s;
+		double x = m_object.m_dir.m_x * c + m_object.m_dir.m_y * s;
+		double y = m_object.m_dir.m_y * c - m_object.m_dir.m_x * s;
+		m_object.m_dir.m_x = x;
+		m_object.m_dir.m_y = y;
 	};
 };
 
