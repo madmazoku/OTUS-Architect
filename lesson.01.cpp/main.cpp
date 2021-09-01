@@ -87,7 +87,7 @@ void fill_random_state(WCHAR memory_buffer[]) {
 
 int main()
 {
-	::SetConsoleTitle(L"Convey Life: N - new table; Q - quit");
+	::SetConsoleTitle(L"Convey Life: N - new; Q - quit");
 
 	HANDLE input_buffer_handle = ::GetStdHandle(STD_INPUT_HANDLE);
 	if (input_buffer_handle == INVALID_HANDLE_VALUE)
