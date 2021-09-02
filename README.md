@@ -3,9 +3,9 @@
 
 OTUS Architect home works and inspired projects
 
-# lesson.01.cpp
+## lesson.01.cpp
 Convey's Life in console mode
 
-# lesson.02.cpp / lesson.02.test
+## lesson.02.cpp / lesson.02.test
 1st try into Tank game object's hierarchy
 
