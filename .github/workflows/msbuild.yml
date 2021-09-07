@@ -1,4 +1,4 @@
-name: MSBuild
+name: GITesting
 
 on: [workflow_dispatch]
 # on: [push]
