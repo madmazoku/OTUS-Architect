@@ -147,6 +147,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Example.h" />
+    <ClInclude Include="IExecuteable.h" />
+    <ClInclude Include="IMoveable.h" />
+    <ClInclude Include="IRotateable.h" />
+    <ClInclude Include="Move.h" />
+    <ClInclude Include="MoveableAdapter.h" />
+    <ClInclude Include="Rotate.h" />
+    <ClInclude Include="RotateableAdapter.h" />
+    <ClInclude Include="UObject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.vcxproj">
+      <Project>{d76d2000-9f3f-4a9e-b6b9-7707b1bc6cb2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,3 +1,4 @@
+/*
 #pragma once
 
 #include <map>
@@ -156,3 +157,4 @@ ICommand* move = new MacroCommand({
 
 "public $(T) get$(name)() { return $(T)obj.getProperty(\"$(name)\") }"
 
+*/

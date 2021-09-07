@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Файлы заголовков\Интерфейсы">
+      <UniqueIdentifier>{1324327b-ef7a-4124-8f3e-0215befa1dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Команды">
+      <UniqueIdentifier>{8b386dcf-05df-4fcd-ac6b-0effcf6d1e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Адаптеры">
+      <UniqueIdentifier>{606fd9fb-2df1-47d5-9a9e-24e2dbba24d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -22,6 +31,30 @@
   <ItemGroup>
     <ClInclude Include="Example.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="UObject.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="IMoveable.h">
+      <Filter>Файлы заголовков\Интерфейсы</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>Файлы заголовков\Команды</Filter>
+    </ClInclude>
+    <ClInclude Include="IExecuteable.h">
+      <Filter>Файлы заголовков\Интерфейсы</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveableAdapter.h">
+      <Filter>Файлы заголовков\Адаптеры</Filter>
+    </ClInclude>
+    <ClInclude Include="IRotateable.h">
+      <Filter>Файлы заголовков\Интерфейсы</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateableAdapter.h">
+      <Filter>Файлы заголовков\Адаптеры</Filter>
+    </ClInclude>
+    <ClInclude Include="Rotate.h">
+      <Filter>Файлы заголовков\Команды</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
