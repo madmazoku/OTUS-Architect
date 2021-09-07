@@ -9,17 +9,17 @@
 
 int main()
 {
-	UObject::Ptr tank = std::make_shared<UObject>();
+	UObject::Ptr pTank = std::make_shared<UObject>();
 
-	tank->SetProperty("position", Vector(0, 0));
-	tank->SetProperty("velocity", Vector(1, 1));
-	tank->SetProperty("angleVelocity", 0.1);
+	pTank->SetProperty("position", Vector(0, 0));
+	pTank->SetProperty("velocity", Vector(1, 1));
+	pTank->SetProperty("angleVelocity", 0.1);
 
-	IExecuteable::Ptr tankMove = std::make_shared<Move>(std::make_shared<MoveableAdapter>(tank));
-	IExecuteable::Ptr tankRotate = std::make_shared<Rotate>(std::make_shared<RotateableAdapter>(tank));
+	IExecuteable::Ptr pTankMove = std::make_shared<Move>(std::make_shared<MoveableAdapter>(pTank));
+	IExecuteable::Ptr pTankRotate = std::make_shared<Rotate>(std::make_shared<RotateableAdapter>(pTank));
 
-	tankMove->Execute();
-	tankRotate->Execute();
+	pTankMove->Execute();
+	pTankRotate->Execute();
 
 }
 
