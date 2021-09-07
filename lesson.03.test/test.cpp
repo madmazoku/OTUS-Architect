@@ -26,6 +26,42 @@ TEST(UObject, PropertyNotSet) {
 	EXPECT_THROW({pUObject->GetProperty("position");}, std::invalid_argument);
 }
 
+TEST(UObject, PropertyReadonly) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("position", Vector(1, 2), true);
+
+	EXPECT_THROW({ pUObject->SetProperty("position", Vector(2,1)); }, std::invalid_argument);
+}
+
+TEST(UObject, NoPropertySetReadonly) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	EXPECT_THROW({ pUObject->SetReadonly("position"); }, std::invalid_argument);
+}
+
+TEST(UObject, PropertySetReadonly) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("position", Vector(1, 2));
+	pUObject->SetReadonly("position");
+
+	EXPECT_THROW({ pUObject->SetProperty("position", Vector(2,1)); }, std::invalid_argument);
+}
+
+TEST(UObject, PropertyRemoveReadonly) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("position", Vector(1, 2), true);
+	pUObject->SetReadonly("position", false);
+	pUObject->SetProperty("position", Vector(2, 1));
+
+	Vector position = std::any_cast<Vector>(pUObject->GetProperty("position"));
+
+	EXPECT_DOUBLE_EQ(position.m_x, 2);
+	EXPECT_DOUBLE_EQ(position.m_y, 1);
+}
+
 TEST(Move, Success) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
@@ -61,6 +97,17 @@ TEST(Move, NoVelocity) {
 	EXPECT_THROW({ pMove->Execute(); }, std::invalid_argument);
 }
 
+TEST(Move, ReadonlyPosition) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("position", Vector(12, 5), true);
+	pUObject->SetProperty("velocity", Vector(-7, 3));
+
+	IExecuteable::Ptr pMove = std::make_shared<Move>(std::make_shared<MoveableAdapter>(pUObject));
+
+	EXPECT_THROW({ pMove->Execute(); }, std::invalid_argument);
+}
+
 TEST(Rotate, Success) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
@@ -90,6 +137,17 @@ TEST(Rotate, NoAngleVelocity) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
 	pUObject->SetProperty("velocity", Vector(0, 1));
+
+	IExecuteable::Ptr pRotate = std::make_shared<Rotate>(std::make_shared<RotateableAdapter>(pUObject));
+
+	EXPECT_THROW({ pRotate->Execute(); }, std::invalid_argument);
+}
+
+TEST(Rotate, ReadonlyVelocity) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("velocity", Vector(0, 1), true);
+	pUObject->SetProperty("angleVelocity", M_PI_2);
 
 	IExecuteable::Ptr pRotate = std::make_shared<Rotate>(std::make_shared<RotateableAdapter>(pUObject));
 
