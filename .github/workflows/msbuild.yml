@@ -26,7 +26,11 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
      
-    - name: Test All
+    - name: Test Lesson 02
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: |
-         Get-ChildItem -Recurse -Filter ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.*.test.exe | ForEach-Object { & $_.FullName }
+      run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
+
+    - name: Test Lesson 03
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.03.test.exe
+
