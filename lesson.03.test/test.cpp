@@ -6,8 +6,10 @@
 #include "../lesson.03.cpp/UObject.h"
 #include "../lesson.03.cpp/IExecuteable.h"
 #include "../lesson.03.cpp/MoveableAdapter.h"
+#include "../lesson.03.cpp/UnMoveableAdapter.h"
 #include "../lesson.03.cpp/Move.h"
 #include "../lesson.03.cpp/RotateableAdapter.h"
+#include "../lesson.03.cpp/UnRotateableAdapter.h"
 #include "../lesson.03.cpp/Rotate.h"
 
 TEST(UObject, Property) {
@@ -108,6 +110,17 @@ TEST(Move, ReadonlyPosition) {
 	EXPECT_THROW({ pMove->Execute(); }, std::invalid_argument);
 }
 
+TEST(Move, UnMoveable) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("position", Vector(12, 5), true);
+	pUObject->SetProperty("velocity", Vector(-7, 3));
+
+	IExecuteable::Ptr pMove = std::make_shared<Move>(std::make_shared<UnMoveableAdapter>(pUObject));
+
+	EXPECT_THROW({ pMove->Execute(); }, std::invalid_argument);
+}
+
 TEST(Rotate, Success) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
@@ -150,6 +163,17 @@ TEST(Rotate, ReadonlyVelocity) {
 	pUObject->SetProperty("angleVelocity", M_PI_2);
 
 	IExecuteable::Ptr pRotate = std::make_shared<Rotate>(std::make_shared<RotateableAdapter>(pUObject));
+
+	EXPECT_THROW({ pRotate->Execute(); }, std::invalid_argument);
+}
+
+TEST(Rotate, UnRotateable) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("velocity", Vector(0, 1), true);
+	pUObject->SetProperty("angleVelocity", M_PI_2);
+
+	IExecuteable::Ptr pRotate = std::make_shared<Rotate>(std::make_shared<UnRotateableAdapter>(pUObject));
 
 	EXPECT_THROW({ pRotate->Execute(); }, std::invalid_argument);
 }

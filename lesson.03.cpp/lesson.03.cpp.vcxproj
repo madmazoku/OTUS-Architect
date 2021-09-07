@@ -154,6 +154,8 @@
     <ClInclude Include="MoveableAdapter.h" />
     <ClInclude Include="Rotate.h" />
     <ClInclude Include="RotateableAdapter.h" />
+    <ClInclude Include="UnMoveableAdapter.h" />
+    <ClInclude Include="UnRotateableAdapter.h" />
     <ClInclude Include="UObject.h" />
   </ItemGroup>
   <ItemGroup>

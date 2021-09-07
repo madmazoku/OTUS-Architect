@@ -56,5 +56,11 @@
     <ClInclude Include="Rotate.h">
       <Filter>Файлы заголовков\Команды</Filter>
     </ClInclude>
+    <ClInclude Include="UnMoveableAdapter.h">
+      <Filter>Файлы заголовков\Адаптеры</Filter>
+    </ClInclude>
+    <ClInclude Include="UnRotateableAdapter.h">
+      <Filter>Файлы заголовков\Адаптеры</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
