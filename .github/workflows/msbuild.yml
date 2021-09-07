@@ -25,19 +25,7 @@ jobs:
     - name: Build All
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
-
-#    - name: Build Lesson 01
-#      working-directory: ${{env.GITHUB_WORKSPACE}}
-#      run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.01.cpp\lesson.01.cpp.vcxproj
-
-#    - name: Build Lesson 02
-#      working-directory: ${{env.GITHUB_WORKSPACE}}
-#      run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.02.cpp\lesson.02.cpp.vcxproj
-
-#    - name: Build Lesson 02 Test
-#      working-directory: ${{env.GITHUB_WORKSPACE}}
-#      run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}\lesson.02.test\lesson.02.test.vcxproj
-      
+     
     - name: Test Lesson 02
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
