@@ -1,4 +1,4 @@
-name: MSBuild
+name: GITesting
 
 on: [workflow_dispatch]
 # on: [push]
@@ -33,4 +33,8 @@ jobs:
          foreach ($file in $files) {
             Write-Output "There will be $($file.FullName) execution"
             & $file.FullName
+            if(-not $?) {
+                Write-Output "Execution failed with exit code $($LASTEXITCODE)"
+                Exit $LASTEXITCODE
+            }
          }     
