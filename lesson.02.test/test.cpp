@@ -29,3 +29,7 @@ TEST(Objects, RotateByAngle) {
 	EXPECT_DOUBLE_EQ(object.m_dir.m_x, sin(0.75));
 	EXPECT_DOUBLE_EQ(object.m_dir.m_y, cos(0.75));
 }
+
+TEST(Test, Failure) {
+	EXPECT_TRUE(false);
+}
