@@ -26,11 +26,14 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
      
-    - name: Test Lesson 02
+    - name: Test All
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
-
-    - name: Test Lesson 03
-      working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.03.test.exe
-
+      run: |
+         $files = Get-ChildItem -Filter ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.*.test.exe 
+         foreach ($file in $files) {
+            Write-Output "Run: $($file.FullName)"
+            & $file.FullName
+            if(-not $?) {
+                Exit $LASTEXITCODE
+            }
+         } 
