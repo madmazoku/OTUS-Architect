@@ -31,10 +31,9 @@ jobs:
       run: |
          $files = Get-ChildItem -Filter ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.*.test.exe 
          foreach ($file in $files) {
-            Write-Output "There will be $($file.FullName) execution"
+            Write-Output "Run: $($file.FullName)"
             & $file.FullName
             if(-not $?) {
-                Write-Output "Execution failed with exit code $($LASTEXITCODE)"
                 Exit $LASTEXITCODE
             }
          }     
