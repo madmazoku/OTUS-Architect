@@ -15,4 +15,3 @@ public:
 		m_pMoveable->SetPosition(m_pMoveable->GetPosition() + m_pMoveable->GetVelocity());
 	}
 };
-

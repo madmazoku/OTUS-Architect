@@ -13,4 +13,3 @@ public:
 
 	void Execute(double step) { m_cannon.Execute(step); }
 };
-

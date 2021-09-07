@@ -1,5 +1,4 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 
 #include "UObject.h"
 #include "MoveableAdapter.h"
@@ -20,6 +19,4 @@ int main()
 
 	pTankMove->Execute();
 	pTankRotate->Execute();
-
 }
-

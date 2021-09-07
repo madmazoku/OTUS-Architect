@@ -10,4 +10,3 @@ public:
 	Positional() : m_pos() {}
 	Positional(const Vector& pos) : m_pos(pos) {}
 };
-

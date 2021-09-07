@@ -18,11 +18,11 @@ protected:
 
 public:
 
-	const std::any& GetProperty(const std::string& key) const { 
+	const std::any& GetProperty(const std::string& key) const {
 		str2value::const_iterator it = m_properties.find(key);
 		if (it == m_properties.end())
 			throw std::invalid_argument(key);
-		return it->second.first; 
+		return it->second.first;
 	}
 	void SetProperty(const std::string& key, const std::any& value, bool readonly = false) {
 		str2value::iterator it = m_properties.find(key);
@@ -41,6 +41,3 @@ public:
 		it->second.second = readonly;
 	}
 };
-
-
-

@@ -17,9 +17,9 @@ TEST(Objects, MoveByVector) {
 
 TEST(Objects, DirectionalNormalize) {
 	Directional object({ 1,2 });
-	double invLen = 1.0/sqrt(5.0);
+	double invLen = 1.0 / sqrt(5.0);
 	EXPECT_DOUBLE_EQ(object.m_dir.m_x, invLen);
-	EXPECT_DOUBLE_EQ(object.m_dir.m_y, 2*invLen);
+	EXPECT_DOUBLE_EQ(object.m_dir.m_y, 2 * invLen);
 }
 
 TEST(Objects, RotateByAngle) {

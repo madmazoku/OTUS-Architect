@@ -108,7 +108,7 @@ int main()
 	screen_font_info.dwFontSize = { 5, 5 };
 	screen_font_info.FontFamily = 0x36;
 	screen_font_info.FontWeight = 400;
-	wcscpy_s(screen_font_info.FaceName,  L"Courier New");
+	wcscpy_s(screen_font_info.FaceName, L"Courier New");
 
 	if (!::SetCurrentConsoleFontEx(first_buffer_handle, FALSE, &screen_font_info))
 		ErrorExit(L"::SetCurrentConsoleFontEx");
@@ -135,7 +135,7 @@ int main()
 		CONSOLE_TEXTMODE_BUFFER,
 		NULL
 	);
-	if(second_buffer_handle == INVALID_HANDLE_VALUE)
+	if (second_buffer_handle == INVALID_HANDLE_VALUE)
 		ErrorExit(L"::CreateConsoleScreenBuffer");
 
 	if (!::SetConsoleScreenBufferInfoEx(second_buffer_handle, &screen_buffer_info))
@@ -166,7 +166,6 @@ int main()
 
 	bool active = true;
 	while (active) {
-
 		std::swap(first_buffer_handle, second_buffer_handle);
 		std::swap(first_memory_buffer, third_memory_buffer); // 1, 2, 3 -> 3, 2, 1
 		std::swap(second_memory_buffer, third_memory_buffer); // 3, 2, 1 -> 3, 1, 2
@@ -215,4 +214,3 @@ int main()
 	delete[] first_memory_buffer;
 	delete[] second_memory_buffer;
 }
-

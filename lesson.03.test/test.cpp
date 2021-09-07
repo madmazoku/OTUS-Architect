@@ -25,7 +25,7 @@ TEST(UObject, Property) {
 TEST(UObject, PropertyNotSet) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
-	EXPECT_THROW({pUObject->GetProperty("position");}, std::invalid_argument);
+	EXPECT_THROW({ pUObject->GetProperty("position"); }, std::invalid_argument);
 }
 
 TEST(UObject, PropertyReadonly) {
@@ -125,12 +125,13 @@ TEST(Rotate, Success) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
 	pUObject->SetProperty("velocity", Vector(0, 1));
-	pUObject->SetProperty("angleVelocity", M_PI_2);
+	pUObject->SetProperty("angleVelocity", M_PI_4);
 
 	IExecuteable::Ptr pRotate = std::make_shared<Rotate>(std::make_shared<RotateableAdapter>(pUObject));
-	pRotate->Execute();
+	pRotate->Execute(); // 45°
+	pRotate->Execute(); // 45°
 
-	Vector velocity = std::any_cast<Vector>(pUObject->GetProperty("velocity"));
+	Vector velocity = std::any_cast<Vector>(pUObject->GetProperty("velocity")); // 90°
 
 	EXPECT_NEAR(velocity.m_x, 1, 1e-15);
 	EXPECT_NEAR(velocity.m_y, 0, 1e-15);

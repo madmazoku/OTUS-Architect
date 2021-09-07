@@ -56,7 +56,6 @@ Vector v = std::any_cast<Vector>(a);
 
 Property var = Vector();
 
-
 class IMovable {
 public:
 	virtual const Vector& GetPosition() = 0;
@@ -67,7 +66,7 @@ public:
 class MovableAdapter : public IMovable {
 public:
 	UObject* m_pUObject;
-		
+
 	MovableAdapter(UObject* pUObject): m_pUObject(pUObject) {}
 
 	virtual const Vector& GetPosition() override {
@@ -79,7 +78,6 @@ public:
 	virtual const Vector& GetVelocity() override {
 		return std::any_cast<Vector>(m_pUObject->GetProperty("position"));
 	}
-
 };
 
 Move* move = new Move(new MovableAdapter(std::make_shared<UObject>()));
@@ -145,7 +143,6 @@ public:
 	virtual double GetFuelVelocity() {
 		return std::any_cast<double>(m_pUObject->GetProperty("fuel_velocity"));
 	}
-
 };
 
 ICommand* move = new MacroCommand({
@@ -153,7 +150,6 @@ ICommand* move = new MacroCommand({
 		new Move(new MoveAdapter(obj)),
 		new BurnFuel(new BurnFuelAdapter(obj)),
 	});
-
 
 "public $(T) get$(name)() { return $(T)obj.getProperty(\"$(name)\") }"
 

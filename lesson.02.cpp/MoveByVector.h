@@ -14,4 +14,3 @@ public:
 
 	virtual void Execute(double step) override { m_object.m_pos += m_vel * step; }
 };
-

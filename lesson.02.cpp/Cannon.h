@@ -17,4 +17,3 @@ public:
 
 	Projectile* Shoot() { return new Projectile(m_owner.m_pos, m_dir); }
 };
-

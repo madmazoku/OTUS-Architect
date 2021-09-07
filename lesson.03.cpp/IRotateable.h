@@ -16,4 +16,3 @@ public:
 	virtual double GetAngleVelocity() const = 0;
 	virtual void SetAngleVelocity(double angleVelocity) = 0;
 };
-

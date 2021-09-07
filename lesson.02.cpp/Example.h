@@ -19,7 +19,6 @@ public:
 	Move(Movable& movable) : m_movable(movable) {};
 
 	void Execute(double step) { m_movable.setPosition(m_movable.getPosition() + m_movable.getVelocity() * step); }
-
 };
 
 // можно сделать генератор, итеративно обновляющий координаты

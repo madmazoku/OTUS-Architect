@@ -10,4 +10,3 @@ public:
 	Directional() : m_dir() {}
 	Directional(const Vector& dir) : m_dir(dir / !dir) {}
 };
-

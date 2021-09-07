@@ -25,6 +25,4 @@ public:
 
 		m_pRotateable->SetVelocity({ vx, vy });
 	}
-
 };
-

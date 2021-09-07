@@ -24,4 +24,3 @@ public:
 		m_object.m_dir.m_y = y;
 	};
 };
-

@@ -25,4 +25,3 @@ public:
 		m_pUObject->SetProperty("velocity", velocity);
 	}
 };
-

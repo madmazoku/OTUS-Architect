@@ -12,4 +12,3 @@ public:
 
 	void Execute(double step) override { m_move.Execute(step); }
 };
-

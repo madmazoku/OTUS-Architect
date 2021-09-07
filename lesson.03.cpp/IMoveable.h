@@ -16,4 +16,3 @@ public:
 	virtual Vector GetVelocity() const = 0;
 	virtual void SetVelocity(const Vector& velocity) = 0;
 };
-
