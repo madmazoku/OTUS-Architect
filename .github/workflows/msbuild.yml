@@ -40,8 +40,8 @@ jobs:
       
     - name: Test Lesson 02
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ${{env.SOLUTION_FILE_PATH}}\lesson.02.test\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
+      run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.02.test.exe
 
     - name: Test Lesson 03
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: ${{env.SOLUTION_FILE_PATH}}\lesson.03.test\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.03.test.exe
+      run: ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.03.test.exe
