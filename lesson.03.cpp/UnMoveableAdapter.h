@@ -23,4 +23,7 @@ public:
 	virtual Vector GetVelocity() const override {
 		return std::any_cast<Vector>(m_pUObject->GetProperty("velocity"));
 	}
+	virtual void SetVelocity(const Vector& velocity) override {
+		throw std::invalid_argument("velocity");
+	}
 };

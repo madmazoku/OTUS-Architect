@@ -14,4 +14,5 @@ public:
 	virtual void SetPosition(const Vector& position) = 0;
 
 	virtual Vector GetVelocity() const = 0;
+	virtual void SetVelocity(const Vector& velocity) = 0;
 };
