@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common/Vector.h"
+#include "../lesson.02.cpp/Vector.h"
 #include <memory>
 
 class IRotateable

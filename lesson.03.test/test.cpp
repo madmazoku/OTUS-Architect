@@ -2,7 +2,7 @@
 
 #include <cmath>
 
-#include "../Common/Vector.h"
+#include "../lesson.02.cpp/Vector.h"
 #include "../lesson.03.cpp/UObject.h"
 #include "../lesson.03.cpp/IExecuteable.h"
 #include "../lesson.03.cpp/MoveableAdapter.h"
@@ -54,14 +54,14 @@ TEST(UObject, PropertyReadonly) {
 TEST(UObject, NoPropertySetReadonly) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
-	EXPECT_THROW({ pUObject->SetReadonly("position"); }, std::invalid_argument);
+	EXPECT_THROW({ pUObject->SetPropertyReadonly("position"); }, std::invalid_argument);
 }
 
 TEST(UObject, PropertySetReadonly) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
 	pUObject->SetProperty("position", Vector(1, 2));
-	pUObject->SetReadonly("position");
+	pUObject->SetPropertyReadonly("position");
 
 	EXPECT_THROW({ pUObject->SetProperty("position", Vector(2,1)); }, std::invalid_argument);
 }
@@ -70,7 +70,7 @@ TEST(UObject, PropertyRemoveReadonly) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 
 	pUObject->SetProperty("position", Vector(1, 2), true);
-	pUObject->SetReadonly("position", false);
+	pUObject->SetPropertyReadonly("position", false);
 	pUObject->SetProperty("position", Vector(2, 1));
 
 	Vector position = std::any_cast<Vector>(pUObject->GetProperty("position"));

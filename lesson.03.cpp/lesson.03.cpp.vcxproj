@@ -159,8 +159,8 @@
     <ClInclude Include="UObject.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.vcxproj">
-      <Project>{d76d2000-9f3f-4a9e-b6b9-7707b1bc6cb2}</Project>
+    <ProjectReference Include="..\lesson.02.cpp\lesson.02.cpp.vcxproj">
+      <Project>{902b0b55-fc58-43d1-8d06-67010a65ceb6}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

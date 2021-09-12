@@ -1,7 +1,7 @@
 name: MSBuild
 
-on: [workflow_dispatch]
-# on: [push]
+# on: [workflow_dispatch]
+on: [push]
 
 env:
   SOLUTION_FILE_PATH: .

@@ -45,9 +45,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.vcxproj">
-      <Project>{d76d2000-9f3f-4a9e-b6b9-7707b1bc6cb2}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\lesson.03.cpp\lesson.03.cpp.vcxproj">
       <Project>{aaf34b28-2fa0-4778-8510-acdf5d6231da}</Project>
     </ProjectReference>

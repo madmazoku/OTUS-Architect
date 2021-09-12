@@ -13,15 +13,15 @@
 
 TEST(Threadable, StartThread) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
-	ThreadableAdapter::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	MoveableAdapter::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
 	pMoveable->SetPosition({ 1,2 });
 	pMoveable->SetVelocity({ 2,1 });
 
 	StartThread::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
 	Move::Ptr pMove = std::make_shared<Move>(pMoveable);
-	Wait::Ptr pWait = std::make_shared<Wait>(100);
+	Wait::Ptr pWait = std::make_shared<Wait>(10);
 
 	pStartThread->Execute();
 
@@ -41,15 +41,15 @@ TEST(Threadable, StartThread) {
 
 TEST(Threadable, HardStop) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
-	ThreadableAdapter::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	MoveableAdapter::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
 	pMoveable->SetPosition({ 1,2 });
 	pMoveable->SetVelocity({ 2,1 });
 
 	StartThread::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
 	Move::Ptr pMove = std::make_shared<Move>(pMoveable);
-	Wait::Ptr pWait = std::make_shared<Wait>(100);
+	Wait::Ptr pWait = std::make_shared<Wait>(10);
 	HardStopThread::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
 
 	QueueCommand::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
@@ -71,15 +71,15 @@ TEST(Threadable, HardStop) {
 
 TEST(Threadable, SoftStop) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
-	ThreadableAdapter::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	MoveableAdapter::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
 	pMoveable->SetPosition({ 1,2 });
 	pMoveable->SetVelocity({ 2,1 });
 
 	StartThread::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
 	Move::Ptr pMove = std::make_shared<Move>(pMoveable);
-	Wait::Ptr pWait = std::make_shared<Wait>(100);
+	Wait::Ptr pWait = std::make_shared<Wait>(10);
 	SoftStopThread::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
 
 	QueueCommand::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);

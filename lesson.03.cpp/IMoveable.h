@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "../Common/Vector.h"
+#include "../lesson.02.cpp/Vector.h"
 
 class IMoveable
 {

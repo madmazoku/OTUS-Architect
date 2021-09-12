@@ -13,7 +13,7 @@
 #include "../lesson.03.cpp/MoveableAdapter.h"
 #include "../lesson.03.cpp/Move.h"
 
-#include "../Common/Vector.h"
+#include "../lesson.02.cpp/Vector.h"
 
 int main()
 {
@@ -21,8 +21,8 @@ int main()
 	pTank->SetProperty("position", Vector({ 1,2 }));
 	pTank->SetProperty("velocity", Vector({ 2,1 }));
 
-	ThreadableAdapter::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pTank);
-	MoveableAdapter::Ptr pMoveable = std::make_shared<MoveableAdapter>(pTank);
+	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pTank);
+	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pTank);
 
 	StartThread::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
 

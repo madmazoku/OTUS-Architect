@@ -152,11 +152,7 @@
     <ClInclude Include="RotateByAngle.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="MoveByVector.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.vcxproj">
-      <Project>{d76d2000-9f3f-4a9e-b6b9-7707b1bc6cb2}</Project>
-    </ProjectReference>
+    <ClInclude Include="Vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
