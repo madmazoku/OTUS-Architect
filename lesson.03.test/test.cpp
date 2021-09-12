@@ -28,6 +28,21 @@ TEST(UObject, PropertyNotSet) {
 	EXPECT_THROW({ pUObject->GetProperty("position"); }, std::invalid_argument);
 }
 
+TEST(UObject, PropertyRemove) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	pUObject->SetProperty("position", Vector(1, 2));
+	pUObject->RemoveProperty("position");
+
+	EXPECT_THROW({ pUObject->GetProperty("position"); }, std::invalid_argument);
+}
+
+TEST(UObject, PropertyRemoveNotSet) {
+	UObject::Ptr pUObject = std::make_shared<UObject>();
+
+	EXPECT_THROW({ pUObject->RemoveProperty("position"); }, std::invalid_argument);
+}
+
 TEST(UObject, PropertyReadonly) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 

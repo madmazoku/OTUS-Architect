@@ -40,4 +40,10 @@ public:
 			throw std::invalid_argument(key);
 		it->second.second = readonly;
 	}
+	void RemoveProperty(const std::string& key) {
+		str2value::iterator it = m_properties.find(key);
+		if (it == m_properties.end())
+			throw std::invalid_argument(key);
+		m_properties.erase(it);
+	}
 };
