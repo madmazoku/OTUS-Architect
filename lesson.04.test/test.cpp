@@ -25,7 +25,7 @@ TEST(Threadable, StartThread) {
 
 	pStartThread->Execute();
 
-	ExecuteableQueue::Ptr pQueue = std::any_cast<ExecuteableQueue::Ptr>(pUObject->GetProperty("executionableQueue"));
+	ExecuteableQueue::Ptr pQueue = pThreadable->GetQueue();
 	pQueue->Put(pMove);
 	pQueue->Put(pMove);
 	pQueue->Put(pMove);
