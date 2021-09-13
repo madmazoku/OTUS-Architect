@@ -156,11 +156,6 @@
     <ClInclude Include="ThreadableAdapter.h" />
     <ClInclude Include="Wait.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\lesson.03.cpp\lesson.03.cpp.vcxproj">
-      <Project>{aaf34b28-2fa0-4778-8510-acdf5d6231da}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -158,11 +158,6 @@
     <ClInclude Include="UnRotateableAdapter.h" />
     <ClInclude Include="UObject.h" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\lesson.02.cpp\lesson.02.cpp.vcxproj">
-      <Project>{902b0b55-fc58-43d1-8d06-67010a65ceb6}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
