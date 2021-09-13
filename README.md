@@ -11,3 +11,6 @@ Convey's Life in console mode
 
 ## lesson.03.cpp / lesson.03.test
 lesson 03 homework : move and rotate tank
+
+## lesson.04.cpp / lesson.04.test
+lesson 04 homework : command queue execute commands in its own thread
