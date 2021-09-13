@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="HardStopThread.h" />
     <ClInclude Include="IThreadable.h" />
+    <ClInclude Include="JoinThread.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QueueCommand.h" />
     <ClInclude Include="SoftStopThread.h" />

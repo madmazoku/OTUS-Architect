@@ -14,6 +14,5 @@ public:
 	void Execute() override {
 		ExecuteableQueue::Ptr pQueue = m_threadable->GetQueue();
 		pQueue->HardStop();
-		m_threadable->RemoveQueue();
 	}
 };

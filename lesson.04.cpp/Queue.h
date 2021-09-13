@@ -81,10 +81,6 @@ public:
 			m_status = Status::Stop;
 		}
 		m_condition.notify_all();
-		m_pThread->join();
-
-		m_status = Status::Initial;
-		m_pThread = nullptr;
 	}
 
 	void HardStop() {
@@ -96,8 +92,10 @@ public:
 				m_queue.pop();
 		}
 		m_condition.notify_all();
-		m_pThread->join();
+	}
 
+	void Join() {
+		m_pThread->join();
 		m_status = Status::Initial;
 		m_pThread = nullptr;
 	}
