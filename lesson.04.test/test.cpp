@@ -50,8 +50,8 @@ TEST(Threadable, HardStopInner) {
 	IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 
-	QueueCommand::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	QueueCommand::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pHardStopThread);
+	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+	IExecuteable::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pHardStopThread);
 
 	pStartThread->Execute();
 	pQueueMove->Execute();
@@ -79,8 +79,8 @@ TEST(Threadable, HardStopOuter) {
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 	IExecuteable::Ptr pWait = std::make_shared<Wait>(10);
 
-	QueueCommand::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	QueueCommand::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
+	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+	IExecuteable::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
 
 	pStartThread->Execute();
 	pQueueMove->Execute();
@@ -109,8 +109,8 @@ TEST(Threadable, SoftStopInner) {
 	IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 
-	QueueCommand::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	QueueCommand::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pSoftStopThread);
+	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+	IExecuteable::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pSoftStopThread);
 
 	pStartThread->Execute();
 	pQueueMove->Execute();
@@ -138,8 +138,8 @@ TEST(Threadable, SoftStopOuter) {
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 	IExecuteable::Ptr pWait = std::make_shared<Wait>(10);
 
-	QueueCommand::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	QueueCommand::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
+	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+	IExecuteable::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
 
 	pStartThread->Execute();
 	pQueueMove->Execute();
