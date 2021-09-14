@@ -22,6 +22,15 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: nuget restore ${{env.SOLUTION_FILE_PATH}}
 
+    - name: Restore SFML 2.5.1
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: |
+        $url = "https://github.com/SFML/SFML/releases/download/2.5.1/SFML-2.5.1-windows-vc15-64-bit.zip"
+        $zip_file = "${{env.GITHUB_WORKSPACE}}/" + $(Split-Path -Path $url -Leaf)
+        $unzip_folder = "${{env.GITHUB_WORKSPACE}}/"
+        Invoke-WebRequest -Uri $url -OutFile $zip_file
+        Expand-Archive -Path $zip_file -DestinationPath $unzip_folder
+
     - name: Build All
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: msbuild /m /p:Platform=${{env.BUILD_PLATFORM}} /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
