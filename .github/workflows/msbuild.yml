@@ -28,12 +28,17 @@ jobs:
         $url = "https://github.com/SFML/SFML/releases/download/2.5.1/SFML-2.5.1-windows-vc15-64-bit.zip"
         $zip_file = "${{env.SOLUTION_FILE_PATH}}/../" + $(Split-Path -Path $url -Leaf)
         $unzip_folder = "${{env.SOLUTION_FILE_PATH}}/../"
+        Write-Output "Download $url"
+        Write-Output "Extract to $unzip_folder"
         Invoke-WebRequest -Uri $url -OutFile $zip_file
+        if(-not $?) {
+            Exit $LASTEXITCODE
+        }
         Expand-Archive -Path $zip_file -DestinationPath $unzip_folder
-        Write-Output "Unzipped to: $unzip_folder"
-        ls $unzip_folder
-        Write-Output "working directory"
-        ls .
+        if(-not $?) {
+            Exit $LASTEXITCODE
+        }
+        Write-Output "Success"
 
     - name: Build All
       working-directory: ${{env.GITHUB_WORKSPACE}}
