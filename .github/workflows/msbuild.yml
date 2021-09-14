@@ -30,6 +30,7 @@ jobs:
         $unzip_folder = "${{env.GITHUB_WORKSPACE}}/"
         Invoke-WebRequest -Uri $url -OutFile $zip_file
         Expand-Archive -Path $zip_file -DestinationPath $unzip_folder
+        Write-Output "Unzipped to: $unzip_folder"
 
     - name: Build All
       working-directory: ${{env.GITHUB_WORKSPACE}}
