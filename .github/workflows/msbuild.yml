@@ -1,6 +1,6 @@
 name: MSBuild
 
-# on: [workflow_dispatch]
+#on: [workflow_dispatch]
 on: [push]
 
 env:
@@ -26,11 +26,14 @@ jobs:
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
         $url = "https://github.com/SFML/SFML/releases/download/2.5.1/SFML-2.5.1-windows-vc15-64-bit.zip"
-        $zip_file = "${{env.GITHUB_WORKSPACE}}/" + $(Split-Path -Path $url -Leaf)
-        $unzip_folder = "${{env.GITHUB_WORKSPACE}}/"
+        $zip_file = "${{env.SOLUTION_FILE_PATH}}/../" + $(Split-Path -Path $url -Leaf)
+        $unzip_folder = "${{env.SOLUTION_FILE_PATH}}/../"
         Invoke-WebRequest -Uri $url -OutFile $zip_file
         Expand-Archive -Path $zip_file -DestinationPath $unzip_folder
         Write-Output "Unzipped to: $unzip_folder"
+        ls $unzip_folder
+        Write-Output "working directory"
+        ls .
 
     - name: Build All
       working-directory: ${{env.GITHUB_WORKSPACE}}
