@@ -17,4 +17,3 @@ public:
 	virtual void SetQueue(ExecuteableQueue::Ptr) = 0;
 	virtual void RemoveQueue() = 0;
 };
-

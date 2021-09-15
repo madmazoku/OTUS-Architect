@@ -17,4 +17,3 @@ public:
 		std::this_thread::sleep_for(m_sleepMs);
 	}
 };
-

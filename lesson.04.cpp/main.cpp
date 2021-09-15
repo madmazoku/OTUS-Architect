@@ -37,7 +37,6 @@ int main()
 	IExecuteable::Ptr pQueueSoftStop = std::make_shared<QueueCommand>(pThreadable, pSoftStopThread);
 	IExecuteable::Ptr pQueueHardStop = std::make_shared<QueueCommand>(pThreadable, pHardStopThread);
 
-
 	std::cout << "Postion #1: " << pMoveable->GetPosition() << std::endl;
 
 	pStartThread->Execute();

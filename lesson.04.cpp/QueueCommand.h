@@ -3,7 +3,6 @@
 #include "IThreadable.h"
 #include "../lesson.03.cpp/IExecuteable.h"
 
-
 class QueueCommand : public IExecuteable
 {
 protected:

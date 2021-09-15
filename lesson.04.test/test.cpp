@@ -34,7 +34,6 @@ TEST(Threadable, StartThread) {
 
 	EXPECT_DOUBLE_EQ(position.m_x, 3);
 	EXPECT_DOUBLE_EQ(position.m_y, 3);
-
 }
 
 TEST(Threadable, HardStopInner) {
