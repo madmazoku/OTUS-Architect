@@ -39,6 +39,12 @@ void doLifeStep(long ppOffsets[9][8], sf::Uint8* ppBoards[3], long width, long h
 	long yOffset = yFrom * width;
 	sf::Uint8* pBoardNew = ppBoards[0] + yOffset;
 	sf::Uint8* pBoardOld = ppBoards[1] + yOffset;
+	sf::Uint8* pBoardOldEnd = ppBoards[1] + yTo * width;
+
+	for (sf::Uint8* pBoard = pBoardOld; pBoard < pBoardOldEnd; ++pBoard)
+		if (*pBoard > 0)
+			--(*pBoard);
+
 	for (long y = yFrom; y < yTo; ++y)
 		for (long x = 0; x < width; ++x, ++pBoardOld, ++pBoardNew) {
 			long oidx = 0;
@@ -57,11 +63,24 @@ void doLifeStep(long ppOffsets[9][8], sf::Uint8* ppBoards[3], long width, long h
 			long* pOffsets = ppOffsets[oidx];
 			long neighbors = 0;
 			for (long idx = 0; idx < 8; ++idx, ++pOffsets)
-				neighbors += *(pBoardOld + *pOffsets) > 0 ? 1 : 0;
-			if (*pBoardOld > 0)
-				*pBoardNew = (neighbors == 2 || neighbors == 3) ? (*pBoardOld - 1) : 0x00;
-			else
-				*pBoardNew = neighbors == 3 ? 0xff : 0x00;
+				neighbors += *(pBoardOld + *pOffsets) > 0x7f ? 1 : 0;
+			switch (neighbors) {
+			case 2:
+				*pBoardNew = *pBoardOld;
+				break;
+			case 3:
+				if (*pBoardOld > 0x7f)
+					*pBoardNew = *pBoardOld;
+				else
+					*pBoardNew = 0xff;
+				break;
+			default:
+				if (*pBoardOld > 0x7f)
+					*pBoardNew = 0x7f;
+				else
+					*pBoardNew = *pBoardOld;
+				break;
+			};
 		}
 }
 
@@ -87,7 +106,7 @@ void rotateBoards(sf::Uint8* ppBoards[3]) {
 bool compareBoards(sf::Uint8* pBoardSrc, sf::Uint8* pBoardDst, long width, long height) {
 	sf::Uint8* pBoardSrcEnd = pBoardSrc + width * height;
 	while (pBoardSrc < pBoardSrcEnd)
-		if ((*(pBoardSrc++) > 0) != (*(pBoardDst++) > 0))
+		if ((*(pBoardSrc++) > 0x7f) != (*(pBoardDst++) > 0x7f))
 			return false;
 	return true;
 }
@@ -137,8 +156,9 @@ int main()
 
 	bool bRun = false;
 	bool bRender = false;
+	bool bReady = false;
 	long inRun = 0;
-	int cnt = 0;
+
 	for (unsigned int yFrom = 0; yFrom < vmWindow.height; yFrom += step) {
 		unsigned int yTo = std::min<long>(yFrom + step, vmWindow.height);
 		threads.push_back(std::thread([&](unsigned int yFrom, unsigned int yTo) {
@@ -152,23 +172,43 @@ int main()
 					cvCheck.wait(ul, [&] { return !bRun || bRender; });
 					if (!bRun)
 						break;
-					++inRun;
+					if (++inRun == threads.size())
+						bReady = true;
 				}
 				doLifeStep(ppOffsets, ppBoards, vmWindow.width, vmWindow.height, yFrom, yTo);
 				copyBoardToPixels(ppBoards[0], pPixels, vmWindow.width, vmWindow.height, yFrom, yTo);
 				{
-					std::lock_guard<std::mutex> lg(lock);
-					if (--inRun == 0)
+					std::unique_lock<std::mutex> ul(lock);
+					cvCheck.wait(ul, [&] {return bReady; });
+					if (--inRun == 0) {
+						bReady = false;
 						bRender = false;
+					}
 				}
 				cvCheck.notify_all();
 				{
 					std::unique_lock<std::mutex> ul(lock);
-					cvCheck.wait(ul, [&] {return !bRender; });
+					cvCheck.wait(ul, [&] {return !bReady; });
 				}
 			}
 			}, yFrom, yTo));
 	}
+
+	window.setActive(false);
+	std::thread windowThread([&] {
+		window.setActive(true);
+		while (window.isOpen()) {
+			{
+				std::unique_lock<std::mutex> ul(lock);
+				cvCheck.wait(ul, [&] { return !bRender; });
+				texture.update(pPixels);
+			}
+
+			window.clear();
+			window.draw(sprite);
+			window.display();
+		}
+		});
 
 	{
 		std::lock_guard<std::mutex> lg(lock);
@@ -195,27 +235,23 @@ int main()
 		{
 			std::unique_lock<std::mutex> ul(lock);
 			cvCheck.wait(ul, [&] { return !bRender; });
-		}
 
-		texture.update(pPixels);
+			++frameCount;
+			sf::Time currentTime = clock.getElapsedTime();
+			float timeDiffSecond = currentTime.asSeconds() - lastTime.asSeconds();
+			if (timeDiffSecond >= 1.0f && frameCount >= 10) {
+				float fps = float(frameCount) / timeDiffSecond;
+				std::cout << "FPS: " << floor(fps) << std::endl;
+				lastTime = currentTime;
+				frameCount = 0;
 
-		window.clear();
-		window.draw(sprite);
-		window.display();
-
-		++frameCount;
-		sf::Time currentTime = clock.getElapsedTime();
-		float timeDiffSecond = currentTime.asSeconds() - lastTime.asSeconds();
-		if (timeDiffSecond >= 1.0f && frameCount >= 10) {
-			float fps = float(frameCount) / timeDiffSecond;
-			std::cout << "FPS: " << floor(fps) << std::endl;
-			lastTime = currentTime;
-			frameCount = 0;
-
-			if (compareBoards(ppBoards[0], ppBoards[2], vmWindow.width, vmWindow.height))
-				fillBoardWithRandom(ppBoards[0], vmWindow.width, vmWindow.height);
+				if (compareBoards(ppBoards[0], ppBoards[2], vmWindow.width, vmWindow.height))
+					fillBoardWithRandom(ppBoards[0], vmWindow.width, vmWindow.height);
+			}
 		}
 	}
+
+	windowThread.join();
 
 	{
 		std::lock_guard<std::mutex> lg(lock);
