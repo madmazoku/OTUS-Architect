@@ -17,39 +17,34 @@ enum class OffsetType {
 };
 
 void fillOffsets(long ppOffsets[9][8], long width, long height) {
-	long size = width * height;
-	std::cout << "width: " << width << "; height: " << height << "; size: " << size << std::endl;
 	for (long oy = -1, oidx = 0; oy <= 1; ++oy)
 		for (long ox = -1; ox <= 1; ++ox, ++oidx) {
-			std::cout << "ox: " << ox << "; oy: " << oy << "; oidx: " << oidx << std::endl;
 			for (long y = -1, idx = 0; y <= 1; ++y)
 				for (long x = -1; x <= 1; ++x)
 					if (x != 0 || y != 0)
 					{
-						std::cout << "\t" << "x: " << x << "; y: " << y << "; idx: " << idx;
 						long offset = 0;
-						offset += x - ox * width * (x * ox > 0 ? 1 : 0);
-						offset += y * width - oy * size * (y * oy > 0 ? 1 : 0);
+						offset += x - width * (x * ox > 0 ? ox : 0);
+						offset += width * (y - height * (y * oy > 0 ? oy : 0));
 						ppOffsets[oidx][idx] = offset;
-						std::cout << "; offset: " << offset << std::endl;
 						++idx;
 					}
 		}
 }
 
-void fillBoardWithRandom(bool* pBoard, long boardSize) {
+void fillBoardWithRandom(sf::Uint8* pBoard, long boardSize) {
 	std::random_device rd;
 	std::default_random_engine re(rd());
 	std::uniform_int_distribution<int> uniform_dist(1, 10);
-	bool* pBoardEnd = pBoard + boardSize;
+	sf::Uint8* pBoardEnd = pBoard + boardSize;
 	while (pBoard < pBoardEnd)
-		*(pBoard++) = uniform_dist(re) > 9;
+		*(pBoard++) = uniform_dist(re) > 9 ? 0xff : 00;
 }
 
-void doLifeStep(long ppOffsets[9][8], bool* ppBoards[2], long width, long height) {
+void doLifeStep(long ppOffsets[9][8], sf::Uint8* ppBoards[2], long width, long height) {
 	long size = width * height;
-	bool* pBoardNew = ppBoards[0];
-	bool* pBoardOld = ppBoards[1];
+	sf::Uint8* pBoardNew = ppBoards[0];
+	sf::Uint8* pBoardOld = ppBoards[1];
 	for (long y = 0; y < height; ++y)
 		for (long x = 0; x < width; ++x, ++pBoardOld, ++pBoardNew) {
 			long oidx = 0;
@@ -68,23 +63,26 @@ void doLifeStep(long ppOffsets[9][8], bool* ppBoards[2], long width, long height
 			long* pOffsets = ppOffsets[oidx];
 			long neighbors = 0;
 			for (long idx = 0; idx < 8; ++idx, ++pOffsets)
-				neighbors += *(pBoardOld + *pOffsets) ? 1 : 0;
-			*pBoardNew = neighbors == 2 ? *pBoardOld : neighbors == 3;
+				neighbors += *(pBoardOld + *pOffsets) > 0 ? 1 : 0;
+			if (*pBoardOld > 0)
+				*pBoardNew = (neighbors == 2 || neighbors == 3) ? (*pBoardOld - 1) : 0x00;
+			else
+				*pBoardNew = neighbors == 3 ? 0xff : 0x00;
 		}
 }
 
-inline sf::Uint32 cellToPixel(bool cell) {
-	return cell ? 0xffffffff : 0xff00000;
+inline sf::Uint32 cellToPixel(sf::Uint8 cell) {
+	return 0xff000000 | (sf::Uint32(cell)) | (sf::Uint32(cell) << 8) | (sf::Uint32(cell) << 16);
 }
 
-void copyBoardToPixels(bool* pBoard, sf::Uint8* pPixels, long boardSize) {
-	bool* pBoardEnd = pBoard + boardSize;
+void copyBoardToPixels(sf::Uint8* pBoard, sf::Uint8* pPixels, long boardSize) {
+	sf::Uint8* pBoardEnd = pBoard + boardSize;
 	sf::Uint32* pPixels32 = reinterpret_cast<sf::Uint32*>(pPixels);
 	while (pBoard < pBoardEnd)
 		*(pPixels32++) = cellToPixel(*(pBoard++));
 }
 
-void rotateBoards(bool* ppBoards[2]) {
+void rotateBoards(sf::Uint8* ppBoards[2]) {
 	std::swap(ppBoards[0], ppBoards[1]);
 }
 
@@ -108,9 +106,9 @@ int main()
 	fillOffsets(ppOffsets, vmWindow.width, vmWindow.height);
 
 	long boardSize = vmWindow.width * vmWindow.height;
-	bool* ppBoards[2];
-	ppBoards[0] = new bool[boardSize];
-	ppBoards[1] = new bool[boardSize];
+	sf::Uint8* ppBoards[2];
+	ppBoards[0] = new sf::Uint8[boardSize];
+	ppBoards[1] = new sf::Uint8[boardSize];
 	sf::Uint8* pPixels = new sf::Uint8[(long long)(boardSize) << 2];
 
 	fillBoardWithRandom(ppBoards[0], boardSize);

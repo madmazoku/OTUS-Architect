@@ -16,4 +16,4 @@ lesson 03 homework : move and rotate tank
 lesson 04 homework : command queue execute commands in its own thread
 
 ## lesson.05.cpp
-Convey's Live in graphic mode with SFML 2.5.1 library
+Convey's Live (with age) in graphic mode with SFML 2.5.1 library
