@@ -42,7 +42,7 @@ void doLifeStep(long ppOffsets[9][8], sf::Uint8* ppBoards[3], long width, long h
 	sf::Uint8* pBoardOldEnd = ppBoards[1] + yTo * width;
 
 	for (sf::Uint8* pBoard = pBoardOld; pBoard < pBoardOldEnd; ++pBoard)
-		if (*pBoard != 0 && *pBoard != 0x0)
+		if (*pBoard != 0)
 			--(*pBoard);
 
 	for (long y = yFrom; y < yTo; ++y)
