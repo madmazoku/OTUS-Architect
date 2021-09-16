@@ -42,7 +42,7 @@ void doLifeStep(long ppOffsets[9][8], sf::Uint8* ppBoards[3], long width, long h
 	sf::Uint8* pBoardOldEnd = ppBoards[1] + yTo * width;
 
 	for (sf::Uint8* pBoard = pBoardOld; pBoard < pBoardOldEnd; ++pBoard)
-		if (*pBoard > 0)
+		if (*pBoard != 0 && *pBoard != 0x0)
 			--(*pBoard);
 
 	for (long y = yFrom; y < yTo; ++y)
@@ -104,18 +104,20 @@ void rotateBoards(sf::Uint8* ppBoards[3]) {
 }
 
 bool compareBoards(sf::Uint8* pBoardSrc, sf::Uint8* pBoardDst, long width, long height) {
+	long cells = width * height;
+	long diff = 0;
 	sf::Uint8* pBoardSrcEnd = pBoardSrc + width * height;
 	while (pBoardSrc < pBoardSrcEnd)
 		if ((*(pBoardSrc++) > 0x7f) != (*(pBoardDst++) > 0x7f))
-			return false;
-	return true;
+			++diff;
+	return diff < 10 || diff * 100.0 < cells * 0.01;
 }
 
 int main()
 {
 	sf::VideoMode vmDesktop = sf::VideoMode::getDesktopMode();
 #ifdef _DEBUG
-	sf::VideoMode vmWindow(vmDesktop.width >> 2, vmDesktop.height >> 2);
+	sf::VideoMode vmWindow(vmDesktop.width >> 1, vmDesktop.height >> 1);
 	sf::RenderWindow window(vmWindow, "SFML works!");
 #else
 	sf::VideoMode vmWindow(vmDesktop.width, vmDesktop.height);
