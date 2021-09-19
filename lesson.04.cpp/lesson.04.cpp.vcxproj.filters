@@ -47,7 +47,7 @@
     <ClInclude Include="HardStopThread.h">
       <Filter>Header Files\Command</Filter>
     </ClInclude>
-    <ClInclude Include="Wait.h">
+    <ClInclude Include="Generic.h">
       <Filter>Header Files\Command</Filter>
     </ClInclude>
     <ClInclude Include="Queue.h">
@@ -55,6 +55,9 @@
     </ClInclude>
     <ClInclude Include="JoinThread.h">
       <Filter>Header Files\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="LockFreeQueue.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,7 +9,7 @@
 #include "SoftStopThread.h"
 #include "HardStopThread.h"
 #include "JoinThread.h"
-#include "Wait.h"
+#include "Generic.h"
 
 #include "../lesson.03.cpp/MoveableAdapter.h"
 #include "../lesson.03.cpp/Move.h"
@@ -30,7 +30,7 @@ int main()
 	IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
-	IExecuteable::Ptr pWait = std::make_shared<Wait>(100);
+	IExecuteable::Ptr pWait = std::make_shared<Generic>(pTank, [&](UObject::Ptr) { std::this_thread::sleep_for(std::chrono::milliseconds(100)); });
 
 	IExecuteable::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
 	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);

@@ -10,7 +10,7 @@
 #include "../lesson.04.cpp/HardStopThread.h"
 #include "../lesson.04.cpp/SoftStopThread.h"
 #include "../lesson.04.cpp/JoinThread.h"
-#include "../lesson.04.cpp/Wait.h"
+#include "../lesson.04.cpp/Generic.h"
 
 TEST(Threadable, StartThread) {
 	UObject::Ptr pUObject = std::make_shared<UObject>();
@@ -69,6 +69,10 @@ TEST(Threadable, HardStopOuter) {
 	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
 	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
+	std::mutex lock;
+	std::condition_variable cv;
+	bool pulse = false;
+
 	pMoveable->SetPosition({ 1,2 });
 	pMoveable->SetVelocity({ 2,1 });
 
@@ -76,17 +80,40 @@ TEST(Threadable, HardStopOuter) {
 	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
 	IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
-	IExecuteable::Ptr pWait = std::make_shared<Wait>(10);
+	IExecuteable::Ptr pFence = std::make_shared<Generic>(pUObject, [&](UObject::Ptr) {
+		{
+			std::unique_lock<std::mutex> ul(lock);
+			cv.wait(ul, [&] {return pulse; });
+			pulse = false;
+		}
+		cv.notify_one();
+		{
+			std::unique_lock<std::mutex> ul(lock);
+			cv.wait(ul, [&] {return pulse; });
+		}
+		});
 
 	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	IExecuteable::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
+	IExecuteable::Ptr pQueueFence = std::make_shared<QueueCommand>(pThreadable, pFence);
 
 	pStartThread->Execute();
 	pQueueMove->Execute();
-	pQueueWait->Execute();
-	pQueueWait->Execute();
-	pWait->Execute();
-	pHardStopThread->Execute();
+	pQueueFence->Execute();
+	pQueueMove->Execute();
+
+	{
+		std::lock_guard<std::mutex> lg(lock);
+		pulse = true;
+	}
+	cv.notify_one();
+	{
+		std::unique_lock<std::mutex> ul(lock);
+		cv.wait(ul, [&] {return !pulse; });
+		pulse = true;
+		pHardStopThread->Execute();
+	}
+	cv.notify_one();
+
 	pJoinThread->Execute();
 
 	Vector position = pMoveable->GetPosition();
@@ -128,6 +155,10 @@ TEST(Threadable, SoftStopOuter) {
 	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
 	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
+	std::mutex lock;
+	std::condition_variable cv;
+	bool pulse = false;
+
 	pMoveable->SetPosition({ 1,2 });
 	pMoveable->SetVelocity({ 2,1 });
 
@@ -135,18 +166,40 @@ TEST(Threadable, SoftStopOuter) {
 	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
 	IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
-	IExecuteable::Ptr pWait = std::make_shared<Wait>(10);
+	IExecuteable::Ptr pFence = std::make_shared<Generic>(pUObject, [&](UObject::Ptr) {
+		{
+			std::unique_lock<std::mutex> ul(lock);
+			cv.wait(ul, [&] {return pulse; });
+			pulse = false;
+		}
+		cv.notify_one();
+		{
+			std::unique_lock<std::mutex> ul(lock);
+			cv.wait(ul, [&] {return pulse; });
+		}
+		});
 
 	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	IExecuteable::Ptr pQueueWait = std::make_shared<QueueCommand>(pThreadable, pWait);
+	IExecuteable::Ptr pQueueFence = std::make_shared<QueueCommand>(pThreadable, pFence);
 
 	pStartThread->Execute();
 	pQueueMove->Execute();
-	pQueueWait->Execute();
-	pQueueWait->Execute();
+	pQueueFence->Execute();
 	pQueueMove->Execute();
-	pWait->Execute();
-	pSoftStopThread->Execute();
+
+	{
+		std::lock_guard<std::mutex> lg(lock);
+		pulse = true;
+	}
+	cv.notify_one();
+	{
+		std::unique_lock<std::mutex> ul(lock);
+		cv.wait(ul, [&] {return !pulse; });
+		pulse = true;
+		pSoftStopThread->Execute();
+	}
+	cv.notify_one();
+
 	pJoinThread->Execute();
 
 	Vector position = pMoveable->GetPosition();
