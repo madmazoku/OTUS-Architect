@@ -28,7 +28,7 @@ public:
 			write = m_write;
 			if (write - m_read == g_SIZE)
 				return false;
-		} while (!m_buffer[write] && !m_write.compare_exchange_weak(write, write + 1));
+		} while (!m_buffer[write & g_MASK] && !m_write.compare_exchange_weak(write, write + 1));
 
 		m_buffer[write & g_MASK] = new T(item);
 
@@ -41,7 +41,7 @@ public:
 			read = m_read;
 			if (read == m_write)
 				return false;
-		} while (m_buffer[read] && !m_read.compare_exchange_weak(read, read + 1));
+		} while (m_buffer[read & g_MASK] && !m_read.compare_exchange_weak(read, read + 1));
 
 		T* pItem = m_buffer[read & g_MASK];
 		m_buffer[read & g_MASK] = nullptr;
