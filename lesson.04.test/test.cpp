@@ -11,199 +11,231 @@
 #include "../lesson.04.cpp/SoftStopThread.h"
 #include "../lesson.04.cpp/JoinThread.h"
 #include "../lesson.04.cpp/Generic.h"
+#include "../lesson.04.cpp/TwoLockQueue.h"
+#include "../lesson.04.cpp/LockFreeRingArray.h"
 
 TEST(Threadable, StartThread) {
-	UObject::Ptr pUObject = std::make_shared<UObject>();
-	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
-	pMoveable->SetPosition({ 1,2 });
-	pMoveable->SetVelocity({ 2,1 });
+	for (auto pQueue : tests) {
+		UObject::Ptr pUObject = std::make_shared<UObject>();
+		IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+		IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
-	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
-	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
+		pMoveable->SetPosition({ 1,2 });
+		pMoveable->SetVelocity({ 2,1 });
 
-	pStartThread->Execute();
+		IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable, pQueue);
+		IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
 
-	ExecuteableQueue::Ptr pQueue = pThreadable->GetQueue();
-	pQueue->Put(pMove);
-	pQueue->SoftStop();
-	pQueue->Join();
+		pStartThread->Execute();
 
-	Vector position = pMoveable->GetPosition();
+		ExecuteableQueueThread::Ptr pQueue = pThreadable->GetQueueThread();
+		pQueue->Put(pMove);
+		pQueue->SoftStop();
+		pQueue->Join();
 
-	EXPECT_DOUBLE_EQ(position.m_x, 3);
-	EXPECT_DOUBLE_EQ(position.m_y, 3);
+		Vector position = pMoveable->GetPosition();
+
+		EXPECT_DOUBLE_EQ(position.m_x, 3);
+		EXPECT_DOUBLE_EQ(position.m_y, 3);
+	}
 }
 
 TEST(Threadable, HardStopInner) {
-	UObject::Ptr pUObject = std::make_shared<UObject>();
-	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
-	pMoveable->SetPosition({ 1,2 });
-	pMoveable->SetVelocity({ 2,1 });
+	for (auto pQueue : tests) {
+		UObject::Ptr pUObject = std::make_shared<UObject>();
+		IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+		IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
-	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
-	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
-	IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
-	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
+		pMoveable->SetPosition({ 1,2 });
+		pMoveable->SetVelocity({ 2,1 });
 
-	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	IExecuteable::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pHardStopThread);
+		IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable, pQueue);
+		IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
+		IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
+		IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 
-	pStartThread->Execute();
-	pQueueMove->Execute();
-	pQueueHardStopThread->Execute();
-	pQueueMove->Execute();
-	pJoinThread->Execute();
+		IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+		IExecuteable::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pHardStopThread);
 
-	Vector position = pMoveable->GetPosition();
+		pStartThread->Execute();
+		pQueueMove->Execute();
+		pQueueHardStopThread->Execute();
+		pQueueMove->Execute();
+		pJoinThread->Execute();
 
-	EXPECT_DOUBLE_EQ(position.m_x, 3);
-	EXPECT_DOUBLE_EQ(position.m_y, 3);
+		Vector position = pMoveable->GetPosition();
+
+		EXPECT_DOUBLE_EQ(position.m_x, 3);
+		EXPECT_DOUBLE_EQ(position.m_y, 3);
+	}
 }
 
 TEST(Threadable, HardStopOuter) {
-	UObject::Ptr pUObject = std::make_shared<UObject>();
-	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
-	std::mutex lock;
-	std::condition_variable cv;
-	bool pulse = false;
+	for (auto pQueue : tests) {
+		UObject::Ptr pUObject = std::make_shared<UObject>();
+		IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+		IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
-	pMoveable->SetPosition({ 1,2 });
-	pMoveable->SetVelocity({ 2,1 });
+		std::mutex lock;
+		std::condition_variable cv;
+		bool pulse = false;
 
-	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
-	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
-	IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
-	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
-	IExecuteable::Ptr pFence = std::make_shared<Generic>(pUObject, [&](UObject::Ptr) {
+		pMoveable->SetPosition({ 1,2 });
+		pMoveable->SetVelocity({ 2,1 });
+
+		IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable, pQueue);
+		IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
+		IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
+		IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
+		IExecuteable::Ptr pFence = std::make_shared<Generic>(pUObject, [&](UObject::Ptr) {
+			{
+				std::unique_lock<std::mutex> ul(lock);
+				cv.wait(ul, [&] {return pulse; });
+				pulse = false;
+			}
+			cv.notify_one();
+			{
+				std::unique_lock<std::mutex> ul(lock);
+				cv.wait(ul, [&] {return pulse; });
+			}
+			});
+
+		IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+		IExecuteable::Ptr pQueueFence = std::make_shared<QueueCommand>(pThreadable, pFence);
+
+		pStartThread->Execute();
+		pQueueMove->Execute();
+		pQueueFence->Execute();
+		pQueueMove->Execute();
+
 		{
-			std::unique_lock<std::mutex> ul(lock);
-			cv.wait(ul, [&] {return pulse; });
-			pulse = false;
+			std::lock_guard<std::mutex> lg(lock);
+			pulse = true;
 		}
 		cv.notify_one();
 		{
 			std::unique_lock<std::mutex> ul(lock);
-			cv.wait(ul, [&] {return pulse; });
+			cv.wait(ul, [&] {return !pulse; });
+			pulse = true;
+			pHardStopThread->Execute();
 		}
-		});
+		cv.notify_one();
 
-	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	IExecuteable::Ptr pQueueFence = std::make_shared<QueueCommand>(pThreadable, pFence);
+		pJoinThread->Execute();
 
-	pStartThread->Execute();
-	pQueueMove->Execute();
-	pQueueFence->Execute();
-	pQueueMove->Execute();
+		Vector position = pMoveable->GetPosition();
 
-	{
-		std::lock_guard<std::mutex> lg(lock);
-		pulse = true;
+		EXPECT_DOUBLE_EQ(position.m_x, 3);
+		EXPECT_DOUBLE_EQ(position.m_y, 3);
 	}
-	cv.notify_one();
-	{
-		std::unique_lock<std::mutex> ul(lock);
-		cv.wait(ul, [&] {return !pulse; });
-		pulse = true;
-		pHardStopThread->Execute();
-	}
-	cv.notify_one();
-
-	pJoinThread->Execute();
-
-	Vector position = pMoveable->GetPosition();
-
-	EXPECT_DOUBLE_EQ(position.m_x, 3);
-	EXPECT_DOUBLE_EQ(position.m_y, 3);
 }
 
 TEST(Threadable, SoftStopInner) {
-	UObject::Ptr pUObject = std::make_shared<UObject>();
-	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
-	pMoveable->SetPosition({ 1,2 });
-	pMoveable->SetVelocity({ 2,1 });
+	for (auto pQueue : tests) {
+		UObject::Ptr pUObject = std::make_shared<UObject>();
+		IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+		IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
-	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
-	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
-	IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
-	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
+		pMoveable->SetPosition({ 1,2 });
+		pMoveable->SetVelocity({ 2,1 });
 
-	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	IExecuteable::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pSoftStopThread);
+		IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable, pQueue);
+		IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
+		IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
+		IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
 
-	pStartThread->Execute();
-	pQueueMove->Execute();
-	pQueueHardStopThread->Execute();
-	pQueueMove->Execute();
-	pJoinThread->Execute();
+		IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+		IExecuteable::Ptr pQueueHardStopThread = std::make_shared<QueueCommand>(pThreadable, pSoftStopThread);
 
-	Vector position = pMoveable->GetPosition();
+		pStartThread->Execute();
+		pQueueMove->Execute();
+		pQueueHardStopThread->Execute();
+		pQueueMove->Execute();
+		pJoinThread->Execute();
 
-	EXPECT_DOUBLE_EQ(position.m_x, 5);
-	EXPECT_DOUBLE_EQ(position.m_y, 4);
+		Vector position = pMoveable->GetPosition();
+
+		EXPECT_DOUBLE_EQ(position.m_x, 5);
+		EXPECT_DOUBLE_EQ(position.m_y, 4);
+	}
 }
 
 TEST(Threadable, SoftStopOuter) {
-	UObject::Ptr pUObject = std::make_shared<UObject>();
-	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
-	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
+	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
-	std::mutex lock;
-	std::condition_variable cv;
-	bool pulse = false;
+	for (auto pQueue : tests) {
+		UObject::Ptr pUObject = std::make_shared<UObject>();
+		IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pUObject);
+		IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
 
-	pMoveable->SetPosition({ 1,2 });
-	pMoveable->SetVelocity({ 2,1 });
+		std::mutex lock;
+		std::condition_variable cv;
+		bool pulse = false;
 
-	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
-	IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
-	IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
-	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
-	IExecuteable::Ptr pFence = std::make_shared<Generic>(pUObject, [&](UObject::Ptr) {
+		pMoveable->SetPosition({ 1,2 });
+		pMoveable->SetVelocity({ 2,1 });
+
+		IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable, pQueue);
+		IExecuteable::Ptr pMove = std::make_shared<Move>(pMoveable);
+		IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
+		IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);
+		IExecuteable::Ptr pFence = std::make_shared<Generic>(pUObject, [&](UObject::Ptr) {
+			{
+				std::unique_lock<std::mutex> ul(lock);
+				cv.wait(ul, [&] {return pulse; });
+				pulse = false;
+			}
+			cv.notify_one();
+			{
+				std::unique_lock<std::mutex> ul(lock);
+				cv.wait(ul, [&] {return pulse; });
+			}
+			});
+
+		IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
+		IExecuteable::Ptr pQueueFence = std::make_shared<QueueCommand>(pThreadable, pFence);
+
+		pStartThread->Execute();
+		pQueueMove->Execute();
+		pQueueFence->Execute();
+		pQueueMove->Execute();
+
 		{
-			std::unique_lock<std::mutex> ul(lock);
-			cv.wait(ul, [&] {return pulse; });
-			pulse = false;
+			std::lock_guard<std::mutex> lg(lock);
+			pulse = true;
 		}
 		cv.notify_one();
 		{
 			std::unique_lock<std::mutex> ul(lock);
-			cv.wait(ul, [&] {return pulse; });
+			cv.wait(ul, [&] {return !pulse; });
+			pulse = true;
+			pSoftStopThread->Execute();
 		}
-		});
+		cv.notify_one();
 
-	IExecuteable::Ptr pQueueMove = std::make_shared<QueueCommand>(pThreadable, pMove);
-	IExecuteable::Ptr pQueueFence = std::make_shared<QueueCommand>(pThreadable, pFence);
+		pJoinThread->Execute();
 
-	pStartThread->Execute();
-	pQueueMove->Execute();
-	pQueueFence->Execute();
-	pQueueMove->Execute();
+		Vector position = pMoveable->GetPosition();
 
-	{
-		std::lock_guard<std::mutex> lg(lock);
-		pulse = true;
+		EXPECT_DOUBLE_EQ(position.m_x, 5);
+		EXPECT_DOUBLE_EQ(position.m_y, 4);
 	}
-	cv.notify_one();
-	{
-		std::unique_lock<std::mutex> ul(lock);
-		cv.wait(ul, [&] {return !pulse; });
-		pulse = true;
-		pSoftStopThread->Execute();
-	}
-	cv.notify_one();
-
-	pJoinThread->Execute();
-
-	Vector position = pMoveable->GetPosition();
-
-	EXPECT_DOUBLE_EQ(position.m_x, 5);
-	EXPECT_DOUBLE_EQ(position.m_y, 4);
 }

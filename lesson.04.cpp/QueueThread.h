@@ -6,13 +6,16 @@
 #include <functional>
 #include <memory>
 
-template<class T, template<class> class Q>
+#include "Queue.h"
+
+template<class T>
 class QueueThread {
 public:
 	typedef std::shared_ptr<QueueThread> Ptr;
 
 protected:
-	Q<T> m_queue;
+	typedef typename IQueue<T>::Ptr IQueuePtr;
+	IQueuePtr m_pQueue;
 
 	enum class Status {
 		Initial,
@@ -26,10 +29,10 @@ protected:
 	std::thread m_thread;
 
 public:
-	QueueThread() : m_status(Status::Initial) {}
+	QueueThread(IQueuePtr pQueue) : m_pQueue(pQueue), m_status(Status::Initial) {}
 
 	void Put(T item) {
-		while(!m_queue.Put(item)) {
+		while (!m_pQueue->Put(item)) {
 			{
 				std::unique_lock<std::mutex> ul(m_lock);
 				if (m_status != Status::Running)
@@ -37,12 +40,12 @@ public:
 				m_cv.wait(ul);
 			}
 		}
-		m_cv.notify_all ();
+		m_cv.notify_all();
 	}
 
 	void HardStop() {
 		T item;
-		while (m_queue.Get(item))
+		while (m_pQueue->Get(item))
 			;
 		{
 			std::lock_guard<std::mutex> lg(m_lock);
@@ -69,7 +72,7 @@ public:
 			}
 			for (;;) {
 				T item;
-				if (m_queue.Get(item)) {
+				if (m_pQueue->Get(item)) {
 					lambda(item);
 					m_cv.notify_all();
 				}

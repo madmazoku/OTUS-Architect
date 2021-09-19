@@ -6,7 +6,7 @@
 #include "QueueThread.h"
 #include "LockFreeRingArray.h"
 
-typedef QueueThread<IExecuteable::Ptr, LockFreeRingArray> ExecuteableQueue;
+typedef QueueThread<IExecuteable::Ptr> ExecuteableQueueThread;
 
 class IThreadable
 {
@@ -14,7 +14,7 @@ public:
 	typedef std::shared_ptr<IThreadable> Ptr;
 
 public:
-	virtual ExecuteableQueue::Ptr GetQueue() = 0;
-	virtual void SetQueue(ExecuteableQueue::Ptr) = 0;
-	virtual void RemoveQueue() = 0;
+	virtual ExecuteableQueueThread::Ptr GetQueueThread() = 0;
+	virtual void SetQueueThread(ExecuteableQueueThread::Ptr) = 0;
+	virtual void RemoveQueueThread() = 0;
 };

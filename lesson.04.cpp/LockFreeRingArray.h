@@ -4,8 +4,10 @@
 #include <array>
 #include <memory>
 
+#include "Queue.h"
+
 template<class T, unsigned int BITS = 8>
-class LockFreeRingArray {
+class LockFreeRingArray : public IQueue<T> {
 protected:
 	static const unsigned long g_SIZE = 1 << BITS;
 	static const unsigned long g_MASK = g_SIZE - 1;
@@ -20,7 +22,7 @@ public:
 			pItem = nullptr;
 	}
 
-	bool Put(T item) {
+	virtual bool Put(T item) override {
 		unsigned long write;
 		do {
 			write = m_write;
@@ -29,17 +31,16 @@ public:
 		} while (!m_buffer[write] && !m_write.compare_exchange_weak(write, write + 1));
 
 		m_buffer[write & g_MASK] = new T(item);
-		
+
 		return true;
 	}
 
-	bool Get(T& item) {
+	virtual bool Get(T& item) override {
 		unsigned long read;
 		do {
 			read = m_read;
 			if (read == m_write)
 				return false;
-
 		} while (m_buffer[read] && !m_read.compare_exchange_weak(read, read + 1));
 
 		T* pItem = m_buffer[read & g_MASK];

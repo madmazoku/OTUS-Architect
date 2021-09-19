@@ -13,13 +13,13 @@ protected:
 public:
 	ThreadableAdapter(UObject::Ptr pUObject) : m_pUObject(pUObject) {}
 
-	virtual ExecuteableQueue::Ptr GetQueue() override {
-		return std::any_cast<ExecuteableQueue::Ptr>(m_pUObject->GetProperty("executionableQueue"));
+	virtual ExecuteableQueueThread::Ptr GetQueueThread() override {
+		return std::any_cast<ExecuteableQueueThread::Ptr>(m_pUObject->GetProperty("executionableQueueThread"));
 	}
-	virtual void SetQueue(ExecuteableQueue::Ptr pExecutionableQueue) override {
-		m_pUObject->SetProperty("executionableQueue", pExecutionableQueue);
+	virtual void SetQueueThread(ExecuteableQueueThread::Ptr pExecutionableQueue) override {
+		m_pUObject->SetProperty("executionableQueueThread", pExecutionableQueue);
 	}
-	virtual void RemoveQueue() override {
-		m_pUObject->RemoveProperty("executionableQueue");
+	virtual void RemoveQueueThread() override {
+		m_pUObject->RemoveProperty("executionableQueueThread");
 	}
 };

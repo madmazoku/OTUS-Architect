@@ -12,8 +12,8 @@ public:
 	JoinThread(IThreadable::Ptr threadable) : m_threadable(threadable) {}
 
 	void Execute() override {
-		ExecuteableQueue::Ptr pQueue = m_threadable->GetQueue();
+		ExecuteableQueueThread::Ptr pQueue = m_threadable->GetQueueThread();
 		pQueue->Join();
-		m_threadable->RemoveQueue();
+		m_threadable->RemoveQueueThread();
 	}
 };

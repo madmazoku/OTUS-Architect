@@ -3,30 +3,36 @@
 #include "IThreadable.h"
 #include "../lesson.03.cpp/IExecuteable.h"
 
+#include "Queue.h"
+
 class StartThread : public IExecuteable
 {
 protected:
 	IThreadable::Ptr m_threadable;
+	IQueue<IExecuteable::Ptr>::Ptr m_pQueue;
 
 public:
-	StartThread(IThreadable::Ptr threadable) : m_threadable(threadable) {}
+	StartThread(
+		IThreadable::Ptr threadable,
+		IQueue<IExecuteable::Ptr>::Ptr pQueue
+	) : m_threadable(threadable), m_pQueue(pQueue) {}
 
 #pragma warning( push )
 #pragma warning(disable: 4101)
 
 	void Execute() override {
-		ExecuteableQueue::Ptr pQueue = std::make_shared<ExecuteableQueue>();
-		m_threadable->SetQueue(pQueue);
+		ExecuteableQueueThread::Ptr pQueueThread = std::make_shared<ExecuteableQueueThread>(m_pQueue);
+		m_threadable->SetQueueThread(pQueueThread);
 
-		pQueue->Run([](IExecuteable::Ptr pComand) { 
+		pQueueThread->Run([](IExecuteable::Ptr pComand) {
 			try {
 				pComand->Execute();
 			}
-			catch(...) {
+			catch (...) {
 				;
 			}
-		});
-		pQueue->Start();
+			});
+		pQueueThread->Start();
 	}
 
 #pragma warning( pop )

@@ -2,8 +2,10 @@
 
 #include <mutex>
 
+#include "Queue.h"
+
 template<class T>
-class TwoLockQueue
+class TwoLockQueue : public IQueue<T>
 {
 protected:
 	class Node {
@@ -33,7 +35,7 @@ public:
 		}
 	}
 
-	bool Put(T item) {
+	virtual bool Put(T item) override {
 		Node* pNode = new Node(item);
 		{
 			std::lock_guard<std::mutex> lg(m_lockTail);
@@ -42,7 +44,7 @@ public:
 		return true;
 	}
 
-	bool Get(T& item) {
+	virtual bool Get(T& item) override {
 		Node* pNode;
 		{
 			std::lock_guard<std::mutex> lg(m_lockHead);

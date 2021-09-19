@@ -14,7 +14,7 @@ public:
 	QueueCommand(IThreadable::Ptr threadable, IExecuteable::Ptr command) : m_threadable(threadable), m_command(command) {}
 
 	void Execute() override {
-		ExecuteableQueue::Ptr queue = m_threadable->GetQueue();
+		ExecuteableQueueThread::Ptr queue = m_threadable->GetQueueThread();
 		queue->Put(m_command);
 	}
 };

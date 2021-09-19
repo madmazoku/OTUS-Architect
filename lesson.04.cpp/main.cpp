@@ -17,14 +17,16 @@
 #include "../lesson.02.cpp/Vector.h"
 
 #include "QueueCommand.h"
-#include "TwoLockQueue.h"
+#include "Queue.h"
 #include "LockFreeRingArray.h"
 #include "TwoLockQueue.h"
+#include "QueueThread.h"
 #include <sstream>
 
 void queueThreadTest() {
-	//QueueThread<std::string, LockFreeRingArray> queueThread;
-	QueueThread<std::string, TwoLockQueue> queueThread;
+	//IQueue<std::string>::Ptr pQueue = std::make_shared<TwoLockQueue<std::string>>();
+	IQueue<std::string>::Ptr pQueue = std::make_shared<LockFreeRingArray<std::string>>();
+	QueueThread<std::string> queueThread(pQueue);
 	queueThread.Run([](std::string str) {
 		std::cout << "Thread: " << str << std::endl;
 		});
@@ -64,7 +66,10 @@ void commandTest()
 	IThreadable::Ptr pThreadable = std::make_shared<ThreadableAdapter>(pTank);
 	IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pTank);
 
-	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable);
+	IQueue<IExecuteable::Ptr>::Ptr pQueue = std::make_shared<TwoLockQueue<IExecuteable::Ptr>>();
+	//IQueue<IExecuteable::Ptr>::Ptr pQueue = std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>();
+
+	IExecuteable::Ptr pStartThread = std::make_shared<StartThread>(pThreadable, pQueue);
 	IExecuteable::Ptr pSoftStopThread = std::make_shared<SoftStopThread>(pThreadable);
 	IExecuteable::Ptr pHardStopThread = std::make_shared<HardStopThread>(pThreadable);
 	IExecuteable::Ptr pJoinThread = std::make_shared<JoinThread>(pThreadable);

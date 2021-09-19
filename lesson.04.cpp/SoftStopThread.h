@@ -12,7 +12,7 @@ public:
 	SoftStopThread(IThreadable::Ptr threadable) : m_threadable(threadable) {}
 
 	void Execute() override {
-		ExecuteableQueue::Ptr pQueue = m_threadable->GetQueue();
+		ExecuteableQueueThread::Ptr pQueue = m_threadable->GetQueueThread();
 		pQueue->SoftStop();
 	}
 };
