@@ -3,9 +3,10 @@
 #include <memory>
 
 #include "../lesson.03.cpp/IExecuteable.h"
-#include "Queue.h"
+#include "QueueThread.h"
+#include "TwoLockQueue.h"
 
-typedef ThreadQueue<IExecuteable::Ptr> ExecuteableQueue;
+typedef QueueThread<IExecuteable::Ptr, TwoLockQueue> ExecuteableQueue;
 
 class IThreadable
 {

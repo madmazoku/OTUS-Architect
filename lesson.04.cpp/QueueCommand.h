@@ -18,12 +18,7 @@ public:
 
 	void Execute() override {
 		ExecuteableQueue::Ptr queue = m_threadable->GetQueue();
-		try {
-			queue->Put(m_command);
-		}
-		catch (ExecuteableQueue::QueueStopException const& ex) {
-			;
-		}
+		queue->Put(m_command);
 	}
 
 #pragma warning( pop )

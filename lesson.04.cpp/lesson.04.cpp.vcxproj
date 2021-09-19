@@ -150,12 +150,13 @@
     <ClInclude Include="HardStopThread.h" />
     <ClInclude Include="IThreadable.h" />
     <ClInclude Include="JoinThread.h" />
-    <ClInclude Include="Queue.h" />
+    <ClInclude Include="QueueThread.h" />
     <ClInclude Include="QueueCommand.h" />
     <ClInclude Include="SoftStopThread.h" />
     <ClInclude Include="StartThread.h" />
     <ClInclude Include="ThreadableAdapter.h" />
     <ClInclude Include="Generic.h" />
+    <ClInclude Include="TwoLockQueue.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -16,7 +16,42 @@
 
 #include "../lesson.02.cpp/Vector.h"
 
-int main()
+#include "QueueCommand.h"
+#include "TwoLockQueue.h"
+#include <sstream>
+
+void queueThreadTest() {
+	QueueThread<std::string, TwoLockQueue> queueThread;
+	queueThread.Run([](std::string str) {
+		std::cout << "Thread: " << str << std::endl;
+		});
+	queueThread.Start();
+
+	std::thread threads[5];
+	for (int i = 0; i < 5; ++i)
+		threads[i] = std::thread([i, &queueThread] {
+		for (int j = 0; j < 5; ++j) {
+			std::stringstream ss;
+			ss << "thid: " << i << "; try: " << j;
+			queueThread.Put(ss.str());
+			std::this_thread::sleep_for(std::chrono::milliseconds(i * j));
+		}
+			});
+
+	queueThread.Put("A");
+	std::cout << "Fence" << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	queueThread.Put("B");
+	queueThread.Put("C");
+
+	queueThread.SoftStop();
+	queueThread.Join();
+
+	for (int i = 0; i < 5; ++i)
+		threads[i].join();
+}
+
+void commandTest()
 {
 	UObject::Ptr pTank = std::make_shared<UObject>();
 	pTank->SetProperty("position", Vector({ 1,2 }));
@@ -56,4 +91,9 @@ int main()
 	pJoinThread->Execute();
 
 	std::cout << "Postion #3: " << pMoveable->GetPosition() << std::endl;
+}
+
+int main() {
+	queueThreadTest();
+	commandTest();
 }
