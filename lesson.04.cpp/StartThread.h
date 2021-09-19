@@ -18,7 +18,14 @@ public:
 		ExecuteableQueue::Ptr pQueue = std::make_shared<ExecuteableQueue>();
 		m_threadable->SetQueue(pQueue);
 
-		pQueue->Run([](IExecuteable::Ptr pComand) { pComand->Execute(); });
+		pQueue->Run([](IExecuteable::Ptr pComand) { 
+			try {
+				pComand->Execute();
+			}
+			catch(...) {
+				;
+			}
+		});
 		pQueue->Start();
 	}
 
