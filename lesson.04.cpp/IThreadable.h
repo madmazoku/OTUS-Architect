@@ -4,9 +4,9 @@
 
 #include "../lesson.03.cpp/IExecuteable.h"
 #include "QueueThread.h"
-#include "TwoLockQueue.h"
+#include "LockFreeRingArray.h"
 
-typedef QueueThread<IExecuteable::Ptr, TwoLockQueue> ExecuteableQueue;
+typedef QueueThread<IExecuteable::Ptr, LockFreeRingArray> ExecuteableQueue;
 
 class IThreadable
 {

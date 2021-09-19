@@ -29,8 +29,15 @@ public:
 	QueueThread() : m_status(Status::Initial) {}
 
 	void Put(T item) {
-		m_queue.Put(item);
-		m_cv.notify_one();
+		while(!m_queue.Put(item)) {
+			{
+				std::unique_lock<std::mutex> ul(m_lock);
+				if (m_status != Status::Running)
+					break;
+				m_cv.wait(ul);
+			}
+		}
+		m_cv.notify_all ();
 	}
 
 	void HardStop() {
@@ -41,7 +48,7 @@ public:
 			std::lock_guard<std::mutex> lg(m_lock);
 			m_status = Status::Stopped;
 		}
-		m_cv.notify_one();
+		m_cv.notify_all();
 	}
 
 	void SoftStop() {
@@ -50,7 +57,7 @@ public:
 			std::lock_guard<std::mutex> lg(m_lock);
 			m_status = Status::Stopped;
 		}
-		m_cv.notify_one();
+		m_cv.notify_all();
 	}
 
 	void Run(std::function<void(T)> lambda) {
@@ -62,8 +69,10 @@ public:
 			}
 			for (;;) {
 				T item;
-				if (m_queue.Get(item))
+				if (m_queue.Get(item)) {
 					lambda(item);
+					m_cv.notify_all();
+				}
 				else {
 					std::unique_lock<std::mutex> ul(m_lock);
 					if (m_status != Status::Running)
@@ -79,7 +88,7 @@ public:
 			std::lock_guard<std::mutex> lg(m_lock);
 			m_status = Status::Running;
 		}
-		m_cv.notify_one();
+		m_cv.notify_all();
 	}
 
 	void Join() {

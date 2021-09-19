@@ -56,7 +56,7 @@
     <ClInclude Include="JoinThread.h">
       <Filter>Header Files\Command</Filter>
     </ClInclude>
-    <ClInclude Include="LockFreeQueue.h">
+    <ClInclude Include="LockFreeRingArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TwoLockQueue.h">

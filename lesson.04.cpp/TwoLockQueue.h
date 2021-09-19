@@ -33,12 +33,13 @@ public:
 		}
 	}
 
-	void Put(T item) {
+	bool Put(T item) {
 		Node* pNode = new Node(item);
 		{
 			std::lock_guard<std::mutex> lg(m_lockTail);
 			m_pTail = m_pTail->m_pNext = pNode;
 		}
+		return true;
 	}
 
 	bool Get(T& item) {

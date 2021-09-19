@@ -18,9 +18,12 @@
 
 #include "QueueCommand.h"
 #include "TwoLockQueue.h"
+#include "LockFreeRingArray.h"
+#include "TwoLockQueue.h"
 #include <sstream>
 
 void queueThreadTest() {
+	//QueueThread<std::string, LockFreeRingArray> queueThread;
 	QueueThread<std::string, TwoLockQueue> queueThread;
 	queueThread.Run([](std::string str) {
 		std::cout << "Thread: " << str << std::endl;
@@ -39,8 +42,9 @@ void queueThreadTest() {
 			});
 
 	queueThread.Put("A");
-	std::cout << "Fence" << std::endl;
+	std::cout << "Fence Start" << std::endl;
 	std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	std::cout << "Fence End" << std::endl;
 	queueThread.Put("B");
 	queueThread.Put("C");
 

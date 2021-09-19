@@ -146,7 +146,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="LockFreeQueue.h" />
+    <ClInclude Include="LockFreeRingArray.h" />
     <ClInclude Include="HardStopThread.h" />
     <ClInclude Include="IThreadable.h" />
     <ClInclude Include="JoinThread.h" />
