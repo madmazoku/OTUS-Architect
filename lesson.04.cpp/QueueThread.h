@@ -32,10 +32,10 @@ public:
 	QueueThread(IQueuePtr pQueue) : m_pQueue(pQueue), m_status(Status::Initial) {}
 
 	void Put(T item) {
-		while (!m_pQueue->Put(item)) {
+		while (m_status != Status::Stopped && !m_pQueue->Put(item)) {
 			{
 				std::unique_lock<std::mutex> ul(m_lock);
-				if (m_status != Status::Running)
+				if (m_status == Status::Stopped)
 					break;
 				m_cv.wait(ul);
 			}
@@ -78,7 +78,7 @@ public:
 				}
 				else {
 					std::unique_lock<std::mutex> ul(m_lock);
-					if (m_status != Status::Running)
+					if (m_status == Status::Stopped)
 						break;
 					m_cv.wait(ul);
 				}

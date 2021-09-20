@@ -11,11 +11,13 @@
 #include "../lesson.04.cpp/SoftStopThread.h"
 #include "../lesson.04.cpp/JoinThread.h"
 #include "../lesson.04.cpp/Generic.h"
+#include "../lesson.04.cpp/LockQueue.h"
 #include "../lesson.04.cpp/TwoLockQueue.h"
 #include "../lesson.04.cpp/LockFreeRingArray.h"
 
 TEST(Threadable, StartThread) {
 	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
@@ -46,6 +48,7 @@ TEST(Threadable, StartThread) {
 
 TEST(Threadable, HardStopInner) {
 	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
@@ -80,6 +83,7 @@ TEST(Threadable, HardStopInner) {
 
 TEST(Threadable, HardStopOuter) {
 	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
@@ -144,6 +148,7 @@ TEST(Threadable, HardStopOuter) {
 
 TEST(Threadable, SoftStopInner) {
 	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 
@@ -178,6 +183,7 @@ TEST(Threadable, SoftStopInner) {
 
 TEST(Threadable, SoftStopOuter) {
 	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
+	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
 

@@ -150,6 +150,7 @@
     <ClInclude Include="HardStopThread.h" />
     <ClInclude Include="IThreadable.h" />
     <ClInclude Include="JoinThread.h" />
+    <ClInclude Include="LockQueue.h" />
     <ClInclude Include="Queue.h" />
     <ClInclude Include="QueueThread.h" />
     <ClInclude Include="QueueCommand.h" />
