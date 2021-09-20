@@ -37,7 +37,7 @@ public:
 				std::unique_lock<std::mutex> ul(m_lock);
 				if (m_status == Status::Stopped)
 					break;
-				m_cv.wait(ul);
+				m_cv.wait_for(ul, std::chrono::milliseconds(1));
 			}
 		}
 		m_cv.notify_all();
@@ -80,7 +80,7 @@ public:
 					std::unique_lock<std::mutex> ul(m_lock);
 					if (m_status == Status::Stopped)
 						break;
-					m_cv.wait(ul);
+					m_cv.wait_for(ul, std::chrono::milliseconds(1));
 				}
 			}
 			});
