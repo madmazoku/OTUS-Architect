@@ -4,7 +4,7 @@
 #include <array>
 #include <memory>
 
-#include "Queue.h"
+#include "IQueue.h"
 
 template<class T, unsigned int BITS = 8>
 class LockFreeRingArray : public IQueue<T> {

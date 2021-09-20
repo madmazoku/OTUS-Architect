@@ -2,7 +2,7 @@
 
 #include <mutex>
 
-#include "Queue.h"
+#include "IQueue.h"
 
 template<class T>
 class LockQueue : public IQueue<T>

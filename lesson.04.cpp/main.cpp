@@ -17,7 +17,7 @@
 #include "../lesson.02.cpp/Vector.h"
 
 #include "QueueCommand.h"
-#include "Queue.h"
+#include "IQueue.h"
 #include "LockFreeRingArray.h"
 #include "TwoLockQueue.h"
 #include "QueueThread.h"

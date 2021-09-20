@@ -6,7 +6,7 @@
 #include <functional>
 #include <memory>
 
-#include "Queue.h"
+#include "IQueue.h"
 
 template<class T>
 class QueueThread {

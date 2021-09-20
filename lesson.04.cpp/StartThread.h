@@ -3,7 +3,7 @@
 #include "IThreadable.h"
 #include "../lesson.03.cpp/IExecuteable.h"
 
-#include "Queue.h"
+#include "IQueue.h"
 
 class StartThread : public IExecuteable
 {
