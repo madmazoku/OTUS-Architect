@@ -94,6 +94,8 @@ int main()
 		window.draw(*pSpriteOut);
 		window.display();
 
+		//std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+
 		//std::this_thread::sleep_for(std::chrono::milliseconds(200));
 
 		std::swap(pTextureIn, pTextureOut);
@@ -107,6 +109,25 @@ int main()
 			std::cout << "FPS: " << floor(fps) << std::endl;
 			lastTime = currentTime;
 			frameCount = 0;
+
+			sf::Image imageIn = pTextureIn->getTexture().copyToImage();
+			sf::Image imageOut = pTextureOut->getTexture().copyToImage();
+			const sf::Uint32* pBoardInPos = reinterpret_cast<const sf::Uint32*>(imageIn.getPixelsPtr());
+			const sf::Uint32* pBoardOutPos = reinterpret_cast<const sf::Uint32*>(imageOut.getPixelsPtr());
+			const sf::Uint32* pBoardInEnd = pBoardInPos + vmWindow.width * vmWindow.height;
+			long diffCells = 0;
+			long emptyCells = 0;
+			while (pBoardInPos < pBoardInEnd)
+				if (((*(pBoardInPos++) & 0xff) > 0x7f) != ((*(pBoardOutPos++) & 0xff) > 0x7f))
+					diffCells++;
+			float diffCellsPrc = diffCells * 100.0f / (vmWindow.width * vmWindow.height);
+			std::cout << "different cells: " << diffCells << " [ " << diffCellsPrc << "% ]" << std::endl;
+			if (diffCellsPrc < 0.9) {
+				fillRandomBoard(texture);
+				pTextureIn->clear();
+				pTextureIn->draw(sprite);
+				pTextureIn->display();
+			}
 		}
 	}
 }
