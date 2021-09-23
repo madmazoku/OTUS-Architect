@@ -71,5 +71,8 @@
     <ClInclude Include="IQueue.h">
       <Filter>Header Files\Interface</Filter>
     </ClInclude>
+    <ClInclude Include="SpinLockQueue.h">
+      <Filter>Header Files\Queue</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

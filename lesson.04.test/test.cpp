@@ -14,12 +14,14 @@
 #include "../lesson.04.cpp/LockQueue.h"
 #include "../lesson.04.cpp/TwoLockQueue.h"
 #include "../lesson.04.cpp/LockFreeRingArray.h"
+#include "../lesson.04.cpp/SpinLockQueue.h"
 
 TEST(Threadable, StartThread) {
 	std::list<IQueue<IExecuteable::Ptr>::Ptr> tests;
 	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<SpinLockQueue<IExecuteable::Ptr>>());
 
 	for (auto pQueue : tests) {
 		UObject::Ptr pUObject = std::make_shared<UObject>();
@@ -51,6 +53,7 @@ TEST(Threadable, HardStopInner) {
 	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<SpinLockQueue<IExecuteable::Ptr>>());
 
 	for (auto pQueue : tests) {
 		UObject::Ptr pUObject = std::make_shared<UObject>();
@@ -86,6 +89,7 @@ TEST(Threadable, HardStopOuter) {
 	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<SpinLockQueue<IExecuteable::Ptr>>());
 
 	for (auto pQueue : tests) {
 		UObject::Ptr pUObject = std::make_shared<UObject>();
@@ -151,6 +155,7 @@ TEST(Threadable, SoftStopInner) {
 	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<SpinLockQueue<IExecuteable::Ptr>>());
 
 	for (auto pQueue : tests) {
 		UObject::Ptr pUObject = std::make_shared<UObject>();
@@ -186,6 +191,7 @@ TEST(Threadable, SoftStopOuter) {
 	tests.push_back(std::make_shared<LockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<TwoLockQueue<IExecuteable::Ptr>>());
 	tests.push_back(std::make_shared<LockFreeRingArray<IExecuteable::Ptr>>());
+	tests.push_back(std::make_shared<SpinLockQueue<IExecuteable::Ptr>>());
 
 	for (auto pQueue : tests) {
 		UObject::Ptr pUObject = std::make_shared<UObject>();
