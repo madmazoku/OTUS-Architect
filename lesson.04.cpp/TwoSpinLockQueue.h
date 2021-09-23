@@ -21,6 +21,19 @@ public:
 	}
 };
 
+class SpinLockGuard {
+protected:
+	SpinLock& m_lock;
+
+public:
+	SpinLockGuard(SpinLock& lock) : m_lock(lock) {
+		m_lock.lock();
+	}
+	~SpinLockGuard() {
+		m_lock.unlock();
+	}
+};
+
 template<class T>
 class TwoSpinLockQueue : public IQueue<T>
 {
@@ -54,25 +67,25 @@ public:
 
 	virtual bool Put(T item) override {
 		Node* pNode = new Node(item);
-		m_lockTail.lock();
-		m_pTail = m_pTail->m_pNext = pNode;
-		m_lockTail.unlock();
+		{
+			SpinLockGuard lg(m_lockTail);
+			m_pTail = m_pTail->m_pNext = pNode;
+		}
 		return true;
 	}
 
 	virtual bool Get(T& item) override {
 		Node* pNode;
-		m_lockHead.lock();
-		pNode = m_pHead;
-		Node* pHeadNew = pNode->m_pNext;
-		if (pHeadNew == nullptr) {
-			m_lockHead.unlock();
-			return false;
+		{
+			SpinLockGuard lg(m_lockHead);
+			pNode = m_pHead;
+			Node* pHeadNew = pNode->m_pNext;
+			if (pHeadNew == nullptr)
+				return false;
+			item = pHeadNew->m_item;
+			pHeadNew->m_item = T();
+			m_pHead = pHeadNew;
 		}
-		item = pHeadNew->m_item;
-		pHeadNew->m_item = T();
-		m_pHead = pHeadNew;
-		m_lockHead.unlock();
 		delete pNode;
 		return true;
 	}
