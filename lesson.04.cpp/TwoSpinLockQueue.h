@@ -5,27 +5,24 @@
 
 class SpinLock
 {
+protected:
+	std::atomic_flag m_locked;
+
 public:
-	void lock()
-	{
-		while (true)
-		{
+	void lock() {
+		while (true) {
 			if (!m_locked.test_and_set(std::memory_order_acquire))
-				return;
+				break;
 			std::this_thread::sleep_for(std::chrono::nanoseconds(250));
 		}
 	}
-	void unlock()
-	{
+	void unlock() {
 		m_locked.clear(std::memory_order_release);
 	}
-
-private:
-	std::atomic_flag m_locked;
 };
 
 template<class T>
-class SpinLockQueue : public IQueue<T>
+class TwoSpinLockQueue : public IQueue<T>
 {
 protected:
 	class Node {
@@ -44,10 +41,10 @@ protected:
 	SpinLock m_lockTail;
 
 public:
-	SpinLockQueue() {
+	TwoSpinLockQueue() {
 		m_pHead = m_pTail = new Node();
 	}
-	~SpinLockQueue() {
+	~TwoSpinLockQueue() {
 		while (m_pHead != nullptr) {
 			Node* pNext = m_pHead;
 			m_pHead = pNext->m_pNext;

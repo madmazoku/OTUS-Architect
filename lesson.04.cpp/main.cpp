@@ -22,14 +22,14 @@
 #include "TwoLockQueue.h"
 #include "QueueThread.h"
 #include "LockQueue.h"
-#include "SpinLockQueue.h"
+#include "TwoSpinLockQueue.h"
 #include <sstream>
 
 void queueThreadTest() {
 	//IQueue<std::string>::Ptr pQueue = std::make_shared<TwoLockQueue<std::string>>();
 	//IQueue<std::string>::Ptr pQueue = std::make_shared<LockFreeRingArray<std::string>>();
 	//IQueue<std::string>::Ptr pQueue = std::make_shared<LockQueue<std::string>>();
-	IQueue<std::string>::Ptr pQueue = std::make_shared<SpinLockQueue<std::string>>();
+	IQueue<std::string>::Ptr pQueue = std::make_shared<TwoSpinLockQueue<std::string>>();
 	QueueThread<std::string> queueThread(pQueue);
 	queueThread.Run([](std::string str) {
 		std::cout << "Thread: " << str << std::endl;

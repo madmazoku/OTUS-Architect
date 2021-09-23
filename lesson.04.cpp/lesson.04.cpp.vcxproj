@@ -155,7 +155,7 @@
     <ClInclude Include="QueueThread.h" />
     <ClInclude Include="QueueCommand.h" />
     <ClInclude Include="SoftStopThread.h" />
-    <ClInclude Include="SpinLockQueue.h" />
+    <ClInclude Include="TwoSpinLockQueue.h" />
     <ClInclude Include="StartThread.h" />
     <ClInclude Include="ThreadableAdapter.h" />
     <ClInclude Include="Generic.h" />
