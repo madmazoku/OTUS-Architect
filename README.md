@@ -17,3 +17,6 @@ lesson 04 homework : command queue execute commands in its own thread
 
 ## lesson.05.cpp
 Convey's Live (with age) in graphic mode with SFML 2.5.1 library
+
+## lesson.06.cpp
+Convey's Live (with age) on GLSL
