@@ -21,6 +21,12 @@ protected:
 
 public:
 
+	bool HasProperty(const std::string& key) const {
+		std::shared_lock<std::shared_mutex> sl(m_lock);
+
+		str2value::const_iterator it = m_properties.find(key);
+		return it != m_properties.end();
+	}
 	const std::any& GetProperty(const std::string& key) const {
 		std::shared_lock<std::shared_mutex> sl(m_lock);
 

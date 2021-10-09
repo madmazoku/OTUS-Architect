@@ -14,4 +14,5 @@ public:
 	virtual void SetVelocity(const Vector& velocity) = 0;
 
 	virtual double GetAngleVelocity() const = 0;
+	virtual void SetAngleVelocity(double) = 0;
 };

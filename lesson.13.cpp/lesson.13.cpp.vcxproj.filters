@@ -13,10 +13,51 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Adapter">
+      <UniqueIdentifier>{ffc39bf6-407b-4102-b50f-cead09be05d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{67383392-0159-4e10-9441-e3709ea67cc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{f597759d-dd9e-4e30-aeaa-c7de5ba654a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IFuelable.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="FuelableAdapter.h">
+      <Filter>Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="CheckFuelCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BurnFuelCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="MacroCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="IDirectionRotateable.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionRotate.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionRotateableAdapter.h">
+      <Filter>Adapter</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeVelocityCommand.h">
+      <Filter>Command</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

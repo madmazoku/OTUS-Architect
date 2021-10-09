@@ -21,4 +21,7 @@ public:
 	virtual double GetAngleVelocity() const override {
 		return std::any_cast<double>(m_pUObject->GetProperty("angleVelocity"));
 	}
+	virtual void SetAngleVelocity(double angleVelocity) override {
+		throw std::invalid_argument("angleVelocity");
+	}
 };
