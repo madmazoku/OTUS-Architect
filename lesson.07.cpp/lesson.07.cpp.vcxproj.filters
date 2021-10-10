@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shader Files">
+      <UniqueIdentifier>{4ea61364-9c58-4d1d-86c0-7716def3581a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Asset Files">
+      <UniqueIdentifier>{9e44ceb2-c1f0-4061-8b86-d2d199689854}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -20,8 +26,22 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="tank.bmp">
+    <CopyFileToFolders Include="tank.png">
       <Filter>Resource Files</Filter>
-    </Image>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="shell.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="pixelate.frag">
+      <Filter>Shader Files</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shell.aseprite">
+      <Filter>Asset Files</Filter>
+    </None>
+    <None Include="tank.aseprite">
+      <Filter>Asset Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
