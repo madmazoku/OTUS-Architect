@@ -16,7 +16,14 @@ lesson 03 homework : move and rotate tank
 lesson 04 homework : command queue execute commands in its own thread
 
 ## lesson.05.cpp
-Convey's Live (with age) in graphic mode with SFML 2.5.1 library
+Convey's Live (with age) in graphic mode with SFML 2.5.1 library on CPU
 
 ## lesson.06.cpp
 Convey's Live (with age) on GLSL
+
+## lesson.07.cpp
+Crude tank game with some GLSL shader 
+
+## lesson.13.cpp
+lesson 13 homework : macro commands
+
