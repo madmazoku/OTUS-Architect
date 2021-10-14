@@ -1,5 +1,6 @@
 #define _USE_MATH_DEFINES
 
+#include <random>
 #include <cmath>
 #include <iostream>
 #include <filesystem>
@@ -20,6 +21,25 @@ struct Shell {
 };
 
 const std::string g_projectName(PROJECT_NAME);
+
+int determineNearest(sf::Vector2f pos, sf::Vector2f* lightPos, const std::list<Shell> shellList, int count, int size) {
+	int found = 0;
+	for (const Shell& s : shellList) {
+		if (count + found < size)
+			lightPos[count + found++] = s.pos;
+		else {
+			float dist = sqr(pos.x - s.pos.x) + sqr(pos.y - s.pos.y);
+			for (int idx = count; idx < size; ++idx) {
+				float dist2 = sqr(pos.x - lightPos[idx].x) + sqr(pos.y - lightPos[idx].y);
+				if (dist2 > dist) {
+					lightPos[idx] = s.pos;
+					break;
+				}
+			}
+		}
+	}
+	return found;
+}
 
 int main()
 {
@@ -84,11 +104,47 @@ int main()
 
 	std::list<Shell> shellList;
 
+	/* MINE */
+	sf::Texture textureMineDiffuse;
+	if (!textureMineDiffuse.loadFromFile(g_projectName + "/mine_diffuse.png"))
+		throw std::runtime_error("can't load mine diffuse texture");
+
+	sf::Texture textureMineNormals;
+	if (!textureMineNormals.loadFromFile(g_projectName + "/mine_normals.png"))
+		throw std::runtime_error("can't load mine normals texture");
+
+	sf::Shader shaderNormals;
+	shaderNormals.loadFromFile(g_projectName + "/simple.vert", sf::Shader::Vertex);
+	shaderNormals.loadFromFile(g_projectName + "/simple.frag", sf::Shader::Fragment);
+	shaderNormals.setUniform("diffuse", textureMineDiffuse);
+	shaderNormals.setUniform("normals", textureMineNormals);
+	shaderNormals.setUniform("vmWindow", sf::Vector2f(float(vmWindow.width), float(vmWindow.height)));
+
+	sf::Sprite spriteMine(textureMineDiffuse, sf::IntRect(0, 0, 32, 32));
+	spriteMine.setOrigin(16, 16);
+	spriteMine.setScale(4.0f, 4.0f);
+	spriteMine.setPosition(100, 100);
+
+	std::list<sf::Vector2f> minesList;
+	std::random_device rd;
+	std::default_random_engine re(rd());
+	std::uniform_int_distribution<int> ud_x(1, (vmWindow.width >> 7) - 1);
+	std::uniform_int_distribution<int> ud_y(1, (vmWindow.height >> 7) - 1);
+	//for (int y = 0; y < 10; ++y)
+	//	for (int x = 0; x < 10; ++x)
+	//		minesList.push_back(sf::Vector2f(x * 128.0f, y * 128.0f));
+	for (int idx = 0; idx < 15; ++idx)
+		minesList.push_back(sf::Vector2f(ud_x(re) * 128.0f, ud_y(re) * 128.0f));
+
+	/* \MINE */
+
 	sf::Clock clock;
 	sf::Time lastTime = clock.getElapsedTime();
 	sf::Time prevTime = clock.getElapsedTime();
 	sf::Time lastShootTime = clock.getElapsedTime();
 	long frameCount = 0;
+
+	sf::Vector2f lightPos[16];
 
 	while (window.isOpen())
 	{
@@ -99,17 +155,28 @@ int main()
 				window.close();
 		}
 
-		textureRender.clear();
+		textureRender.clear(sf::Color(0x7f, 0x7f, 0x7f));
+
+		sf::Vector2f tankPos = spriteTank.getPosition();
+		lightPos[0] = tankPos;
+		for (const sf::Vector2f& v : minesList) {
+			int lightCount = determineNearest(spriteMine.getPosition(), lightPos, shellList, 1, 16) + 1;
+			shaderNormals.setUniformArray("lightPos", lightPos, lightCount);
+			shaderNormals.setUniform("lightCount", lightCount);
+			spriteMine.setPosition(v);
+			textureRender.draw(spriteMine, &shaderNormals);
+		}
+
 		textureRender.draw(spriteTank);
 		for (Shell& s : shellList) {
 			spriteShell.setPosition(s.pos);
 			spriteShell.setRotation(s.angle);
-			spriteShell.setTextureRect(sf::IntRect(10 * static_cast<int>(3.0f - s.totalMove) + 1, 1, 8, 8));
+			spriteShell.setTextureRect(sf::IntRect(10 * static_cast<int>(s.totalMove) + 1, 1, 8, 8));
 			textureRender.draw(spriteShell);
 		}
 		textureRender.display();
 
-		window.clear();
+		window.clear(sf::Color(0x7f, 0x7f, 0x7f));
 		window.draw(spriteRender);
 		window.draw(spriteRender, &shaderPixelate);
 		window.display();
@@ -139,22 +206,22 @@ int main()
 				stepMove * std::sinf(spriteTank.getRotation() * float(M_PI / 180.0)),
 				-stepMove * std::cosf(spriteTank.getRotation() * float(M_PI / 180.0))
 			);
-			totalMove += stepMove;
+			totalMove += stepMove * 0.25f;
 			while (totalMove >= 3.0f)
 				totalMove -= 3.0f;
-			spriteTank.setTextureRect(sf::IntRect(34 * static_cast<int>(3.0f - totalMove) + 1, 1, 32, 32));
+			spriteTank.setTextureRect(sf::IntRect(34 * static_cast<int>(totalMove) + 1, 1, 32, 32));
 			spriteTank.move(move);
 		}
 
 		for (Shell& s : shellList) {
 			s.pos.x += s.move.x * timeTickSecond;
 			s.pos.y += s.move.y * timeTickSecond;
-			s.totalMove += s.moveLen * timeTickSecond;
+			s.totalMove += s.moveLen * timeTickSecond * 0.25f;
 			while (s.totalMove >= 3.0f)
 				s.totalMove -= 3.0f;
 		}
 		shellList.remove_if([&vmWindow](const Shell& s) {
-			return s.pos.x < -8.0f || s.pos.y < -8.0f || s.pos.x > vmWindow.width + 8.0f || s.pos.y > vmWindow.height + 8.0f;
+			return s.pos.x < -1280.0f || s.pos.y < -1280.0f || s.pos.x > vmWindow.width + 1280.0f || s.pos.y > vmWindow.height + 1280.0f;
 			});
 
 		float shootDiffSecond = currentTime.asSeconds() - lastShootTime.asSeconds();

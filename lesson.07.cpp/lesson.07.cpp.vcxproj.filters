@@ -35,6 +35,27 @@
     <CopyFileToFolders Include="pixelate.frag">
       <Filter>Shader Files</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="normals.frag">
+      <Filter>Shader Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="mine_diffuse.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="mine_normals.png">
+      <Filter>Resource Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="shader.vert">
+      <Filter>Shader Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="simple.frag">
+      <Filter>Shader Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="simple.geom">
+      <Filter>Shader Files</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="simple.vert">
+      <Filter>Shader Files</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <None Include="shell.aseprite">
