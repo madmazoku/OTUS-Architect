@@ -24,6 +24,8 @@ Convey's Live (with age) on GLSL
 ## lesson.07.cpp
 Crude tank game with some GLSL shader 
 
-## lesson.13.cpp
+## lesson.13.cpp / lesson.13.test
 lesson 13 homework : macro commands
 
+## lesson.14.cpp
+lesson 14 homework : abstract fabric
