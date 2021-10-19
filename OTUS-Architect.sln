@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson.13.test", "lesson.13
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson.14.cpp", "lesson.14.cpp\lesson.14.cpp.vcxproj", "{1D154027-A20D-4E10-85B4-9C57C8933C24}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lesson.14.test", "lesson.14.test\lesson.14.test.vcxproj", "{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -375,6 +377,30 @@ Global
 		{1D154027-A20D-4E10-85B4-9C57C8933C24}.Release|x64.Build.0 = Release|x64
 		{1D154027-A20D-4E10-85B4-9C57C8933C24}.Release|x86.ActiveCfg = Release|Win32
 		{1D154027-A20D-4E10-85B4-9C57C8933C24}.Release|x86.Build.0 = Release|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|ARM.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|ARM64.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|Gaming.Desktop.x64.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|x64.ActiveCfg = Debug|x64
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|x64.Build.0 = Debug|x64
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|x86.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Debug|x86.Build.0 = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|ARM.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|ARM.Build.0 = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|ARM64.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|ARM64.Build.0 = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|Gaming.Desktop.x64.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|Gaming.Desktop.x64.Build.0 = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|x64.ActiveCfg = Debug|x64
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|x64.Build.0 = Debug|x64
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|x86.ActiveCfg = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Profile|x86.Build.0 = Debug|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|ARM.ActiveCfg = Release|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|ARM64.ActiveCfg = Release|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|Gaming.Desktop.x64.ActiveCfg = Release|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|x64.ActiveCfg = Release|x64
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|x64.Build.0 = Release|x64
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|x86.ActiveCfg = Release|Win32
+		{67DB81BE-C00C-421A-99AE-0A24DD80AE1D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -22,7 +22,7 @@
     <Filter Include="Sort\Compare">
       <UniqueIdentifier>{29bb613c-5493-474c-9f47-5b902760dbef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UniversalFabric">
+    <Filter Include="Fabric">
       <UniqueIdentifier>{24bd5787-1892-4775-8515-7fe1f1a737cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -78,19 +78,19 @@
       <Filter>Sort\Compare</Filter>
     </ClInclude>
     <ClInclude Include="ICommand.h">
-      <Filter>UniversalFabric</Filter>
+      <Filter>Fabric</Filter>
     </ClInclude>
     <ClInclude Include="Fabric.h">
-      <Filter>UniversalFabric</Filter>
+      <Filter>Fabric</Filter>
     </ClInclude>
     <ClInclude Include="AppFabric.h">
-      <Filter>UniversalFabric</Filter>
+      <Filter>Fabric</Filter>
     </ClInclude>
     <ClInclude Include="AsNumberCompare.h">
       <Filter>Sort\Compare</Filter>
     </ClInclude>
     <ClInclude Include="ConfigFabric.h">
-      <Filter>UniversalFabric</Filter>
+      <Filter>Fabric</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
