@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ISort&lt;T&gt;" Collapsed="true">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BubbleSort&lt;T&gt;" Collapsed="true">
+    <Position X="0.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAQAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>BubbleSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeapSort&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAQAAQAAAAAAAABAEAAAAAAAEA=</HashCode>
+      <FileName>HeapSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InsertionSort&lt;T&gt;" Collapsed="true">
+    <Position X="5.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>InsertionSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MergeSort&lt;T&gt;" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAIAAAAAAQAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>MergeSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QuickSort&lt;T&gt;" Collapsed="true">
+    <Position X="9.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAEg=</HashCode>
+      <FileName>QuickSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SelectionSort&lt;T&gt;" Collapsed="true">
+    <Position X="12" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAQAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>SelectionSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShellSort&lt;T&gt;" Collapsed="true">
+    <Position X="14.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAEAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>ShellSort.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ISequence" Collapsed="true">
+    <Position X="2.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISequence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BinarySequence" Collapsed="true">
+    <Position X="0.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>BinarySequence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GonnetSequence" Collapsed="true">
+    <Position X="2.75" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>GonnetSequence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KnuthSequence" Collapsed="true">
+    <Position X="5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>KnuthSequence.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICompare&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>ICompare.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AsNumberCompare" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAEA=</HashCode>
+      <FileName>AsNumberCompare.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DefaultCompare&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>DefaultCompare.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InverseCompare&lt;T&gt;" Collapsed="true">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAEA=</HashCode>
+      <FileName>InverseCompare.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Fabric" Collapsed="true">
+    <Position X="9.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QEIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Fabric.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AppFabric" Collapsed="true">
+    <Position X="8.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppFabric.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConfigFabric" Collapsed="true">
+    <Position X="10.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAgAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>ConfigFabric.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ICommand" Collapsed="true">
+    <Position X="11.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ICommand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
