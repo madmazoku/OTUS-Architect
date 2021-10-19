@@ -5,6 +5,6 @@
 class CommandException : public std::invalid_argument
 {
 public:
-	explicit CommandException(const std::string& _Message) : invalid_argument(_Message.c_str()) {}
-	explicit CommandException(const char* _Message) : invalid_argument(_Message) {}
+	explicit CommandException(const std::string& message) : invalid_argument(message.c_str()) {}
+	explicit CommandException(const char* message) : invalid_argument(message) {}
 };

@@ -36,7 +36,7 @@ int main()
 	IExecuteable::Ptr changeVelocity = std::make_shared<ChangeVelocityCommand>(moveable, directionRotateable);
 	IExecuteable::Ptr burnFuel = std::make_shared<BurnFuelCommand>(fuelable);
 
-	MacroCommand::CommandList commands;
+	MacroCommand::Commands commands;
 	commands.push_back(checkFuel);
 	commands.push_back(directionRotate);
 	commands.push_back(changeVelocity);

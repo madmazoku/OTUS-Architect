@@ -16,7 +16,7 @@ public:
 
 	Vector operator*(double d) const { return Vector(m_x * d, m_y * d); }
 
-	double operator!() const { return sqrt(m_x * m_x + m_y * m_y); }
+	double Length() const { return sqrt(m_x * m_x + m_y * m_y); }
 
 	Vector operator/(double d) const { return Vector(m_x / d, m_y / d); }
 

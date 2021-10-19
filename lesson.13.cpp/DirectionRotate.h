@@ -1,5 +1,7 @@
 #pragma once
+
 #include <cmath>
+#include <utility>
 
 #include "../lesson.03.cpp/IExecuteable.h"
 #include "IDirectionRotateable.h"
@@ -10,7 +12,7 @@ protected:
 	IDirectionRotateable::Ptr m_pDirectionRotateable;
 
 public:
-	DirectionRotate(IDirectionRotateable::Ptr pDirectionRotateable) : m_pDirectionRotateable(pDirectionRotateable) {}
+	DirectionRotate(IDirectionRotateable::Ptr pDirectionRotateable) : m_pDirectionRotateable(std::move(pDirectionRotateable)) {}
 
 	virtual void Execute() override {
 		Vector direction = m_pDirectionRotateable->GetDirection();

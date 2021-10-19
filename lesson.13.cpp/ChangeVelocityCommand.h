@@ -1,5 +1,7 @@
 #pragma once
 
+#include <utility>
+
 #include "../lesson.03.cpp/IExecuteable.h"
 #include "../lesson.03.cpp/IMoveable.h"
 #include "IDirectionRotateable.h"
@@ -11,9 +13,15 @@ protected:
 	IDirectionRotateable::Ptr m_pDirectionRotateable;
 
 public:
-	ChangeVelocityCommand(IMoveable::Ptr pMovable, IDirectionRotateable::Ptr pDirectionRotateable) : m_pMovable(pMovable), m_pDirectionRotateable(pDirectionRotateable) {}
+	ChangeVelocityCommand(
+		IMoveable::Ptr pMovable,
+		IDirectionRotateable::Ptr pDirectionRotateable
+	) :
+		m_pMovable(std::move(pMovable)),
+		m_pDirectionRotateable(std::move(pDirectionRotateable))
+	{}
 
-	virtual void Execute() {
-		m_pMovable->SetVelocity(m_pDirectionRotateable->GetDirection() * !m_pMovable->GetVelocity());
+	virtual void Execute() override {
+		m_pMovable->SetVelocity(m_pDirectionRotateable->GetDirection() * m_pMovable->GetVelocity().Length());
 	}
 };
