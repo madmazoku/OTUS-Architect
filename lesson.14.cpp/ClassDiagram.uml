@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_gBdrwDGGEeySRNYZNcFDYw" name="lesson.14.uml">
+  <packagedElement xmi:type="uml:Interface" xmi:id="_t-7FIDGGEeySRNYZNcFDYw" name="ISequence" visibility="public">
+    <ownedAttribute xmi:id="_awhEoDGIEeySRNYZNcFDYw" name="Name" visibility="public" type="_l4oBgDGIEeySRNYZNcFDYw" isReadOnly="true">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_awhrsDGIEeySRNYZNcFDYw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_awhrsTGIEeySRNYZNcFDYw" value="1"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_5Llx4DGGEeySRNYZNcFDYw" name="Initialize">
+      <ownedParameter xmi:id="_IEZZMDGHEeySRNYZNcFDYw" direction="return"/>
+      <ownedParameter xmi:id="_NYfwEDGHEeySRNYZNcFDYw" name="size" type="_UHQHEDGHEeySRNYZNcFDYw"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_Y1lecDGHEeySRNYZNcFDYw" name="Decrease">
+      <ownedParameter xmi:id="_egsAEDGHEeySRNYZNcFDYw" name="gap" type="_UHQHEDGHEeySRNYZNcFDYw"/>
+      <ownedParameter xmi:id="_egvDYDGHEeySRNYZNcFDYw" type="_UHQHEDGHEeySRNYZNcFDYw" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_UHQHEDGHEeySRNYZNcFDYw" name="size_t"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_l4oBgDGIEeySRNYZNcFDYw" name="string"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ZSCfADGJEeySRNYZNcFDYw" name="GonnetSequence" visibility="public">
+    <interfaceRealization xmi:id="_MVSCwDGLEeySRNYZNcFDYw" client="_ZSCfADGJEeySRNYZNcFDYw" supplier="_t-7FIDGGEeySRNYZNcFDYw" contract="_t-7FIDGGEeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_M97PwDGOEeySRNYZNcFDYw" name="GonnetSequence"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_oal9EDGKEeySRNYZNcFDYw" name="BinarySequence" visibility="public">
+    <interfaceRealization xmi:id="_L1OCoDGLEeySRNYZNcFDYw" client="_oal9EDGKEeySRNYZNcFDYw" supplier="_t-7FIDGGEeySRNYZNcFDYw" contract="_t-7FIDGGEeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_Klzh0DGOEeySRNYZNcFDYw" name="BinarySequence"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_9AgRIDGKEeySRNYZNcFDYw" name="KnuthSequence" visibility="public">
+    <interfaceRealization xmi:id="_NK9tkDGLEeySRNYZNcFDYw" client="_9AgRIDGKEeySRNYZNcFDYw" supplier="_t-7FIDGGEeySRNYZNcFDYw" contract="_t-7FIDGGEeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_OXPMEDGOEeySRNYZNcFDYw" name="KnuthSequence"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_TT5asDGLEeySRNYZNcFDYw" name="ICompare" visibility="public">
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_Wev7MDGNEeySRNYZNcFDYw" name="" parameter="_Xivu0DGNEeySRNYZNcFDYw">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_Xivu0DGNEeySRNYZNcFDYw" default="_YUMZ4DGNEeySRNYZNcFDYw">
+        <ownedDefault xmi:type="uml:DataType" xmi:id="_YUMZ4DGNEeySRNYZNcFDYw" name="T"/>
+      </ownedParameter>
+    </ownedTemplateSignature>
+    <ownedAttribute xmi:id="_e3YsADGLEeySRNYZNcFDYw" name="Name" visibility="public" type="_l4oBgDGIEeySRNYZNcFDYw" isReadOnly="true">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_e3YsATGLEeySRNYZNcFDYw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_e3YsAjGLEeySRNYZNcFDYw" value="1"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_4838QDGNEeySRNYZNcFDYw" name="Compare">
+      <ownedParameter xmi:id="__92EoDGNEeySRNYZNcFDYw" direction="return">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#short"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_BPujQDGOEeySRNYZNcFDYw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_BPujQTGOEeySRNYZNcFDYw" value="1"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_BP1Q8DGOEeySRNYZNcFDYw" name="a" type="_YUMZ4DGNEeySRNYZNcFDYw"/>
+      <ownedParameter xmi:id="_BP1Q8TGOEeySRNYZNcFDYw" name="b" type="_YUMZ4DGNEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_c9GpQDGOEeySRNYZNcFDYw" name="DefaultCompare" visibility="public">
+    <interfaceRealization xmi:id="_6zUEADGOEeySRNYZNcFDYw" client="_c9GpQDGOEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw" contract="_TT5asDGLEeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_kdjGcDGPEeySRNYZNcFDYw" name="DefaultCompare"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DkEvADGPEeySRNYZNcFDYw" name="AsNumberCompare" visibility="public">
+    <interfaceRealization xmi:id="_jRuMgDGPEeySRNYZNcFDYw" client="_DkEvADGPEeySRNYZNcFDYw" supplier="_OTW8MDGPEeySRNYZNcFDYw" contract="_OTW8MDGPEeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_qJUWcDGPEeySRNYZNcFDYw" name="AsNumberCompare"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_OTW8MDGPEeySRNYZNcFDYw" name="ICompare&lt;string>" visibility="public">
+    <templateBinding xmi:id="_RAPZMDGPEeySRNYZNcFDYw" signature="_Wev7MDGNEeySRNYZNcFDYw">
+      <parameterSubstitution xmi:id="_RAQAQDGPEeySRNYZNcFDYw" actual="_l4oBgDGIEeySRNYZNcFDYw" formal="_Xivu0DGNEeySRNYZNcFDYw"/>
+    </templateBinding>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_srDTYDGPEeySRNYZNcFDYw" name="InverseCompare" visibility="public">
+    <interfaceRealization xmi:id="_vPGkgDGPEeySRNYZNcFDYw" client="_srDTYDGPEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw" contract="_TT5asDGLEeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_wj-FsDGPEeySRNYZNcFDYw" name="InverseCompare">
+      <ownedParameter xmi:id="_1KlrgDGPEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_Xdih4DGREeySRNYZNcFDYw" name="ISort" visibility="public">
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_cSI5UDGREeySRNYZNcFDYw" name="" parameter="_cSI5UTGREeySRNYZNcFDYw">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_cSI5UTGREeySRNYZNcFDYw" default="_cSI5UjGREeySRNYZNcFDYw">
+        <ownedDefault xmi:type="uml:DataType" xmi:id="_cSI5UjGREeySRNYZNcFDYw" name="T"/>
+      </ownedParameter>
+    </ownedTemplateSignature>
+    <ownedOperation xmi:id="_uuSEgDGREeySRNYZNcFDYw" name="Sort">
+      <ownedParameter xmi:id="_xEz3ADGREeySRNYZNcFDYw" name="items" type="_nD0TMDGREeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_nD0TMDGREeySRNYZNcFDYw" name="vector">
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_sTBjADGREeySRNYZNcFDYw" name="" parameter="_sTBjATGREeySRNYZNcFDYw">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_sTBjATGREeySRNYZNcFDYw" default="_sTBjAjGREeySRNYZNcFDYw">
+        <ownedDefault xmi:type="uml:DataType" xmi:id="_sTBjAjGREeySRNYZNcFDYw" name="T"/>
+      </ownedParameter>
+    </ownedTemplateSignature>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_1xzxoDGREeySRNYZNcFDYw" name="BubbleSort" visibility="public">
+    <interfaceRealization xmi:id="_6SyCcDGREeySRNYZNcFDYw" client="_1xzxoDGREeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_7exUcDGREeySRNYZNcFDYw" name="BubleSort">
+      <ownedParameter xmi:id="_-B4xcDGREeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_E_Cw0DGSEeySRNYZNcFDYw" name="HeapSort" visibility="public">
+    <interfaceRealization xmi:id="_E_Cw0TGSEeySRNYZNcFDYw" client="_E_Cw0DGSEeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_E_Cw0jGSEeySRNYZNcFDYw" name="HeapSort">
+      <ownedParameter xmi:id="_E_Cw0zGSEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_KsFzMDGSEeySRNYZNcFDYw" name="InsertionSort" visibility="public">
+    <interfaceRealization xmi:id="_KsFzMTGSEeySRNYZNcFDYw" client="_KsFzMDGSEeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_KsFzMjGSEeySRNYZNcFDYw" name="InsertSort">
+      <ownedParameter xmi:id="_KsFzMzGSEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_PLPfEDGSEeySRNYZNcFDYw" name="MergeSort" visibility="public">
+    <interfaceRealization xmi:id="_PLPfETGSEeySRNYZNcFDYw" client="_PLPfEDGSEeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_PLPfEjGSEeySRNYZNcFDYw" name="MergeSort">
+      <ownedParameter xmi:id="_PLPfEzGSEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_RCf7oDGSEeySRNYZNcFDYw" name="QuickSort" visibility="public">
+    <interfaceRealization xmi:id="_RCf7oTGSEeySRNYZNcFDYw" client="_RCf7oDGSEeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_RCf7ojGSEeySRNYZNcFDYw" name="QuickSort">
+      <ownedParameter xmi:id="_RCf7ozGSEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_SmHDcDGSEeySRNYZNcFDYw" name="SelectionSort" visibility="public">
+    <interfaceRealization xmi:id="_SmHDcTGSEeySRNYZNcFDYw" client="_SmHDcDGSEeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_SmHDcjGSEeySRNYZNcFDYw" name="SelectionSort">
+      <ownedParameter xmi:id="_SmHDczGSEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_UzikUDGSEeySRNYZNcFDYw" name="ShellSort" visibility="public">
+    <interfaceRealization xmi:id="_UzikUTGSEeySRNYZNcFDYw" client="_UzikUDGSEeySRNYZNcFDYw" supplier="_Xdih4DGREeySRNYZNcFDYw" contract="_Xdih4DGREeySRNYZNcFDYw"/>
+    <ownedOperation xmi:id="_UzikUjGSEeySRNYZNcFDYw" name="ShellSort">
+      <ownedParameter xmi:id="_UzikUzGSEeySRNYZNcFDYw" name="pCompare" type="_TT5asDGLEeySRNYZNcFDYw"/>
+      <ownedParameter xmi:id="_-w7hYDGUEeySRNYZNcFDYw" name="pSequence" type="_t-7FIDGGEeySRNYZNcFDYw"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_jVTkoDGSEeySRNYZNcFDYw" client="_1xzxoDGREeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="__CNwkDGSEeySRNYZNcFDYw" client="_srDTYDGPEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_j-BxgDGSEeySRNYZNcFDYw" client="_E_Cw0DGSEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_kYtiYDGSEeySRNYZNcFDYw" client="_KsFzMDGSEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_lRtm8DGSEeySRNYZNcFDYw" client="_PLPfEDGSEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_lvOpYDGSEeySRNYZNcFDYw" client="_RCf7oDGSEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_mMLEEDGSEeySRNYZNcFDYw" client="_SmHDcDGSEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_msPrQDGSEeySRNYZNcFDYw" client="_UzikUDGSEeySRNYZNcFDYw" supplier="_TT5asDGLEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_4WxzUDGSEeySRNYZNcFDYw" client="_UzikUDGSEeySRNYZNcFDYw" supplier="_t-7FIDGGEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_0YH6gDGUEeySRNYZNcFDYw" name="Fabric" visibility="public">
+    <ownedOperation xmi:id="_uDNxcDGVEeySRNYZNcFDYw" name="Fabric">
+      <ownedParameter xmi:id="_wHPesDGVEeySRNYZNcFDYw" name="pParent" type="_0YH6gDGUEeySRNYZNcFDYw"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_xdKv0DGVEeySRNYZNcFDYw" name="Resolve">
+      <ownedParameter xmi:id="_-gy-MDGVEeySRNYZNcFDYw" name="id" type="_l4oBgDGIEeySRNYZNcFDYw"/>
+      <ownedParameter xmi:id="_AdWxgDGWEeySRNYZNcFDYw" name="args" type="_nD0TMDGREeySRNYZNcFDYw"/>
+      <ownedTemplateSignature xmi:id="_FJOqwDGWEeySRNYZNcFDYw" parameter="_G-hYcDGWEeySRNYZNcFDYw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_G-hYcDGWEeySRNYZNcFDYw" parameteredElement="_H_QcsDGWEeySRNYZNcFDYw">
+          <ownedParameteredElement xmi:type="uml:DataType" xmi:id="_H_QcsDGWEeySRNYZNcFDYw" name="T" templateParameter="_G-hYcDGWEeySRNYZNcFDYw"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_MXhdcDGWEeySRNYZNcFDYw" name="AppFabric" visibility="public">
+    <generalization xmi:id="_ODw80DGWEeySRNYZNcFDYw" general="_0YH6gDGUEeySRNYZNcFDYw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_PIV_QDGWEeySRNYZNcFDYw" name="ConfigFabric" visibility="public">
+    <generalization xmi:id="_QiwHwDGWEeySRNYZNcFDYw" general="_0YH6gDGUEeySRNYZNcFDYw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_TRTYsDGWEeySRNYZNcFDYw" name="ICommand" visibility="public">
+    <ownedOperation xmi:id="_U_eKsDGWEeySRNYZNcFDYw" name="Do"/>
+  </packagedElement>
+</uml:Model>

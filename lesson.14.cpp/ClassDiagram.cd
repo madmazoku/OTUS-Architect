@@ -7,8 +7,12 @@
       <FileName>ISort.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BubbleSort&lt;T&gt;" Collapsed="true">
+  <Class Name="BubbleSort&lt;T&gt;">
     <Position X="0.75" Y="2" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAgAQAAQAAAAAAAAAAAAAAAAAAEA=</HashCode>
       <FileName>BubbleSort.h</FileName>

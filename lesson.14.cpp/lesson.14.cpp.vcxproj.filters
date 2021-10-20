@@ -100,5 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram.uml" />
   </ItemGroup>
 </Project>
