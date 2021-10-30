@@ -13,7 +13,7 @@ protected:
 	typename const ICompare<T>::Ptr m_pCompare;
 
 public:
-	BubbleSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(pLessThen) {}
+	BubbleSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(std::move(pLessThen)) {}
 
 	virtual const std::string Name() const override { return std::string("Buble-") + m_pCompare->Name(); };
 

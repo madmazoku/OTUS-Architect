@@ -7,7 +7,7 @@
       <FileName>ISort.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="BubbleSort&lt;T&gt;">
+  <Class Name="BubbleSort&lt;T&gt;" Collapsed="true">
     <Position X="0.75" Y="2" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -89,59 +89,89 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ICompare&lt;T&gt;" Collapsed="true">
-    <Position X="2.75" Y="3.75" Width="1.5" />
+    <Position X="3" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>ICompare.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AsNumberCompare" Collapsed="true">
-    <Position X="0.5" Y="5" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAQAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAEA=</HashCode>
       <FileName>AsNumberCompare.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DefaultCompare&lt;T&gt;" Collapsed="true">
-    <Position X="2.75" Y="5" Width="1.5" />
+    <Position X="3" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAAA=</HashCode>
       <FileName>DefaultCompare.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="InverseCompare&lt;T&gt;" Collapsed="true">
-    <Position X="5" Y="5" Width="1.5" />
+    <Position X="5.5" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAEA=</HashCode>
       <FileName>InverseCompare.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Fabric" Collapsed="true">
-    <Position X="9.5" Y="3.75" Width="1.5" />
+    <Position X="16.75" Y="0.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Typedef Name="Fabric::Ptr" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Fabric.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Fabric::Args" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Fabric.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Fabric::Lambda" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Fabric.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Typedef Name="Fabric::MapId2Lambda" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Fabric.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Typedef>
+      <Class Name="Fabric::RegisterCommand" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Fabric.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>QEIAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEIAAAAAAACAAAAAAAAAAAAAAAABAAAgAAAAAAAAgAA=</HashCode>
       <FileName>Fabric.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="AppFabric" Collapsed="true">
-    <Position X="8.25" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAAAgAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>AppFabric.h</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ConfigFabric" Collapsed="true">
-    <Position X="10.5" Y="5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAAAAAAAgAAAAAAoAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
-      <FileName>ConfigFabric.h</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ICommand" Collapsed="true">
-    <Position X="11.5" Y="3.75" Width="1.5" />
+    <Position X="10" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ICommand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AppFabricSetupCommand" Collapsed="true">
+    <Position X="8.25" Y="5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAAAACAgAAAAAAgAAIAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AppFabricSetupCommand.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConfigFabricSetupCommand" Collapsed="true">
+    <Position X="11" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAgAAAIAAoAAIAAAAACAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>ConfigFabricSetupCommand.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

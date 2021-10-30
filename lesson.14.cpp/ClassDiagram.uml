@@ -150,11 +150,11 @@
       </ownedTemplateSignature>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Class" xmi:id="_MXhdcDGWEeySRNYZNcFDYw" name="AppFabric" visibility="public">
-    <generalization xmi:id="_ODw80DGWEeySRNYZNcFDYw" general="_0YH6gDGUEeySRNYZNcFDYw"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_MXhdcDGWEeySRNYZNcFDYw" name="AppFabricSetupCommand" visibility="public">
+    <interfaceRealization xmi:id="_4IHBIDnVEeyLNLTHHnGHcQ" client="_MXhdcDGWEeySRNYZNcFDYw" supplier="_TRTYsDGWEeySRNYZNcFDYw" contract="_TRTYsDGWEeySRNYZNcFDYw"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Class" xmi:id="_PIV_QDGWEeySRNYZNcFDYw" name="ConfigFabric" visibility="public">
-    <generalization xmi:id="_QiwHwDGWEeySRNYZNcFDYw" general="_0YH6gDGUEeySRNYZNcFDYw"/>
+    <interfaceRealization xmi:id="_4qcSIDnVEeyLNLTHHnGHcQ" client="_PIV_QDGWEeySRNYZNcFDYw" supplier="_TRTYsDGWEeySRNYZNcFDYw" contract="_TRTYsDGWEeySRNYZNcFDYw"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Interface" xmi:id="_TRTYsDGWEeySRNYZNcFDYw" name="ICommand" visibility="public">
     <ownedOperation xmi:id="_U_eKsDGWEeySRNYZNcFDYw" name="Do"/>

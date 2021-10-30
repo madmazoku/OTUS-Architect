@@ -2,6 +2,7 @@
 
 #include <memory>
 
+// интерфейс алгоритма сравнения
 template<typename T>
 class ICompare
 {

@@ -38,7 +38,7 @@ protected:
 	}
 
 public:
-	HeapSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(pLessThen) {}
+	HeapSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(std::move(pLessThen)) {}
 
 	virtual const std::string Name() const override { return std::string("Heap-") + m_pCompare->Name(); };
 

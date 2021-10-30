@@ -26,7 +26,7 @@ protected:
 	}
 
 public:
-	MergeSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(pLessThen) {}
+	MergeSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(std::move(pLessThen)) {}
 
 	virtual const std::string Name() const override { return std::string("Merge-") + m_pCompare->Name(); };
 

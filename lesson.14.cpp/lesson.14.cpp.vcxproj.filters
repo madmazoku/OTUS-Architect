@@ -83,13 +83,13 @@
     <ClInclude Include="Fabric.h">
       <Filter>Fabric</Filter>
     </ClInclude>
-    <ClInclude Include="AppFabric.h">
+    <ClInclude Include="AppFabricSetupCommand.h">
       <Filter>Fabric</Filter>
     </ClInclude>
     <ClInclude Include="AsNumberCompare.h">
       <Filter>Sort\Compare</Filter>
     </ClInclude>
-    <ClInclude Include="ConfigFabric.h">
+    <ClInclude Include="ConfigFabricSetupCommand.h">
       <Filter>Fabric</Filter>
     </ClInclude>
   </ItemGroup>

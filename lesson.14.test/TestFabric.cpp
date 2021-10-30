@@ -8,6 +8,7 @@ TEST(Fabric, Register) {
 	pFabric->Resolve<ICommand::Ptr>(
 		"Default.Register",
 		{
+			pFabric,
 			std::string("Test.Func"),
 			(Fabric::Lambda)[](Fabric::Args args) { return std::any(-std::any_cast<int>(args[0])); }
 		}
@@ -20,15 +21,17 @@ TEST(Fabric, ScopeKnownRegister) {
 	pFabricParent->Resolve<ICommand::Ptr>(
 		"Default.Register",
 		{
+			pFabricParent,
 			std::string("Test.Func"),
 			(Fabric::Lambda)[](Fabric::Args args) { return std::any(-std::any_cast<int>(args[0])); }
 		}
 	)->Do();
 
-	Fabric::Ptr pFabric = std::make_shared<Fabric>(pFabricParent);
+	Fabric::Ptr pFabric = pFabricParent->Resolve< Fabric::Ptr>("Default.NewScope", { pFabricParent });
 	pFabric->Resolve<ICommand::Ptr>(
 		"Default.Register",
 		{
+			pFabric,
 			std::string("Test.Func"),
 			(Fabric::Lambda)[](Fabric::Args args) { return std::any(-2 * std::any_cast<int>(args[0])); }
 		}
@@ -42,15 +45,17 @@ TEST(Fabric, ScopeParentCall) {
 	pFabricParent->Resolve<ICommand::Ptr>(
 		"Default.Register",
 		{
+			pFabricParent,
 			std::string("Test.Func1"),
 			(Fabric::Lambda)[](Fabric::Args args) { return std::any(-std::any_cast<int>(args[0])); }
 		}
 	)->Do();
 
-	Fabric::Ptr pFabric = std::make_shared<Fabric>(pFabricParent);
+	Fabric::Ptr pFabric = pFabricParent->Resolve< Fabric::Ptr>("Default.NewScope", { pFabricParent });
 	pFabric->Resolve<ICommand::Ptr>(
 		"Default.Register",
 		{
+			pFabric,
 			std::string("Test.Func2"),
 			(Fabric::Lambda)[](Fabric::Args args) { return std::any(-2 * std::any_cast<int>(args[0])); }
 		}
@@ -64,6 +69,7 @@ TEST(Fabric, KnownRegisterError) {
 	pFabric->Resolve<ICommand::Ptr>(
 		"Default.Register",
 		{
+			pFabric,
 			std::string("Test.Func"),
 			(Fabric::Lambda)[](Fabric::Args args) { return std::any(-std::any_cast<int>(args[0])); }
 		}
@@ -73,6 +79,7 @@ TEST(Fabric, KnownRegisterError) {
 		pFabric->Resolve<ICommand::Ptr>(
 			"Default.Register",
 			{
+				pFabric,
 				std::string("Test.Func"),
 				(Fabric::Lambda)[](Fabric::Args args) { return std::any(-2 * std::any_cast<int>(args[0])); }
 			}

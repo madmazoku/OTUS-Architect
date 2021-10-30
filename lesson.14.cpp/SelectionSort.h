@@ -13,7 +13,7 @@ protected:
 	typename const ICompare<T>::Ptr m_pCompare;
 
 public:
-	SelectionSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(pLessThen) {}
+	SelectionSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(std::move(pLessThen)) {}
 
 	virtual const std::string Name() const override { return std::string("Selection-") + m_pCompare->Name(); };
 

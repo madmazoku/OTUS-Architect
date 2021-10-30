@@ -37,7 +37,7 @@ protected:
 	}
 
 public:
-	QuickSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(pLessThen) {}
+	QuickSort(typename const ICompare<T>::Ptr pLessThen) : m_pCompare(std::move(pLessThen)) {}
 
 	virtual const std::string Name() const override { return std::string("Quick-") + m_pCompare->Name(); };
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 
+// Интерфейс команды для использования с фабрикой
 class ICommand
 {
 public:

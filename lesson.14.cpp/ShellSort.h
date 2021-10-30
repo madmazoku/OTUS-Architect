@@ -15,7 +15,9 @@ protected:
 	ISequence::Ptr m_pSequence;
 
 public:
-	ShellSort(typename const ICompare<T>::Ptr pLessThen, ISequence::Ptr pShellSequence) : m_pCompare(pLessThen), m_pSequence(pShellSequence) {}
+	ShellSort(typename const ICompare<T>::Ptr pLessThen, ISequence::Ptr pShellSequence)
+		: m_pCompare(std::move(pLessThen)), m_pSequence(std::move(pShellSequence))
+	{}
 
 	virtual const std::string Name() const override { return std::string("Shell-") + m_pCompare->Name() + "-" + m_pSequence->Name(); };
 

@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 
+// интерфейс алгоритма сортировки
 template<typename T>
 class ISort
 {

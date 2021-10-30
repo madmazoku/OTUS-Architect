@@ -146,11 +146,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppFabric.h" />
+    <ClInclude Include="AppFabricSetupCommand.h" />
     <ClInclude Include="AsNumberCompare.h" />
     <ClInclude Include="BinarySequence.h" />
     <ClInclude Include="BubbleSort.h" />
-    <ClInclude Include="ConfigFabric.h" />
+    <ClInclude Include="ConfigFabricSetupCommand.h" />
     <ClInclude Include="DefaultCompare.h" />
     <ClInclude Include="Fabric.h" />
     <ClInclude Include="GonnetSequence.h" />

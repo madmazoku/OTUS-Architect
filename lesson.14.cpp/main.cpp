@@ -19,11 +19,11 @@
 #include "Fabric.h"
 #include "ICommand.h"
 
-#include "AppFabric.h"
-#include "ConfigFabric.h"
+#include "AppFabricSetupCommand.h"
+#include "ConfigFabricSetupCommand.h"
 
-ConfigFabric::ConfigMap ParseConfig(int argc, char* argv[]) {
-	ConfigFabric::ConfigMap config;
+ConfigFabricSetupCommand::ConfigMap ParseConfig(int argc, char* argv[]) {
+	ConfigFabricSetupCommand::ConfigMap config;
 
 	config["Compare"] = { "Default" };
 	config["Sort"] = { "Quick" };
@@ -48,7 +48,7 @@ ConfigFabric::ConfigMap ParseConfig(int argc, char* argv[]) {
 	return config;
 }
 
-void Validate(ConfigFabric::ConfigMap config) {
+void Validate(ConfigFabricSetupCommand::ConfigMap config) {
 	if (config["Sort"].size() != 1)
 		throw std::invalid_argument("Single Sort expected");
 	if (config["Input"].empty())
@@ -59,7 +59,7 @@ void Validate(ConfigFabric::ConfigMap config) {
 		throw std::invalid_argument("Single Head expected");
 }
 
-std::vector<std::string> ReadData(ConfigFabric::ConfigMap config) {
+std::vector<std::string> ReadData(ConfigFabricSetupCommand::ConfigMap config) {
 	size_t head = std::stoull(config["Head"][0]);
 	std::vector<std::string> data;
 	for (std::string& inputFile : config["Input"]) {
@@ -71,10 +71,10 @@ std::vector<std::string> ReadData(ConfigFabric::ConfigMap config) {
 	return data;
 }
 
-void WriteData(std::string sortName, ConfigFabric::ConfigMap config, std::vector<std::string>& data) {
+void WriteData(std::string sortName, ConfigFabricSetupCommand::ConfigMap config, std::vector<std::string>& data) {
 	std::ofstream outputStream(config["Output"][0]);
 	outputStream << "Config" << std::endl;
-	for (ConfigFabric::ConfigMap::value_type& p : config) {
+	for (ConfigFabricSetupCommand::ConfigMap::value_type& p : config) {
 		outputStream << "\t" << p.first << std::endl;
 		for (std::string& s : p.second)
 			outputStream << "\t\t" << s << std::endl;
@@ -88,7 +88,7 @@ void WriteData(std::string sortName, ConfigFabric::ConfigMap config, std::vector
 }
 
 int DoCmd(int argc, char* argv[]) {
-	ConfigFabric::ConfigMap config = ParseConfig(argc, argv);
+	ConfigFabricSetupCommand::ConfigMap config = ParseConfig(argc, argv);
 	if (config.find("Help") != config.end() ||
 		config.find("Input") == config.end() ||
 		config.find("Output") == config.end())
@@ -109,8 +109,11 @@ int DoCmd(int argc, char* argv[]) {
 
 	Validate(config);
 
-	Fabric::Ptr pAppFabric = std::make_shared<AppFabric>();
-	Fabric::Ptr pConfigFabric = std::make_shared<ConfigFabric>(pAppFabric);
+	Fabric::Ptr pRootFabric = std::make_shared<Fabric>(nullptr);
+	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pRootFabric });
+	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Do();
+	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pAppFabric });
+	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Do();
 
 	ISort<std::string>::Ptr pSort = pConfigFabric->Resolve< ISort<std::string>::Ptr>(std::string("Sort.") + config["Sort"][0], { config });
 	std::vector<std::string> data = ReadData(config);
@@ -159,10 +162,13 @@ void DoSortSimpleChecks()
 }
 
 void DoSortSelectionChecks() {
-	Fabric::Ptr pAppFabric = std::make_shared<AppFabric>();
-	Fabric::Ptr pConfigFabric = std::make_shared<ConfigFabric>(pAppFabric);
+	Fabric::Ptr pRootFabric = std::make_shared<Fabric>(nullptr);
+	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pRootFabric });
+	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Do();
+	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pAppFabric });
+	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Do();
 
-	ConfigFabric::ConfigMap config;
+	ConfigFabricSetupCommand::ConfigMap config;
 	config["Compare"] = { "Inverse" };
 	config["Sort"] = { "Quick" };
 	config["Sequence"] = { "Knuth" };
@@ -180,5 +186,6 @@ void DoSortSelectionChecks() {
 }
 
 int main(int argc, char* argv[]) {
-	return DoCmd(argc, argv);
+	DoSortSelectionChecks();
+	//return DoCmd(argc, argv);
 }
