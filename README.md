@@ -27,5 +27,8 @@ Crude tank game with some GLSL shader
 ## lesson.13.cpp / lesson.13.test
 lesson 13 homework : macro commands
 
-## lesson.14.cpp
+## lesson.14.cpp / lesson.14.test
 lesson 14 homework : abstract fabric
+
+## lesson.16.{p1,p2}.cpp / lesson.16.{p1,p2}.test
+lesson 16 old homework : adapters - a pair of programm, where 1st read matrixes from files, summ them and write to new one, and 2nd call first to sum random matrixes
