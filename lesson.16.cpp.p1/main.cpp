@@ -5,11 +5,13 @@
 
 #include "Matrix.h"
 
+// App configuration
 struct Config {
 	std::string output;
 	std::vector<std::string> inputs;
 };
 
+// App configuration parser
 Config ParseArguments(int argc, char* argv[]) {
 	if (argc < 3)
 		throw std::runtime_error("Invalid number of arguments");

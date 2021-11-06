@@ -4,6 +4,9 @@
 #include <vector>
 #include <memory>
 
+// Interface for sum matrixes command
+// Can hold file names for summ matrix and for a number of argument matrixes
+
 class IFileMatrixSumable
 {
 public:

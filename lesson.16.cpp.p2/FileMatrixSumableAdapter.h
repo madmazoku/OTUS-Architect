@@ -4,6 +4,7 @@
 #include "IFileMatrixSumable.h"
 #include "../lesson.03.cpp/UObject.h"
 
+// Adapter for holding sum matrix command paramteres in UObject
 class FileMatrixSumableAdapter : public IFileMatrixSumable
 {
 protected:

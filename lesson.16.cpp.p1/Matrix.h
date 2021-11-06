@@ -8,6 +8,8 @@
 #include <filesystem>
 #include <regex>
 
+// Matrix simple abstraction. Can Read and write matrix to file,
+// add another matrix and compare two matrixes
 class Matrix
 {
 protected:

@@ -10,6 +10,7 @@
 #include "FileMatrixSumableAdapter.h"
 #include "FileMatrixSumCommand.h"
 
+// App configuration
 struct Config {
 	size_t columns;
 	size_t rows;
@@ -17,6 +18,7 @@ struct Config {
 	std::vector<std::string> matrixes;
 };
 
+// App configuration parser
 Config ParseArguments(int argc, char* argv[]) {
 	if (argc < 5)
 		throw std::runtime_error("Invalid number of arguments");
@@ -31,6 +33,7 @@ Config ParseArguments(int argc, char* argv[]) {
 	return Config{ columns, rows, std::move(summary), std::move(randoms) };
 }
 
+// Return matrix of the requestes size with random content +/-100.00
 Matrix RandomMatrixGenerate(size_t columns, size_t rows) {
 	std::vector<double> data;
 

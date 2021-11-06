@@ -8,6 +8,7 @@
 #include "../lesson.03.cpp/IExecuteable.h"
 #include "IFileMatrixSumable.h"
 
+// Sum Matrix command. It take agruments from stored object and execute programm p1 in oder to do summ.
 class FileMatrixSumCommand : public IExecuteable
 {
 protected:
