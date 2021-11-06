@@ -13,7 +13,7 @@
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" uid="_5numoDN7EeyOA_WX1OVMSA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Design']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_99EPMzN7EeyOA_WX1OVMSA" name=" Class Diagram" repPath="#_988TYDN7EeyOA_WX1OVMSA">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_99EPMzN7EeyOA_WX1OVMSA" name="Class Diagram" repPath="#_988TYDN7EeyOA_WX1OVMSA">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Class%20Diagram']"/>
         <target xmi:type="uml:Model" href="lesson.16.cpp.p2/model.uml#_5hfbwDN7EeyOA_WX1OVMSA"/>
       </ownedRepresentationDescriptors>
@@ -25,7 +25,7 @@
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.obeonetwork.dsl.uml2.design/description/uml2.odesign#//@ownedViewpoints[name='Extend']"/>
     </ownedViews>
   </viewpoint:DAnalysis>
-  <diagram:DSemanticDiagram uid="_988TYDN7EeyOA_WX1OVMSA" name=" Class Diagram">
+  <diagram:DSemanticDiagram uid="_988TYDN7EeyOA_WX1OVMSA" name="Class Diagram">
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_99EPMDN7EeyOA_WX1OVMSA" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_99EPMTN7EeyOA_WX1OVMSA"/>
     </ownedAnnotationEntries>

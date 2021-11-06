@@ -22,7 +22,7 @@ public:
 	virtual std::vector<std::string> GetMatrixes() const override {
 		return std::any_cast<std::vector<std::string>>(m_pUObject->GetProperty("matrixes"));
 	}
-	virtual void SetMatrixes(const std::vector<std::string>& matrixes) {
-		m_pUObject->SetProperty("matrixes", matrixes);
+	virtual void SetMatrixes(std::vector<std::string> matrixes) {
+		m_pUObject->SetProperty("matrixes", std::move(matrixes));
 	}
 };

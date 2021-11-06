@@ -2,7 +2,7 @@
 
 #include <filesystem>
 
-#include "../lesson.16.cpp.p2/RandomMatrix.h"
+#include "../lesson.16.cpp.p1/Matrix.h"
 #include "../lesson.16.cpp.p2/FileMatrixSumableAdapter.h"
 #include "../lesson.16.cpp.p2/FileMatrixSumCommand.h"
 
@@ -15,6 +15,9 @@ TEST(FileMatrixSumCommand, Success) {
 	std::vector<std::string> matrixes;
 	matrixes.push_back((testPath / "matrix1.txt").string());
 	matrixes.push_back((testPath / "matrix2.txt").string());
+
+	if (std::filesystem::exists(summaryGot))
+		std::filesystem::remove(summaryGot);
 
 	UObject::Ptr pUObject = std::make_shared<UObject>();
 	IFileMatrixSumable::Ptr pAdapter = std::make_shared<FileMatrixSumableAdapter>(pUObject);

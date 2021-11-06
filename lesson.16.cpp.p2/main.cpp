@@ -2,10 +2,11 @@
 #include <vector>
 #include <string>
 #include <stdexcept>
-
-#include "RandomMatrix.h"
+#include <random>
+#include <cmath>
 
 #include "../lesson.03.cpp/UObject.h"
+#include "../lesson.16.cpp.p1/Matrix.h"
 #include "FileMatrixSumableAdapter.h"
 #include "FileMatrixSumCommand.h"
 
@@ -24,10 +25,22 @@ Config ParseArguments(int argc, char* argv[]) {
 	size_t rows = std::stol(argv[2]);
 	std::string summary = argv[3];
 	std::vector<std::string> randoms;
-	for (size_t argn = 4; argn < argc; ++argn)
-		randoms.push_back(argv[argn]);
+	for (int argn = 4; argn < argc; ++argn)
+		randoms.emplace_back(argv[argn]);
 
 	return Config{ columns, rows, std::move(summary), std::move(randoms) };
+}
+
+Matrix RandomMatrixGenerate(size_t columns, size_t rows) {
+	std::vector<double> data;
+
+	std::random_device rd;
+	std::default_random_engine re(rd());
+	std::uniform_int_distribution<int> ud_x(-10000, 10000);
+	while (data.size() != columns * rows)
+		data.emplace_back(0.01 * ud_x(re));
+
+	return Matrix(data, columns, rows);
 }
 
 int main(int argc, char* argv[])
@@ -37,7 +50,7 @@ int main(int argc, char* argv[])
 		Config config = ParseArguments(argc, argv);
 		for (const std::string& matrix : config.matrixes) {
 			try {
-				RandomMatrix().Generate(config.columns, config.rows).Write(matrix);
+				RandomMatrixGenerate(config.columns, config.rows).Write(matrix);
 			}
 			catch (std::runtime_error& e) {
 				throw std::runtime_error(std::string("Can't generate matrix, ") + e.what() + ": " + matrix);

@@ -147,7 +147,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Matrix.h" />
-    <ClInclude Include="MatrixFile.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="in1.txt">

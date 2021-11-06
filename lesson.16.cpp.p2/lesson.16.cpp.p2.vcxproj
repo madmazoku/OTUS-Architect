@@ -150,7 +150,6 @@
     <ClInclude Include="FileMatrixSumableAdapter.h" />
     <ClInclude Include="FileMatrixSumCommand.h" />
     <ClInclude Include="IFileMatrixSumable.h" />
-    <ClInclude Include="RandomMatrix.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\lesson.16.cpp.p1\lesson.16.cpp.p1.vcxproj">
@@ -159,6 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="model.uml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="model.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

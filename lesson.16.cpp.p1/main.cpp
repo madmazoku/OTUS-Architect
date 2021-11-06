@@ -15,8 +15,8 @@ Config ParseArguments(int argc, char* argv[]) {
 		throw std::runtime_error("Invalid number of arguments");
 	std::string output = argv[1];
 	std::vector<std::string> inputs;
-	for (size_t argn = 2; argn < argc; ++argn)
-		inputs.push_back(argv[argn]);
+	for (int argn = 2; argn < argc; ++argn)
+		inputs.emplace_back(argv[argn]);
 	return Config{ std::move(output), std::move(inputs) };
 }
 
