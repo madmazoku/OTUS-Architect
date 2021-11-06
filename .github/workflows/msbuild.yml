@@ -47,7 +47,7 @@ jobs:
     - name: Test All
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: |
-         $files = Get-ChildItem -Filter ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.*.test.exe 
+         $files = Get-ChildItem -Filter ${{env.SOLUTION_FILE_PATH}}\${{env.BUILD_PLATFORM}}\${{env.BUILD_CONFIGURATION}}\lesson.*.test*.exe 
          foreach ($file in $files) {
             Write-Output "Run: $($file.FullName)"
             & $file.FullName
