@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_5hfbwDN7EeyOA_WX1OVMSA" name="">
+  <packagedElement xmi:type="uml:Class" xmi:id="__3q6sDN7EeyOA_WX1OVMSA" name="UObject" visibility="public">
+    <ownedOperation xmi:id="_FAenkDN8EeyOA_WX1OVMSA" name="HasProperty">
+      <ownedParameter xmi:id="_S7cGkDN8EeyOA_WX1OVMSA" type="_Q9pkMDN8EeyOA_WX1OVMSA" direction="return"/>
+      <ownedParameter xmi:id="_IsQ80DN8EeyOA_WX1OVMSA" name="key" type="_L6E8oDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_VyS-8DN8EeyOA_WX1OVMSA" name="GetProperty">
+      <ownedParameter xmi:id="_YjG5sDN8EeyOA_WX1OVMSA" type="_O4gcoDN8EeyOA_WX1OVMSA" direction="return"/>
+      <ownedParameter xmi:id="_ZmPKoDN8EeyOA_WX1OVMSA" name="key" type="_L6E8oDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_bGVEYDN8EeyOA_WX1OVMSA" name="SetProperty">
+      <ownedParameter xmi:id="_dRmCEDN8EeyOA_WX1OVMSA" name="key" type="_L6E8oDN8EeyOA_WX1OVMSA"/>
+      <ownedParameter xmi:id="_f4GKQDN8EeyOA_WX1OVMSA" name="value" type="_O4gcoDN8EeyOA_WX1OVMSA"/>
+      <ownedParameter xmi:id="_f4GxUDN8EeyOA_WX1OVMSA" name="readonly" type="_Q9pkMDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_onI-ADN8EeyOA_WX1OVMSA" name="SetPropertyReadonly">
+      <ownedParameter xmi:id="_rMqOwDN8EeyOA_WX1OVMSA" name="key" type="_L6E8oDN8EeyOA_WX1OVMSA"/>
+      <ownedParameter xmi:id="_rvcywDN8EeyOA_WX1OVMSA" name="readonly" type="_Q9pkMDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_spHlsDN8EeyOA_WX1OVMSA" name="RemoveProperty">
+      <ownedParameter xmi:id="_v4lLUDN8EeyOA_WX1OVMSA" name="key" type="_L6E8oDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_L6E8oDN8EeyOA_WX1OVMSA" name="string"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_O4gcoDN8EeyOA_WX1OVMSA" name="any"/>
+  <packagedElement xmi:type="uml:DataType" xmi:id="_Q9pkMDN8EeyOA_WX1OVMSA" name="bool"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_zvsm0DN8EeyOA_WX1OVMSA" name="IExecutable" visibility="public">
+    <ownedOperation xmi:id="_1KvBcDN8EeyOA_WX1OVMSA" name="Execute"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_4arvQDN8EeyOA_WX1OVMSA" name="IFileMatrixSumable" visibility="public">
+    <ownedOperation xmi:id="_5nlnQDN8EeyOA_WX1OVMSA" name="GetSummary">
+      <ownedParameter xmi:id="_7VDOoDN8EeyOA_WX1OVMSA" type="_L6E8oDN8EeyOA_WX1OVMSA" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_8R3cMDN8EeyOA_WX1OVMSA" name="SetSummary">
+      <ownedParameter xmi:id="_-vQrsDN8EeyOA_WX1OVMSA" name="summary" type="_L6E8oDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="__Vx5IDN8EeyOA_WX1OVMSA" name="SetMatrixes">
+      <ownedParameter xmi:id="_e-syMDN-EeyOA_WX1OVMSA" name="matrixes"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_hWmdsDN-EeyOA_WX1OVMSA" name="GetMatrixes">
+      <ownedParameter xmi:id="_jBVhMDN-EeyOA_WX1OVMSA" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_DkCpUDN9EeyOA_WX1OVMSA" name="vector">
+    <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_HQ5VkDN9EeyOA_WX1OVMSA" name="T" parameter="_NPk6gDN9EeyOA_WX1OVMSA">
+      <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_NPk6gDN9EeyOA_WX1OVMSA" default="_FtTmcDN-EeyOA_WX1OVMSA">
+        <ownedDefault xmi:type="uml:Class" xmi:id="_FtTmcDN-EeyOA_WX1OVMSA" name="T"/>
+      </ownedParameter>
+    </ownedTemplateSignature>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_uEN1QDN9EeyOA_WX1OVMSA" name="vector_string" visibility="public">
+    <templateBinding xmi:id="_ScTBkDN-EeyOA_WX1OVMSA" signature="_HQ5VkDN9EeyOA_WX1OVMSA">
+      <parameterSubstitution xmi:id="_ScTBkTN-EeyOA_WX1OVMSA" actual="_L6E8oDN8EeyOA_WX1OVMSA" formal="_NPk6gDN9EeyOA_WX1OVMSA"/>
+    </templateBinding>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_kW0tcDN-EeyOA_WX1OVMSA" name="FileMatrixSumableAdapter" visibility="public">
+    <interfaceRealization xmi:id="_q5_fgDN-EeyOA_WX1OVMSA" client="_kW0tcDN-EeyOA_WX1OVMSA" supplier="_4arvQDN8EeyOA_WX1OVMSA" contract="_4arvQDN8EeyOA_WX1OVMSA"/>
+    <ownedOperation xmi:id="_m9J2gDN-EeyOA_WX1OVMSA" name="FileMatrixSumableAdapter">
+      <ownedParameter xmi:id="_pfnzQDN-EeyOA_WX1OVMSA" name="pUObject" type="__3q6sDN7EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_tZPJIDN-EeyOA_WX1OVMSA" name="FileMatrixSumCommand" visibility="public">
+    <interfaceRealization xmi:id="_0ysC8DN-EeyOA_WX1OVMSA" client="_tZPJIDN-EeyOA_WX1OVMSA" supplier="_zvsm0DN8EeyOA_WX1OVMSA" contract="_zvsm0DN8EeyOA_WX1OVMSA"/>
+    <ownedOperation xmi:id="_vLLn4DN-EeyOA_WX1OVMSA" name="FileMatrixSumCommand">
+      <ownedParameter xmi:id="_y_iDQDN-EeyOA_WX1OVMSA" name="pFileMatrixSumable" type="_4arvQDN8EeyOA_WX1OVMSA"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_AVYqEDN_EeyOA_WX1OVMSA" client="_kW0tcDN-EeyOA_WX1OVMSA" supplier="__3q6sDN7EeyOA_WX1OVMSA"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_LstHoDN_EeyOA_WX1OVMSA" client="_tZPJIDN-EeyOA_WX1OVMSA" supplier="_4arvQDN8EeyOA_WX1OVMSA"/>
+</uml:Model>

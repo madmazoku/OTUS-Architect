@@ -24,6 +24,8 @@
 #include "../lesson.03.cpp/RotateableAdapter.h"
 #include "../lesson.03.cpp/Rotate.h"
 
+#include "../lesson.04.cpp/Generic.h"
+
 TEST(CheckFuelCommand, Success) {
 	UObject::Ptr obj = std::make_shared<UObject>();
 	IFuelable::Ptr fuelable = std::make_shared<FuelableAdapter>(obj);
@@ -203,31 +205,31 @@ TEST(ChangeVelocityCommand, NoDirection) {
 TEST(MacroCommand, Success) {
 	UObject::Ptr obj = std::make_shared<UObject>();
 	IFuelable::Ptr fuelable = std::make_shared<FuelableAdapter>(obj);
-	IExecuteable::Ptr checkFuel = std::make_shared<CheckFuelCommand>(fuelable);
-	IExecuteable::Ptr burnFuel = std::make_shared<BurnFuelCommand>(fuelable);
 
-	fuelable->SetFuelLevel(100);
-	fuelable->SetFuelCost(75);
+	std::vector<int> counter;
 
-	MacroCommand::CommandList commands{ checkFuel, burnFuel };
+	IExecuteable::Ptr commandOne = std::make_shared<Generic>(obj, [&counter](UObject::Ptr) {counter.push_back(1); });
+	IExecuteable::Ptr commandTwo = std::make_shared<Generic>(obj, [&counter](UObject::Ptr) {counter.push_back(2); });
+
+	MacroCommand::Commands commands{ commandOne, commandTwo };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	macro->Execute();
 
-	EXPECT_EQ(fuelable->GetFuelLevel(), 25);
-	EXPECT_EQ(fuelable->GetFuelCost(), 75);
+	EXPECT_EQ(counter[0], 1);
+	EXPECT_EQ(counter[1], 2);
 }
 
-TEST(MacroCommand, NotEnoughFuelLevel) {
+TEST(MacroCommand, StopMacroByException) {
 	UObject::Ptr obj = std::make_shared<UObject>();
-	IFuelable::Ptr fuelable = std::make_shared<FuelableAdapter>(obj);
-	IExecuteable::Ptr checkFuel = std::make_shared<CheckFuelCommand>(fuelable);
-	IExecuteable::Ptr burnFuel = std::make_shared<BurnFuelCommand>(fuelable);
 
-	fuelable->SetFuelLevel(25);
-	fuelable->SetFuelCost(75);
+	std::vector<int> counter;
 
-	MacroCommand::CommandList commands{ checkFuel, burnFuel };
+	IExecuteable::Ptr commandOne = std::make_shared<Generic>(obj, [&counter](UObject::Ptr) {counter.push_back(1); });
+	IExecuteable::Ptr commandException = std::make_shared<Generic>(obj, [&counter](UObject::Ptr) { throw CommandException("exception"); });
+	IExecuteable::Ptr commandTwo = std::make_shared<Generic>(obj, [&counter](UObject::Ptr) {counter.push_back(2); });
+
+	MacroCommand::Commands commands{ commandOne, commandException,commandTwo };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	EXPECT_THROW({ macro->Execute(); }, CommandException);
@@ -246,7 +248,7 @@ TEST(MacroCommand, MoveSuccess) {
 	moveable->SetPosition({ 2, 3 });
 	moveable->SetVelocity({ 1, 2 });
 
-	MacroCommand::CommandList commands{ checkFuel, move, burnFuel };
+	MacroCommand::Commands commands{ checkFuel, move, burnFuel };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	macro->Execute();
@@ -276,7 +278,7 @@ TEST(MacroCommand, MoveNotEnoughFuelLevel) {
 	moveable->SetPosition({ 2, 3 });
 	moveable->SetVelocity({ 1, 2 });
 
-	MacroCommand::CommandList commands{ checkFuel, move, burnFuel };
+	MacroCommand::Commands commands{ checkFuel, move, burnFuel };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	EXPECT_THROW({ macro->Execute(); }, CommandException);
@@ -295,7 +297,7 @@ TEST(MacroCommand, RotateSuccess) {
 	rotateable->SetVelocity({ 1, 2 });
 	rotateable->SetAngleVelocity(M_PI_2); // 90°
 
-	MacroCommand::CommandList commands{ checkFuel, rotate, burnFuel };
+	MacroCommand::Commands commands{ checkFuel, rotate, burnFuel };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	macro->Execute();
@@ -323,7 +325,7 @@ TEST(MacroCommand, RotateStationary) {
 	rotateable->SetVelocity({ 0, 0 });
 	rotateable->SetAngleVelocity(M_PI_2); // 90°
 
-	MacroCommand::CommandList commands{ checkFuel, rotate, burnFuel };
+	MacroCommand::Commands commands{ checkFuel, rotate, burnFuel };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	macro->Execute();
@@ -351,7 +353,7 @@ TEST(MacroCommand, RotateNotEnoughFuelLevel) {
 	rotateable->SetVelocity({ 1, 2 });
 	rotateable->SetAngleVelocity(M_PI_2); // 90°
 
-	MacroCommand::CommandList commands{ checkFuel, burnFuel };
+	MacroCommand::Commands commands{ checkFuel, burnFuel };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	EXPECT_THROW({ macro->Execute(); }, CommandException);
@@ -375,7 +377,7 @@ TEST(MacroCommand, ByDirection) {
 	directionRotateable->SetDirection({ 0, 1 });
 	directionRotateable->SetAngleVelocity(M_PI_2); // 90°
 
-	MacroCommand::CommandList commands{ checkFuel, directionRotate, changeVelocity, move, burnFuel };
+	MacroCommand::Commands commands{ checkFuel, directionRotate, changeVelocity, move, burnFuel };
 	IExecuteable::Ptr macro = std::make_shared<MacroCommand>(commands);
 
 	macro->Execute();

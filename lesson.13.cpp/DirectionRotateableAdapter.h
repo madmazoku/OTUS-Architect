@@ -15,7 +15,7 @@ public:
 		return std::any_cast<Vector>(m_pUObject->GetProperty("direction"));
 	}
 	virtual void SetDirection(const Vector& direction) override {
-		double length = !direction;
+		double length = direction.Length();
 		if (length == 0)
 			throw std::invalid_argument("direction");
 		m_pUObject->SetProperty("direction", direction / length);

@@ -1,16 +1,15 @@
 #pragma once
 
+#include <utility>
+
 #include "IFuelable.h"
 #include "CheckFuelCommand.h"
 #include "CommandException.h"
 
 class BurnFuelCommand : public CheckFuelCommand
 {
-protected:
-	IFuelable::Ptr m_pFuelable;
-
 public:
-	BurnFuelCommand(IFuelable::Ptr pFuelable) : CheckFuelCommand(pFuelable), m_pFuelable(pFuelable) {}
+	BurnFuelCommand(IFuelable::Ptr pFuelable) : CheckFuelCommand(std::move(pFuelable)) {}
 
 	void Execute() override {
 		CheckFuelCommand::Execute();
