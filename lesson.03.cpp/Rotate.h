@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+#include <utility>
 
 #include "IExecuteable.h"
 #include "IRotateable.h"
@@ -11,7 +12,7 @@ protected:
 	IRotateable::Ptr m_pRotateable;
 
 public:
-	Rotate(IRotateable::Ptr pRotateable) : m_pRotateable(pRotateable) {}
+	Rotate(IRotateable::Ptr pRotateable) : m_pRotateable(std::move(pRotateable)) {}
 
 	virtual void Execute() override {
 		Vector velocity = m_pRotateable->GetVelocity();

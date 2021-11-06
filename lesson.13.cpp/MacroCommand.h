@@ -1,17 +1,19 @@
 #pragma once
 
+#include <utility>
+
 #include "../lesson.03.cpp/IExecuteable.h"
-#include <list>
+#include <vector>
 
 class MacroCommand : public IExecuteable
 {
 public:
-	typedef std::list<IExecuteable::Ptr> CommandList;
+	typedef std::vector<IExecuteable::Ptr> Commands;
 protected:
-	CommandList m_commands;
+	Commands m_commands;
 
 public:
-	MacroCommand(const CommandList& commands) : m_commands(commands) {}
+	MacroCommand(Commands commands) : m_commands(std::move(commands)) {}
 
 	virtual void Execute() override {
 		for (IExecuteable::Ptr& command : m_commands)

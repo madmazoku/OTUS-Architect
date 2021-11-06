@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <utility>
 
 #include "../lesson.03.cpp/UObject.h"
 #include "../lesson.03.cpp/IExecuteable.h"
@@ -12,7 +13,7 @@ protected:
 	std::function<void(UObject::Ptr)> m_lambda;
 
 public:
-	Generic(UObject::Ptr pUObject, std::function<void(UObject::Ptr)> lambda) : m_pUObject(pUObject), m_lambda(lambda) {}
+	Generic(UObject::Ptr pUObject, std::function<void(UObject::Ptr)> lambda) : m_pUObject(std::move(pUObject)), m_lambda(lambda) {}
 
 	virtual void Execute() override {
 		m_lambda(m_pUObject);
