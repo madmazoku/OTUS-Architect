@@ -8,7 +8,7 @@
 #include <stdexcept>
 #include <functional>
 
-#include "ICommand.h"
+#include "../lesson.03.cpp/IExecuteable.h"
 
 // Универсальная фабрика. Используется для хранения билдеров объектов приложения.
 // По умолчанию фабрика содержит билдеры:
@@ -26,7 +26,7 @@ public:
 
 	// Хелпер для регистрации билдера lambda с именем name в скоупе pScope
 	static void Register(Fabric::Ptr pScope, const std::string& name, Fabric::Lambda lambda) {
-		pScope->Resolve<ICommand::Ptr>("Default.Register", { pScope, name, lambda })->Do();
+		pScope->Resolve<IExecuteable::Ptr>("Default.Register", { pScope, name, lambda })->Execute();
 	}
 	// Хелпер для получения обязательного аргумента
 	template<typename T>
@@ -57,7 +57,7 @@ protected:
 	MapId2Lambda m_scope;
 
 	// вспомогательная команда для регистрации нового билдера в фабрике
-	class RegisterCommand : public ICommand {
+	class RegisterCommand : public IExecuteable {
 	protected:
 		Fabric::Ptr m_pScope;
 		std::string m_id;
@@ -66,7 +66,7 @@ protected:
 	public:
 		RegisterCommand(Fabric::Ptr pScope, std::string id, Fabric::Lambda value) : m_pScope(pScope), m_id(id), m_value(value) {}
 
-		virtual void Do() override {
+		virtual void Execute() override {
 			Fabric::MapId2Lambda::iterator it = m_pScope->m_scope.find(m_id);
 			if (it != m_pScope->m_scope.end())
 				throw std::invalid_argument(std::string("can't register already known id: ") + m_id);
@@ -80,7 +80,7 @@ public:
 			Fabric::Ptr pScope = GetRequiredArg<Fabric::Ptr>(args, 0, "invalid scope, can't register");
 			std::string id = GetRequiredArg<std::string>(args, 1, "invalid id, can't register");
 			Lambda value = GetRequiredArg<Lambda>(args, 2, "invalid lambda, can't register");
-			ICommand::Ptr pCommand = std::make_shared<RegisterCommand>(pScope, id, value);
+			IExecuteable::Ptr pCommand = std::make_shared<RegisterCommand>(pScope, id, value);
 			return std::any(pCommand);
 		};
 		Lambda lambdaNewScope = [](Args args) {

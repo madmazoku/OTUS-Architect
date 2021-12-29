@@ -77,9 +77,6 @@
     <ClInclude Include="InverseCompare.h">
       <Filter>Sort\Compare</Filter>
     </ClInclude>
-    <ClInclude Include="ICommand.h">
-      <Filter>Fabric</Filter>
-    </ClInclude>
     <ClInclude Include="Fabric.h">
       <Filter>Fabric</Filter>
     </ClInclude>

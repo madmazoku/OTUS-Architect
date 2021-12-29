@@ -1,0 +1,27 @@
+SelectStrategies
+	SetPlayer ByRange 3
+	SetPosition ByOffset -1 0 1 0 0 1
+
+CreateTank
+	SetDirection 1, 0
+	SetFuelLevel 100
+
+CreateTank
+	SetDirection 1, 0
+	SetFuelLevel 100
+
+CreateTank
+	SetDirection 1, 0
+	SetFuelLevel 100
+
+CreateTank
+	SetDirection -1, 0
+	SetFuelLevel 100
+
+CreateTank
+	SetDirection -1, 0
+	SetFuelLevel 100
+
+CreateTank
+	SetDirection -1, 0
+	SetFuelLevel 100
