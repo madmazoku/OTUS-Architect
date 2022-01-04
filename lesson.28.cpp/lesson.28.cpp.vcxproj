@@ -151,12 +151,14 @@
     <ClInclude Include="IoC.h" />
     <ClInclude Include="IIdentifyable.h" />
     <ClInclude Include="IdentifyableAdapter.h" />
+    <ClInclude Include="ISetDirection.h" />
     <ClInclude Include="ISetPlayer.h" />
     <ClInclude Include="ISetPosition.h" />
     <ClInclude Include="LambdaCommand.h" />
     <ClInclude Include="IOwnable.h" />
     <ClInclude Include="OwnableAdapter.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SetDirectionByConstant.h" />
     <ClInclude Include="SetPlayerByRange.h" />
     <ClInclude Include="SetPositionByOffset.h" />
     <ClInclude Include="TankIntitializerSetupCommand.h" />

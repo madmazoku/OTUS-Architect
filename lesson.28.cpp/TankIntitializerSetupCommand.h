@@ -13,6 +13,7 @@
 #include "Ioc.h"
 #include "SetPlayerByRange.h"
 #include "SetPositionByOffset.h"
+#include "SetDirectionByConstant.h"
 #include "LambdaCommand.h"
 #include "IdentifyableAdapter.h"
 #include "OwnableAdapter.h"
@@ -76,6 +77,25 @@ public:
 			}
 		);
 
+		// register default set direction strategy: by constant
+		Fabric::Register(
+			IoC,
+			"TankInitializer.Select.SetDirection.ByConstant",
+			[](Fabric::Args args) {
+				double x = std::stod(Fabric::GetRequiredArg<std::string>(args, 0, "invalid set direction by constant strategy x"));
+				double y = std::stod(Fabric::GetRequiredArg<std::string>(args, 1, "invalid set direction by constant strategy y"));
+				IExecuteable::Ptr pCommand = std::make_shared<LambdaCommand>([x, y] {
+					ISetDirection::Ptr pSetDirectionByConstant = std::make_shared<SetDirectionByConstant>(Vector{ x, y });
+					Fabric::Register(
+						IoC,
+						"Globals.SetDirection",
+						[pSetDirectionByConstant](Fabric::Args args) { return pSetDirectionByConstant; }
+					);
+					});
+				return pCommand;
+			}
+		);
+
 		// create new tank object, register it
 		Fabric::Register(
 			IoC,
@@ -88,6 +108,7 @@ public:
 				pIdentifyable->SetIndex(idx);
 				IoC->Resolve<ISetPlayer::Ptr>(std::string("Globals.SetPlayer"))->SetPlayer(pUObject);
 				IoC->Resolve<ISetPosition::Ptr>(std::string("Globals.SetPosition"))->SetPosition(pUObject);
+				IoC->Resolve<ISetDirection::Ptr>(std::string("Globals.SetDirection"))->SetDirection(pUObject);
 				pTanks->emplace_back(pUObject);
 				return pUObject;
 			}
@@ -176,9 +197,9 @@ public:
 			"Tank.GetDirection",
 			[](Fabric::Args args) {
 				UObject::Ptr pUObject = Fabric::GetRequiredArg<UObject::Ptr>(args, 0, "invalid object");
-				IMoveable::Ptr pMoveable = std::make_shared<MoveableAdapter>(pUObject);
-				Vector pos = pMoveable->GetPosition();
-				return pos;
+				IDirectionRotateable::Ptr pDirectionRotateable = std::make_shared<DirectionRotateableAdapter>(pUObject);
+				Vector dir = pDirectionRotateable->GetDirection();
+				return dir;
 			}
 		);
 

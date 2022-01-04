@@ -109,9 +109,9 @@ int DoCmd(int argc, char* argv[]) {
 	Validate(config);
 
 	Fabric::Ptr pRootFabric = std::make_shared<Fabric>(nullptr);
-	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pRootFabric });
+	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pRootFabric });
 	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Execute();
-	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pAppFabric });
+	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pAppFabric });
 	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Execute();
 
 	ISort<std::string>::Ptr pSort = pConfigFabric->Resolve< ISort<std::string>::Ptr>(std::string("Sort.") + config["Sort"][0], { config });
@@ -162,9 +162,9 @@ void DoSortSimpleChecks()
 
 void DoSortSelectionChecks() {
 	Fabric::Ptr pRootFabric = std::make_shared<Fabric>(nullptr);
-	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pRootFabric });
+	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pRootFabric });
 	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Execute();
-	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pAppFabric });
+	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pAppFabric });
 	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Execute();
 
 	ConfigFabricSetupCommand::ConfigMap config;

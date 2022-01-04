@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 		for (std::filesystem::path tanksFile : tanksFiles) {
 			std::shared_ptr<std::ifstream> pInputFileStream = std::make_shared<std::ifstream>(tanksFile);
 			std::shared_ptr<std::istream> pInputStream = pInputFileStream;
-			IoC->Resolve<IExecuteable::Ptr>("Interpreter.Tanks", { pInputStream })->Execute();
+			IoC->Resolve<IExecuteable::Ptr>("Interpreter.Interpret", { pInputStream })->Execute();
 			pInputFileStream->close();
 		}
 

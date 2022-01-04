@@ -2,7 +2,6 @@
 
 #include <memory>
 
-#include "../lesson.02.cpp/Vector.h"
 #include "../lesson.03.cpp/UObject.h"
 
 class ISetPosition

@@ -27,7 +27,7 @@ TEST(Fabric, ScopeKnownRegister) {
 		}
 	)->Execute();
 
-	Fabric::Ptr pFabric = pFabricParent->Resolve< Fabric::Ptr>("Default.NewScope", { pFabricParent });
+	Fabric::Ptr pFabric = pFabricParent->Resolve< Fabric::Ptr>("Default.Scope.New", { pFabricParent });
 	pFabric->Resolve<IExecuteable::Ptr>(
 		"Default.Register",
 		{
@@ -51,7 +51,7 @@ TEST(Fabric, ScopeParentCall) {
 		}
 	)->Execute();
 
-	Fabric::Ptr pFabric = pFabricParent->Resolve< Fabric::Ptr>("Default.NewScope", { pFabricParent });
+	Fabric::Ptr pFabric = pFabricParent->Resolve< Fabric::Ptr>("Default.Scope.New", { pFabricParent });
 	pFabric->Resolve<IExecuteable::Ptr>(
 		"Default.Register",
 		{

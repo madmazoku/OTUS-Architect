@@ -7,6 +7,7 @@
 #include <vector>
 #include <stdexcept>
 #include <functional>
+#include <set>
 
 #include "../lesson.03.cpp/IExecuteable.h"
 
@@ -91,7 +92,7 @@ public:
 			return std::any(pParent);
 		};
 		m_scope.emplace(MapId2Lambda::value_type("Default.Register", lambdaRegister));
-		m_scope.emplace(MapId2Lambda::value_type("Default.NewScope", lambdaNewScope));
+		m_scope.emplace(MapId2Lambda::value_type("Default.Scope.New", lambdaNewScope));
 		m_scope.emplace(MapId2Lambda::value_type("Default.Parent", lambdaParent));
 	}
 

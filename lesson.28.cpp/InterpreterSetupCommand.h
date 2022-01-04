@@ -21,7 +21,7 @@ public:
 		// read tanks file command
 		Fabric::Register(
 			IoC,
-			"Interpreter.Tanks",
+			"Interpreter.Interpret",
 			[](Fabric::Args args) {
 				std::shared_ptr<std::istream> pInputStream = Fabric::GetRequiredArg<std::shared_ptr<std::istream>>(args, 0, "invalid input stream");
 				IExecuteable::Ptr pCommand = std::make_shared<LambdaCommand>([pInputStream] {
