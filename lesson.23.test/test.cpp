@@ -17,14 +17,19 @@
 #include "LambdaCommand.h"
 #include "Waiter.h"
 
-TEST(QueueStatefullThread, HardStop) {
+QueueStatefullThread::Ptr GetDefaultQueueStatefullThread() {
 	IExecuteableQueue::Ptr pQueue = std::make_shared<TwoLockQueue<IExecuteable::Ptr>>();
 	QueueState::Ptr pRunQueueState = std::make_shared<QueueState>([](IExecuteable::Ptr pCmd) { pCmd->Execute(); });
 	pRunQueueState->SetNextState(pRunQueueState);
 	QueueStatefullThread::Ptr pQueueThread = std::make_shared<QueueStatefullThread>(pQueue, pRunQueueState);
 
+	return pQueueThread;
+}
+
+TEST(QueueStatefullThread, HardStop) {
+	QueueStatefullThread::Ptr pQueueThread = GetDefaultQueueStatefullThread();
+
 	pQueueThread->Run();
-	pQueueThread->Start();
 
 	bool bBeforeHardStop = false;
 	bool bAfterHardStop = false;
@@ -47,21 +52,11 @@ TEST(QueueStatefullThread, HardStop) {
 }
 
 TEST(QueueStatefullThread, ReplaceRunWithMoveTo) {
-	IExecuteableQueue::Ptr pQueue1 = std::make_shared<TwoLockQueue<IExecuteable::Ptr>>();
-	QueueState::Ptr pRunQueueState1 = std::make_shared<QueueState>([](IExecuteable::Ptr pCmd) { pCmd->Execute(); });
-	pRunQueueState1->SetNextState(pRunQueueState1);
-	QueueStatefullThread::Ptr pQueueThread1 = std::make_shared<QueueStatefullThread>(pQueue1, pRunQueueState1);
-
-	IExecuteableQueue::Ptr pQueue2 = std::make_shared<TwoLockQueue<IExecuteable::Ptr>>();
-	QueueState::Ptr pRunQueueState2 = std::make_shared<QueueState>([](IExecuteable::Ptr pCmd) { pCmd->Execute(); });
-	pRunQueueState2->SetNextState(pRunQueueState2);
-	QueueStatefullThread::Ptr pQueueThread2 = std::make_shared<QueueStatefullThread>(pQueue2, pRunQueueState2);
+	QueueStatefullThread::Ptr pQueueThread1 = GetDefaultQueueStatefullThread();
+	QueueStatefullThread::Ptr pQueueThread2 = GetDefaultQueueStatefullThread();
 
 	pQueueThread1->Run();
 	pQueueThread2->Run();
-
-	pQueueThread1->Start();
-	pQueueThread2->Start();
 
 	Waiter waiter1, waiter2;
 	std::thread::id id1, id2, id3;
@@ -90,21 +85,11 @@ TEST(QueueStatefullThread, ReplaceRunWithMoveTo) {
 }
 
 TEST(QueueStatefullThread, ReplaceMoveToWithRun) {
-	IExecuteableQueue::Ptr pQueue1 = std::make_shared<TwoLockQueue<IExecuteable::Ptr>>();
-	QueueState::Ptr pRunQueueState1 = std::make_shared<QueueState>([](IExecuteable::Ptr pCmd) { pCmd->Execute(); });
-	pRunQueueState1->SetNextState(pRunQueueState1);
-	QueueStatefullThread::Ptr pQueueThread1 = std::make_shared<QueueStatefullThread>(pQueue1, pRunQueueState1);
-
-	IExecuteableQueue::Ptr pQueue2 = std::make_shared<TwoLockQueue<IExecuteable::Ptr>>();
-	QueueState::Ptr pRunQueueState2 = std::make_shared<QueueState>([](IExecuteable::Ptr pCmd) { pCmd->Execute(); });
-	pRunQueueState2->SetNextState(pRunQueueState2);
-	QueueStatefullThread::Ptr pQueueThread2 = std::make_shared<QueueStatefullThread>(pQueue2, pRunQueueState2);
+	QueueStatefullThread::Ptr pQueueThread1 = GetDefaultQueueStatefullThread();
+	QueueStatefullThread::Ptr pQueueThread2 = GetDefaultQueueStatefullThread();
 
 	pQueueThread1->Run();
 	pQueueThread2->Run();
-
-	pQueueThread1->Start();
-	pQueueThread2->Start();
 
 	Waiter waiter1, waiter2, waiter3;
 	std::thread::id id1, id2, id3;

@@ -5,6 +5,8 @@
 
 #include <iostream>
 
+// Команда жёсткой остановки очереди, после выполнения имеющиеся в очереди
+// команды будут выброшены
 class HardStopCommand : public IExecuteable
 {
 protected:

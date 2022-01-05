@@ -1,4 +1,4 @@
-#pragma once
+#pragma once//
 
 #include <memory>
 #include <mutex>
@@ -6,6 +6,9 @@
 
 #include "../lesson.03.cpp/IExecuteable.h"
 
+// класс-состояние для очереди комманд
+// при вызове Handle выполняет переданную в конструктор лямбду над
+// командой и возвращает заданное в SetNextState следующее состояние.
 class QueueState
 {
 public:
@@ -18,7 +21,7 @@ protected:
 	std::mutex m_lock;
 
 public:
-	QueueState(Lambda lambda) : m_lambda(lambda), m_pNextState(nullptr) {}
+	QueueState(Lambda lambda) : m_lambda(lambda) {}
 
 	void SetNextState(QueueState::Ptr pNextState) {
 		std::lock_guard lg(m_lock);

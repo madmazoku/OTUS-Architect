@@ -96,10 +96,8 @@ int main()
 	Waiter waiter;
 
 	pQueueThread1->Run();
-	pQueueThread1->Start();
 
 	pQueueThread2->Run();
-	pQueueThread2->Start();
 
 	pQueueThread1->Put(std::make_shared<DumpCommand>(pObj, std::string("start")));
 

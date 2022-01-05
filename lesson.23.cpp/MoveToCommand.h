@@ -4,6 +4,7 @@
 #include "QueueState.h"
 #include "../lesson.03.cpp/IExecuteable.h"
 
+// команда смены состояния обработчика команд в очереди на передачу команд в другую очередь обработки
 class MoveToCommand : public IExecuteable
 {
 protected:
