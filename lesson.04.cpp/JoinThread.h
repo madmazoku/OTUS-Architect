@@ -13,7 +13,7 @@ protected:
 public:
 	JoinThread(IThreadable::Ptr pThreadable) : m_pThreadable(std::move(pThreadable)) {}
 
-	void Execute() override {
+	virtual void Execute() override {
 		ExecuteableQueueThread::Ptr pQueue = m_pThreadable->GetQueueThread();
 		pQueue->Join();
 		m_pThreadable->RemoveQueueThread();

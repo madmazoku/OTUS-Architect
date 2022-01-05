@@ -2,6 +2,7 @@
 
 #include "IMoveable.h"
 #include "UObject.h"
+#include "../lesson.02.cpp/Vector.h"
 
 class MoveableAdapter : public IMoveable
 {

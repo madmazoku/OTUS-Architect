@@ -22,7 +22,7 @@ public:
 #pragma warning( push )
 #pragma warning(disable: 4101)
 
-	void Execute() override {
+	virtual void Execute() override {
 		ExecuteableQueueThread::Ptr pQueueThread = std::make_shared<ExecuteableQueueThread>(m_pQueue);
 		m_pThreadable->SetQueueThread(pQueueThread);
 
