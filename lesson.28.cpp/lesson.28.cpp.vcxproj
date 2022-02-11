@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{1d154027-a20d-4e10-85b4-9c57c8933c24}</ProjectGuid>
-    <RootNamespace>lesson14cpp</RootNamespace>
+    <ProjectGuid>{d0209499-55f2-4893-be7b-33b15a90dd23}</ProjectGuid>
+    <RootNamespace>lesson28cpp</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -143,38 +143,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IoC.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AppFabricSetupCommand.h" />
-    <ClInclude Include="AsNumberCompare.h" />
-    <ClInclude Include="BinarySequence.h" />
-    <ClInclude Include="BubbleSort.h" />
-    <ClInclude Include="ConfigFabricSetupCommand.h" />
-    <ClInclude Include="DefaultCompare.h" />
-    <ClInclude Include="Fabric.h" />
-    <ClInclude Include="GonnetSequence.h" />
-    <ClInclude Include="HeapSort.h" />
-    <ClInclude Include="ICompare.h" />
-    <ClInclude Include="InsertionSort.h" />
-    <ClInclude Include="InverseCompare.h" />
-    <ClInclude Include="KnuthSequence.h" />
-    <ClInclude Include="ISequence.h" />
-    <ClInclude Include="ISort.h" />
-    <ClInclude Include="MergeSort.h" />
-    <ClInclude Include="QuickSort.h" />
-    <ClInclude Include="SelectionSort.h" />
-    <ClInclude Include="ShellSort.h" />
+    <ClInclude Include="GetPlayer.h" />
+    <ClInclude Include="IGetPlayer.h" />
+    <ClInclude Include="InterpreterSetupCommand.h" />
+    <ClInclude Include="IoC.h" />
+    <ClInclude Include="IIdentifyable.h" />
+    <ClInclude Include="IdentifyableAdapter.h" />
+    <ClInclude Include="ISetDirection.h" />
+    <ClInclude Include="ISetPlayer.h" />
+    <ClInclude Include="ISetPosition.h" />
+    <ClInclude Include="LambdaCommand.h" />
+    <ClInclude Include="IOwnable.h" />
+    <ClInclude Include="OwnableAdapter.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="SetDirectionByConstant.h" />
+    <ClInclude Include="SetPlayerByRange.h" />
+    <ClInclude Include="SetPositionByOffset.h" />
+    <ClInclude Include="TankIntitializerSetupCommand.h" />
+    <ClInclude Include="Tokenizer.h" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="input.txt">
+    <CopyFileToFolders Include="TanksSetup.txt">
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)\$(ProjectName)</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)\$(ProjectName)</DestinationFolders>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)\$(ProjectName)</DestinationFolders>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)\$(ProjectName)</DestinationFolders>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram.uml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

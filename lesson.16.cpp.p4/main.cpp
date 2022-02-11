@@ -1,6 +1,5 @@
 #include <iostream>
 
-#include "../lesson.14.cpp/ICommand.h"
 #include "../lesson.14.cpp/Fabric.h"
 
 Fabric::Ptr IoC = std::make_shared<Fabric>();

@@ -6,10 +6,10 @@
 #include "ISequence.h"
 #include "ISort.h"
 
-#include "ICommand.h"
+#include "../lesson.03.cpp/IExecuteable.h"
 
 // команда заполнения фабрики адаптерами конфиг -> базовый билдер
-class ConfigFabricSetupCommand : public ICommand
+class ConfigFabricSetupCommand : public IExecuteable
 {
 protected:
 	Fabric::Ptr m_pScope;
@@ -20,7 +20,7 @@ public:
 
 	ConfigFabricSetupCommand(Fabric::Ptr pScope) : m_pScope(std::move(pScope)) {}
 
-	virtual void Do() override {
+	virtual void Execute() override {
 		AddListOfCompare();
 		AddListOfSequence();
 		AddListOfSort();

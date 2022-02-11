@@ -17,7 +17,6 @@
 #include "InverseCompare.h"
 
 #include "Fabric.h"
-#include "ICommand.h"
 
 #include "AppFabricSetupCommand.h"
 #include "ConfigFabricSetupCommand.h"
@@ -110,10 +109,10 @@ int DoCmd(int argc, char* argv[]) {
 	Validate(config);
 
 	Fabric::Ptr pRootFabric = std::make_shared<Fabric>(nullptr);
-	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pRootFabric });
-	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Do();
-	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pAppFabric });
-	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Do();
+	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pRootFabric });
+	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Execute();
+	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pAppFabric });
+	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Execute();
 
 	ISort<std::string>::Ptr pSort = pConfigFabric->Resolve< ISort<std::string>::Ptr>(std::string("Sort.") + config["Sort"][0], { config });
 	std::vector<std::string> data = ReadData(config);
@@ -163,10 +162,10 @@ void DoSortSimpleChecks()
 
 void DoSortSelectionChecks() {
 	Fabric::Ptr pRootFabric = std::make_shared<Fabric>(nullptr);
-	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pRootFabric });
-	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Do();
-	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.NewScope", { pAppFabric });
-	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Do();
+	Fabric::Ptr pAppFabric = pRootFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pRootFabric });
+	std::make_shared<AppFabricSetupCommand>(pAppFabric)->Execute();
+	Fabric::Ptr pConfigFabric = pAppFabric->Resolve<Fabric::Ptr>("Default.Scope.New", { pAppFabric });
+	std::make_shared<ConfigFabricSetupCommand>(pConfigFabric)->Execute();
 
 	ConfigFabricSetupCommand::ConfigMap config;
 	config["Compare"] = { "Inverse" };

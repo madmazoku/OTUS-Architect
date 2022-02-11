@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ICommand.h"
+#include "../lesson.03.cpp/IExecuteable.h"
 
 #include "ICompare.h"
 #include "DefaultCompare.h"
@@ -13,7 +13,7 @@
 #include "KnuthSequence.h"
 
 // команда заполнения фабрики базовыми билдерами
-class AppFabricSetupCommand : public ICommand
+class AppFabricSetupCommand : public IExecuteable
 {
 protected:
 	Fabric::Ptr m_pScope;
@@ -21,7 +21,7 @@ protected:
 public:
 	AppFabricSetupCommand(Fabric::Ptr pScope) : m_pScope(std::move(pScope)) {}
 
-	virtual void Do() override {
+	virtual void Execute() override {
 		AddListOfCompare();
 		AddListOfSequence();
 		AddListOfSort();
