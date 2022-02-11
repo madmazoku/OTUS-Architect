@@ -86,6 +86,12 @@
     <ClInclude Include="SetDirectionByConstant.h">
       <Filter>Header Files\Strategies</Filter>
     </ClInclude>
+    <ClInclude Include="IGetPlayer.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="GetPlayer.h">
+      <Filter>Header Files\Strategies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="TanksSetup.txt">

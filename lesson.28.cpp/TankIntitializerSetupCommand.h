@@ -11,6 +11,7 @@
 #include "../lesson.13.cpp/FuelableAdapter.h"
 
 #include "Ioc.h"
+#include "GetPlayer.h"
 #include "SetPlayerByRange.h"
 #include "SetPositionByOffset.h"
 #include "SetDirectionByConstant.h"
@@ -148,6 +149,16 @@ public:
 				IOwnable::Ptr pOwnable = std::make_shared<OwnableAdapter>(pUObject);
 				size_t ownerIdx = pOwnable->GetOwnerIndex();
 				return ownerIdx;
+			}
+		);
+
+		// get tank's player getter
+		Fabric::Register(
+			IoC,
+			"Tank.GetterPlayer",
+			[](Fabric::Args args) {
+				IGetPlayer::Ptr pGetter = std::make_shared<GetPlayer>();
+				return pGetter;
 			}
 		);
 
