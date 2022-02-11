@@ -33,5 +33,11 @@ lesson 14 homework : abstract fabric
 ## lesson.16.{p1,p2}.cpp / lesson.16.{p1,p2}.test
 lesson 16 old homework : adapters - a pair of programm, where 1st read matrixes from files, summ them and write to new one, and 2nd call first to sum random matrixes
 
+## lesson.16.{p3,p4}.cpp
+lesson 16 new homework : adapter autogeneration. **p3** scan passed directory for headers with specific comments, then read interface header file set in comment and generate IoC based adapter for that interface. **p4** project with build step which executes **p3** for adapter autogeneration and used generated adapter in compilation with other code
+
 ## lesson.23.cpp / lesson.23.test
 lesson 23 homework : Thread queue of commands with changeable command processor state.
+
+## lesson.28.cpp / lesson.28.test
+lesson 28 homework : Text file interpreter. construct set of tanks from textual description
