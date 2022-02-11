@@ -15,7 +15,7 @@ public:
 
 	QueueCommand(IThreadable::Ptr pThreadable, IExecuteable::Ptr command) : m_pThreadable(std::move(pThreadable)), m_pCommand(std::move(command)) {}
 
-	void Execute() override {
+	virtual void Execute() override {
 		ExecuteableQueueThread::Ptr queue = m_pThreadable->GetQueueThread();
 		queue->Put(m_pCommand);
 	}
