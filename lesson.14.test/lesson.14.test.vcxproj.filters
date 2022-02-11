@@ -6,6 +6,7 @@
     <ClCompile Include="TestSortHelpers.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
+    <ClCompile Include="TestFabric.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -17,5 +18,8 @@
     <Filter Include="Helpers">
       <UniqueIdentifier>{b98c2a4f-8b07-435c-a1ca-375af172545d}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
